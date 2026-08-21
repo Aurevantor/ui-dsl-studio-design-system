@@ -2,19 +2,60 @@
   "$description": "デザイン上の意味。Screen と Component がふだん参照する層（docs/04 §1）。名前空間を chrome.* に切って標準 Design System（color.action.primary など）と 1 つも交わらないようにしてある —— 客も依存も違う 3 つ目の Token 集合であることの表明（#152）。",
   "chrome": {
     "$description": "Studio の外装（chrome）の設計言語。方向は「カッティングマット」——深い青緑の作業面に UI を置いて眺める道具、という見立て。",
-    "mat": { "$type": "color", "$value": "{teal.900}", "$description": "作業面" },
+    "mat": {
+      "$type": "color",
+      "$value": "{teal.900}",
+      "$description": "作業面",
+      "$extensions": { "ui-dsl.studio-css": true }
+    },
     "matRaise": {
       "$type": "color",
       "$value": "{teal.850}",
-      "$description": "1 段上げた面（浮くもの）"
+      "$description": "マットより 1 段上げた面。hello-world は計器のパネルに、Studio は浮くもの（tooltip / 補完）に使う。",
+      "$extensions": { "ui-dsl.studio-css": true }
     },
-    "rule": { "$type": "color", "$value": "{teal.750}", "$description": "罫" },
-    "ruleSoft": { "$type": "color", "$value": "{teal.800}", "$description": "弱い罫" },
-    "chalk": { "$type": "color", "$value": "{bone.100}", "$description": "主注釈" },
-    "chalkDim": { "$type": "color", "$value": "{bone.400}", "$description": "副注釈" },
-    "ochre": { "$type": "color", "$value": "{signal.ochre}", "$description": "コンパイルの印" },
-    "amber": { "$type": "color", "$value": "{signal.amber}", "$description": "warning" },
-    "alert": { "$type": "color", "$value": "{signal.vermilion}", "$description": "error" },
+    "rule": {
+      "$type": "color",
+      "$value": "{teal.750}",
+      "$description": "罫",
+      "$extensions": { "ui-dsl.studio-css": true }
+    },
+    "ruleSoft": {
+      "$type": "color",
+      "$value": "{teal.800}",
+      "$description": "弱い罫（一覧の区切り・仕切り）",
+      "$extensions": { "ui-dsl.studio-css": true }
+    },
+    "chalk": {
+      "$type": "color",
+      "$value": "{bone.100}",
+      "$description": "主注釈",
+      "$extensions": { "ui-dsl.studio-css": true }
+    },
+    "chalkDim": {
+      "$type": "color",
+      "$value": "{bone.400}",
+      "$description": "副注釈。#7c8b85 だと --mat 上で 4.7:1 しかなく、10px の注釈には薄い。",
+      "$extensions": { "ui-dsl.studio-css": true }
+    },
+    "ochre": {
+      "$type": "color",
+      "$value": "{signal.ochre}",
+      "$description": "コンパイルの印。ここ以外で使わない（containment.test.ts が縛る）",
+      "$extensions": { "ui-dsl.studio-css": true }
+    },
+    "amber": {
+      "$type": "color",
+      "$value": "{signal.amber}",
+      "$description": "warning",
+      "$extensions": { "ui-dsl.studio-css": true }
+    },
+    "alert": {
+      "$type": "color",
+      "$value": "{signal.vermilion}",
+      "$description": "error / 越えてはいけない線",
+      "$extensions": { "ui-dsl.studio-css": true }
+    },
     "hairline": { "$type": "color", "$value": "{veil.bone14}", "$description": "標本の枠" },
     "wash": { "$type": "color", "$value": "{veil.mat55}", "$description": "面の上に敷く暈し" },
     "mark": { "$type": "color", "$value": "{veil.ochre16}", "$description": "印の暈し" },
