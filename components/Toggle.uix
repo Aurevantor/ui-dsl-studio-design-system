@@ -1,0 +1,67 @@
+<!-- 押せる語。studio.css の `.device-bar__button`（Device / Theme / Zoom / Backdrop）と
+     `.inspector__state`（State 強制表示）が同じ規律で書かれているので、カンプ側では
+     1 つの部品にする。**枠を持たず、選択に新しい色を足さない** —— 罫の色で塗り、
+     字を chalk に上げるだけ（`.files__item[aria-current]` と同じ）。
+
+     ## State は normal / hover / focused / selected の 4 つ（#156 の実測）
+
+     `studio.css` の疑似クラスと属性セレクタを全件数えると、対話の引き金は 3 種類しか無い:
+     `:hover` 5 本 / `:focus-visible` 4 本 / 「入り」の属性セレクタ 3 本
+     （`.files__item[aria-current='true']` / `.device-bar__button[aria-pressed='true']` /
+     `.inspector__state[aria-pressed='true']`）。**`:active` と `:disabled` は 0 本**。
+
+     だから `pressed` / `disabled` は宣言しない（#153「実物に無い State を発明しない」）。
+     とくに `pressed` は書くと害がある —— `packages/renderer-web/src/state-css.ts` の
+     `STATE_SELECTORS` が `:active` に写すので、Preview では**押し下げている間だけ**
+     配色が変わる。実物の `aria-pressed` は押した後も居座るので、引き金も持続も別物に
+     なるうえ、Inspector から強制表示すれば正しく見えるので**カンプを見ている限り
+     気づけない**（#131 族）。
+
+     「入り」は `selected` という独自名にした。docs/03 §4 の表の
+     「独自の名前 → props 制御 → 疑似クラスに写さない」枠にそのまま乗り、
+     `declaredStates`（`packages/ir/src/walk.ts`）が名前を全部返すので
+     **Inspector の強制表示には出る** —— カンプ上で配色を見て決められる。
+
+     ## 焦点の輪は枠で代替する
+
+     実物は 4 本とも `outline: 2px solid var(--chalk)` + `outline-offset: -2px`。
+     UIX の `StyleProps` に `outline` は無いので `borderColor` / `borderWidth` で代替する。
+     ただし「安静時は枠なし・`focused` で 2pt を足す」と書くと**箱が 4pt 太る**
+     （`packages/renderer-web/src/styles.ts` は `border-*` しか出さず `box-sizing` を
+     出さない）。実物の `outline` は箱を動かさないので、動くほうが嘘になる。
+     → **安静時に地と同じ色の輪を置き、`focused` は色だけ差し替える。**
+     `state-css.ts` の `changedOnly` が出す規則も `border-color` 1 宣言だけで済む。
+
+     `focused` を宣言したノードには Renderer が `tabindex` を付ける
+     （`needsFocusable`）ので、Preview で実際に Tab が回ってくる。 -->
+<Component name="Toggle">
+
+    <Props>
+        <Prop name="label" type="string" />
+    </Props>
+
+    <!-- 安静時。**`none` とは別物** —— `none` は「強制しない」（疑似クラスが生きているので
+         カンプの上でも実際にホバーが効く）で、`normal` は「安静の見た目を強制する」。 -->
+    <State name="normal" />
+    <State name="hover" background="$toggle.hoverBackground" />
+    <State name="focused" borderColor="$toggle.ringFocus" />
+    <State name="selected"
+           background="$toggle.selectedBackground"
+           color="$toggle.selectedColor" />
+
+    <!-- 字の色は本体側に置いて `<Text>` には書かない。State は本体ルートに載る
+         （`packages/compiler/src/component.ts` の `readStates`）ので、`<Text color=…>` と
+         書くと `selected` で字の色が変わらない（継承が上書きされる）。 -->
+    <HStack
+        padding-horizontal="$toggle.paddingHorizontal"
+        padding-vertical="$toggle.paddingVertical"
+        color="$toggle.color"
+        borderColor="$toggle.ring"
+        borderWidth="$toggle.ringWidth"
+        align="center">
+
+        <Text style="$toggle.typography">{$props.label}</Text>
+
+    </HStack>
+
+</Component>

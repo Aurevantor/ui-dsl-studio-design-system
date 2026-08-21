@@ -18,27 +18,79 @@
     "hairline": { "$type": "color", "$value": "{veil.bone14}", "$description": "標本の枠" },
     "wash": { "$type": "color", "$value": "{veil.mat55}", "$description": "面の上に敷く暈し" },
     "mark": { "$type": "color", "$value": "{veil.ochre16}", "$description": "印の暈し" },
+    "specimenLight": {
+      "$type": "color",
+      "$value": "{canvas.light}",
+      "$description": "標本の地（明るい画面）。既定の preview テーマ（apps/studio/preview.html の color-scheme: light）。"
+    },
+    "specimenDark": {
+      "$type": "color",
+      "$value": "{canvas.dark}",
+      "$description": "標本の地（暗い画面）。デバイスバーの Dark を押した状態。**2 枚とも描く理由は飾りの見え方が逆だから** —— 目安線（chalk 30%）は明るい地でほぼ消え、notch（mat）は暗い地でほぼ消える（実測は #156 のコメント）。"
+    },
+    "selection": {
+      "$type": "color",
+      "$value": "{veil.bone90}",
+      "$description": "選択枠の内側の線。外側は wash（studio.css .mark は 2 色の二重線 —— Preview の中身は light にも dark にもなるので、1 色だと片方の地に沈む）。"
+    },
+    "guide": {
+      "$type": "color",
+      "$value": "{veil.bone30}",
+      "$description": "デバイスの目安線（Safe Area / home indicator）。IR のレイアウトには効かない目安（docs/06 §3）なので、罫（rule）とは別の弱さで置く。"
+    },
+    "grid": {
+      "$type": "color",
+      "$value": "{veil.bone035}",
+      "$description": "方眼の主線（64pt ごと）。マットの目そのもの。"
+    },
+    "gridFine": {
+      "$type": "color",
+      "$value": "{veil.bone016}",
+      "$description": "方眼の細線（8pt ごと）。主線の半分以下の濃さでないと、目が細かすぎて面がざらつく。"
+    },
     "space": {
       "$type": "dimension",
+      "tight": { "$value": "{spacing.1}" },
       "xs": { "$value": "{spacing.4}" },
       "sm": { "$value": "{spacing.6}" },
       "md": { "$value": "{spacing.10}" },
       "lg": { "$value": "{spacing.14}" },
-      "screen": { "$value": "{spacing.20}" }
+      "screen": { "$value": "{spacing.20}" },
+      "grid": { "$value": "{spacing.64}" }
     },
     "radius": {
       "$type": "dimension",
       "mark": { "$value": "{radius.sm}" },
-      "pane": { "$value": "{radius.md}" }
+      "pill": {
+        "$value": "{radius.sm}",
+        "$description": "端を丸め切るもの（home indicator）。mark と同じ数だが役が違う —— あちらは角を落とす、こちらは棒の端。"
+      },
+      "pane": { "$value": "{radius.md}" },
+      "notch": {
+        "$value": "{radius.md}",
+        "$description": "notch の角。studio.css は下 2 隅だけ（0 0 12px 12px）だが、UIX の radius は 4 隅に掛かる。"
+      },
+      "device": { "$value": "{radius.lg}" }
     },
     "stroke": {
       "$type": "dimension",
-      "hairline": { "$value": "{stroke.hairline}" }
+      "hairline": { "$value": "{stroke.hairline}" },
+      "ring": { "$value": "{stroke.ring}" }
     },
     "size": {
       "$type": "dimension",
       "sample": { "$value": "{size.sample}" },
-      "problemBar": { "$value": "{size.problemBar}" }
+      "problemBar": { "$value": "{size.problemBar}" },
+      "gutter": { "$value": "{size.gutter}" },
+      "indent": { "$value": "{size.indent}" },
+      "grid": { "$value": "{size.grid}" }
+    },
+    "shadow": {
+      "$type": "shadow",
+      "device": {
+        "$value": "{shadow.device}",
+        "$description": "標本の箱を作業面から浮かせる影。"
+      }
     },
     "type": {
       "$type": "typography",
@@ -69,6 +121,26 @@
           "lineHeight": 1
         },
         "$description": "ゲージの実測値（.gauge__value）。等幅・大きめ・行送り 1 —— 進捗ではなく一瞬の値なので詰める（#155）。"
+      },
+      "code": {
+        "$value": {
+          "fontFamily": "{fontFamily.mono}",
+          "fontSize": "{fontSize.code}",
+          "fontWeight": "regular",
+          "lineHeight": "{lineHeight.code}",
+          "letterSpacing": "{tracking.code}"
+        },
+        "$description": "Editor が書く文書そのもの。**mono とは別に持つ** —— こちらは読む字ではなく書く字で、行送り（1.6）も字送り（0）も別に決める。色は 1 色（chalk）で、語の色分け（editor/ink.ts の 5 色）はカンプに持ち込まない（#152）。"
+      },
+      "toggle": {
+        "$value": {
+          "fontFamily": "{fontFamily.mono}",
+          "fontSize": "{fontSize.eyebrow}",
+          "fontWeight": "regular",
+          "lineHeight": 1,
+          "letterSpacing": "{tracking.toggle}"
+        },
+        "$description": "押せるものの字。眉と同じ大きさだが字送りが狭い（0.6px 対 1.6px）—— 眉は印刷された label、こちらは押すと変わる語なので、一続きの単語として読ませる。"
       },
       "body": {
         "$value": {

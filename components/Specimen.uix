@@ -1,0 +1,103 @@
+<!-- 標本 1 枚。studio.css の `.mount`（箱）+ `.device__notch` / `.device__safe-area` /
+     `.device__home-indicator`（縁の飾り）+ `.mark`（選択枠）をまとめたもの。
+
+     ## 絶対配置の代替がここに集まる
+
+     UIX に `position` は無く、`ZStack` は 9 点の整列しか持たない（オフセットを取れない）。
+     **重ねる層をどれも `width="fill" height="fill"` にして、位置は層の中で
+     「高さ・幅だけを持つ空の VStack」と `<Spacer />` が決める。**
+     `ZStack` は子をラッパで包まない（`packages/renderer-web/src/renderers.tsx`）ので、
+     `fill` がグリッドのセルにそのまま効く。
+
+     ## 地が軸（#79）—— 2 枚描かないと飾りの半分が絵に出ない
+
+     飾りの見え方は地によって**逆になる**（実測・#156 のコメント）:
+
+     | 飾り | 明るい地（#FFFFFF） | 暗い地（#121212） |
+     |---|---|---|
+     | Safe Area / home indicator（chalk 30%） | 地との差 12 = ほぼ見えない | 差 64 = 読める |
+     | notch（mat） | 差 235 = 読める | 差 14 = ほぼ見えない |
+
+     だから `theme` を Variant の軸にして、利用側が Light と Dark を並べる。
+     **1 枚だけ描くと、描いたはずの層が絵に出ないまま気づけない。**
+     これは実物も同じ性質で、`.device__*` は preview の中身の上に重なる —— 選択枠を
+     二重線にしてある（内が chalk・外が mat の暈し）のは、まさにこの理由。 -->
+<Component name="Specimen">
+
+    <Props>
+        <Prop name="theme" type="string" default="light" />
+    </Props>
+
+    <Variant on="theme" name="light" background="$specimen.lightSurface" />
+    <Variant on="theme" name="dark" background="$specimen.darkSurface" />
+
+    <!-- 大きさは device-presets.ts の iPhone（375 × 812）。**Token にしない** ——
+         あちらが preset ごとに持つ正本で、ここに在るのは代表 1 例の写し。 -->
+    <ZStack width="375" height="812">
+
+        <!-- 1. 箱そのもの。 -->
+        <VStack
+            width="fill"
+            height="fill"
+            background="{$variant.background}"
+            radius="$specimen.radius"
+            clip="true"
+            borderColor="$specimen.frame"
+            borderWidth="$specimen.frameWidth"
+            shadow="$specimen.shadow" />
+
+        <!-- 2. Safe Area の目安線。上 47 / 下 34 は device-presets.ts の iPhone の値。
+             **オフセットは空の VStack の高さ**で、線そのものは Rule。 -->
+        <VStack width="fill" height="fill" align="stretch">
+            <VStack height="47" />
+            <Rule color="$specimen.guide" />
+            <Spacer />
+            <Rule color="$specimen.guide" />
+            <VStack height="34" />
+        </VStack>
+
+        <!-- 3. notch。上辺の中央に貼り付く（VStack の align=center が横、Spacer が縦）。 -->
+        <VStack width="fill" height="fill" align="center">
+            <VStack
+                width="90"
+                height="22"
+                radius="$specimen.notchRadius"
+                background="$specimen.notch" />
+            <Spacer />
+        </VStack>
+
+        <!-- 4. home indicator。下辺から 6pt 浮かせる。 -->
+        <VStack width="fill" height="fill" align="center">
+            <Spacer />
+            <VStack
+                width="100"
+                height="4"
+                radius="$specimen.indicatorRadius"
+                background="$specimen.guide" />
+            <VStack height="6" />
+        </VStack>
+
+        <!-- 5. 選択枠。外の暈しと内の線で二重にする。 -->
+        <VStack width="fill" height="fill" align="stretch">
+            <VStack height="240" />
+            <HStack width="fill" align="stretch">
+                <VStack width="24" />
+                <VStack
+                    width="fill"
+                    borderColor="$specimen.markHalo"
+                    borderWidth="$specimen.markHaloWidth"
+                    align="stretch">
+                    <VStack
+                        width="fill"
+                        height="44"
+                        borderColor="$specimen.markLine"
+                        borderWidth="$specimen.markLineWidth" />
+                </VStack>
+                <VStack width="24" />
+            </HStack>
+            <Spacer />
+        </VStack>
+
+    </ZStack>
+
+</Component>

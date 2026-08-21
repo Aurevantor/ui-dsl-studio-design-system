@@ -53,5 +53,55 @@
     "labelColor": { "$type": "color", "$value": "{chrome.chalkDim}" },
     "labelLimitColor": { "$type": "color", "$value": "{chrome.alert}" },
     "noteColor": { "$type": "color", "$value": "{chrome.chalkDim}" }
+  },
+  "toggle": {
+    "$description": "押せる語（studio.css の .device-bar__button と .inspector__state。2 つは同じ規律で、宣言も 3 本ずつ同じ）。**State は normal / hover / focused / selected の 4 つ**で、これは studio.css を全件数えた実測に対応する（#156 のコメント）—— :active と :disabled は 1 本も無いので pressed / disabled は宣言しない（#153「実物に無い State を発明しない」）。",
+    "typography": { "$type": "typography", "$value": "{chrome.type.toggle}" },
+    "color": { "$type": "color", "$value": "{chrome.chalkDim}" },
+    "hoverBackground": { "$type": "color", "$value": "{chrome.ruleSoft}" },
+    "selectedBackground": {
+      "$type": "color",
+      "$value": "{chrome.rule}",
+      "$description": "入りの地。**新しい色を足さない** —— studio.css の .files__item[aria-current] / .device-bar__button[aria-pressed] / .inspector__state[aria-pressed] は 3 本とも罫の色で塗って字を chalk に上げるだけ。"
+    },
+    "selectedColor": { "$type": "color", "$value": "{chrome.chalk}" },
+    "ring": {
+      "$type": "color",
+      "$value": "{chrome.mat}",
+      "$description": "**安静時の輪の色 = 背後の作業面の色**（＝見えない）。UIX に outline が無いので焦点の輪を borderColor / borderWidth で代替するが、安静時に枠を持たせておかないと focused で箱が 4pt 太る（packages/renderer-web/src/styles.ts は box-sizing を出さない）—— 実物の outline は箱を動かさないので、動くほうが嘘になる。"
+    },
+    "ringFocus": { "$type": "color", "$value": "{chrome.chalk}" },
+    "ringWidth": { "$type": "dimension", "$value": "{chrome.stroke.ring}" },
+    "paddingHorizontal": {
+      "$type": "dimension",
+      "$value": "{chrome.space.sm}",
+      "$description": "輪の 2pt を含めて 8pt になる（studio.css の .device-bar__button も 8px）。"
+    },
+    "paddingVertical": { "$type": "dimension", "$value": "{chrome.space.xs}" }
+  },
+  "specimen": {
+    "$description": "標本 1 枚（studio.css の .mount + .device__* + .mark）。地は Variant の軸（#79）—— Light / Dark は preview テーマの 2 つで、飾りの見え方が地によって逆になる。",
+    "lightSurface": { "$type": "color", "$value": "{chrome.specimenLight}" },
+    "darkSurface": { "$type": "color", "$value": "{chrome.specimenDark}" },
+    "radius": { "$type": "dimension", "$value": "{chrome.radius.device}" },
+    "frame": { "$type": "color", "$value": "{chrome.hairline}" },
+    "frameWidth": { "$type": "dimension", "$value": "{chrome.stroke.hairline}" },
+    "shadow": { "$type": "shadow", "$value": "{chrome.shadow.device}" },
+    "guide": {
+      "$type": "color",
+      "$value": "{chrome.guide}",
+      "$description": "Safe Area の目安線と home indicator。studio.css は両方とも rgb(231 227 214 / 30%)。"
+    },
+    "notch": {
+      "$type": "color",
+      "$value": "{chrome.mat}",
+      "$description": "notch は作業面と同じ色。**デバイスの縁が画面へ食い込んでいる**という見立てなので、台の色でよい。"
+    },
+    "notchRadius": { "$type": "dimension", "$value": "{chrome.radius.notch}" },
+    "indicatorRadius": { "$type": "dimension", "$value": "{chrome.radius.pill}" },
+    "markLine": { "$type": "color", "$value": "{chrome.selection}" },
+    "markLineWidth": { "$type": "dimension", "$value": "{chrome.stroke.hairline}" },
+    "markHalo": { "$type": "color", "$value": "{chrome.wash}" },
+    "markHaloWidth": { "$type": "dimension", "$value": "{chrome.stroke.ring}" }
   }
 }

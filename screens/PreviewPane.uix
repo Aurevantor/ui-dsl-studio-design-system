@@ -1,0 +1,216 @@
+<!-- studio-design: PreviewPane
+     omitted: 位置は iPhone の 1 例だけ描く（notch / Safe Area / home indicator は
+     device-presets.ts が preset ごとに持つ値で、UIX には position が無いので preset を
+     切り替える経路そのものが書けない）。方眼は 8pt 目を省いて 64pt 目 5 本だけにし、
+     罫を並べて代替しているので実際の間隔は 65pt になる（Rule の太さ 1pt が足される。
+     studio.css は repeating-linear-gradient で 64pt 周期）—— 絵としては別物なので、
+     ここで決めるのは 2 段の濃さだけ。notch は UIX の radius が 4 隅に掛かるため
+     下 2 隅だけ丸める形（studio.css の 0 0 12px 12px）が書けず、角丸の矩形で置いている。
+     Safe Area の目安線は破線にできないので実線。選択枠の位置は iframe が実測して
+     送ってくる値（preview-protocol.ts）なので、代表 1 か所に固定している。
+     Preview の中身（利用者の画面）は描かない —— あれは別 document で、色も字組みも
+     利用者の Design System のものだから、chrome.* の設計言語には属さない。地だけを
+     2 例（ブラウザが color-scheme に対して塗る canvas の色）で置く。
+     ズーム（.device の transform: scale）も無い。デバイスバーは折り返さない ——
+     studio.css の .device-bar は flex-wrap: wrap だが、UIX の Stack に折り返しは無い。
+     縮めて重ねると壊れて見えるので、群には shrink="0" を置いて「狭ければ切れる」に
+     倒してある（この画面は Mac の preset で見る）。
+
+     .preview の見本。配置は Studio の実物と一致させない（#152 の「守らないもの」）。
+     **絶対配置の代替がここに集中する** —— UIX に position は無く、ZStack は 9 点の
+     整列しか持たないので、オフセットは「高さ・幅だけを持つ空の VStack」と Spacer で作る。
+     ZStack は子をラッパで包まない（renderer-web の renderers.tsx）ので、
+     重ねる層はどれも width="fill" height="fill" がそのまま効く。 -->
+<Screen id="preview-pane" name="PreviewPane" background="$chrome.mat">
+
+    <ScrollView width="fill" height="fill">
+
+        <VStack
+            id="preview-body"
+            width="fill"
+            padding="$chrome.space.screen"
+            spacing="$chrome.space.lg"
+            align="stretch">
+
+            <VStack id="cover" spacing="$chrome.space.xs" align="stretch">
+                <Eyebrow label="UI DSL STUDIO — PREVIEW" />
+                <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
+                    プレビュー
+                </Text>
+                <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
+                    標本を載せる作業面。方眼の濃さ・デバイスの飾り・選択枠の二重線を、
+                    絶対配置を使わずに置いて決める。
+                </Text>
+            </VStack>
+
+            <Rule color="$chrome.rule" />
+
+            <!-- ================================================== デバイスバー -->
+
+            <VStack id="device-bar-specimen" spacing="$chrome.space.sm" align="stretch">
+
+                <Eyebrow label="DEVICE BAR — TOGGLE" />
+
+                <Text style="$chrome.type.body" color="$chrome.chalkDim">
+                    State は Inspector から強制表示できる（宣言は normal / hover /
+                    focused / selected の 4 つ）。selected は押した後も居座る「入り」なので
+                    props 制御の枠に置いてあり、疑似クラスには写らない。
+                </Text>
+
+                <VStack id="device-bar" width="fill" align="stretch">
+
+                    <HStack
+                        width="fill"
+                        spacing="$chrome.space.lg"
+                        padding-horizontal="$chrome.space.md"
+                        padding-vertical="$chrome.space.sm"
+                        align="center">
+
+                        <HStack spacing="$chrome.space.tight" shrink="0" align="center">
+                            <Toggle label="iPhone" />
+                            <Toggle label="iPad" />
+                            <Toggle label="Mac" />
+                        </HStack>
+
+                        <HStack spacing="$chrome.space.tight" shrink="0" align="center">
+                            <Toggle label="Light" />
+                            <Toggle label="Dark" />
+                        </HStack>
+
+                        <HStack spacing="$chrome.space.tight" shrink="0" align="center">
+                            <Toggle label="50%" />
+                            <Toggle label="100%" />
+                            <Toggle label="200%" />
+                        </HStack>
+
+                        <HStack spacing="$chrome.space.tight" shrink="0" align="center">
+                            <Toggle label="Mat" />
+                            <Toggle label="Dim" />
+                            <Toggle label="Chalk" />
+                        </HStack>
+
+                        <Spacer />
+
+                    </HStack>
+
+                    <Rule color="$chrome.ruleSoft" />
+
+                </VStack>
+
+            </VStack>
+
+            <!-- ========================================================= 方眼 -->
+
+            <VStack id="grid-specimen" spacing="$chrome.space.sm" align="stretch">
+
+                <Eyebrow label="BACKDROP — 64PT の方眼" />
+
+                <HStack width="fill" spacing="$chrome.space.md" align="stretch">
+
+                    <!-- 2 枚重ねる。**縦と横で別の層**にするのは、UIX に
+                         repeating-linear-gradient が無く、罫を 1 本ずつ置くしかないため。 -->
+                    <ZStack
+                        id="grid-sample"
+                        width="$chrome.size.grid"
+                        height="$chrome.size.grid"
+                        background="$chrome.mat">
+
+                        <VStack width="fill" height="fill" spacing="$chrome.space.grid" align="stretch">
+                            <Rule color="$chrome.grid" />
+                            <Rule color="$chrome.grid" />
+                            <Rule color="$chrome.grid" />
+                            <Rule color="$chrome.grid" />
+                            <Rule color="$chrome.grid" />
+                        </VStack>
+
+                        <HStack width="fill" height="fill" spacing="$chrome.space.grid" align="stretch">
+                            <Rule axis="vertical" color="$chrome.grid" />
+                            <Rule axis="vertical" color="$chrome.grid" />
+                            <Rule axis="vertical" color="$chrome.grid" />
+                            <Rule axis="vertical" color="$chrome.grid" />
+                            <Rule axis="vertical" color="$chrome.grid" />
+                        </HStack>
+
+                    </ZStack>
+
+                    <!-- 濃さの小見本。**方眼そのものでは決められない** —— 1pt の罫は
+                         薄すぎて 2 段の差が読めないので、同じ色を面で置いて比べる。 -->
+                    <VStack width="fill" spacing="$chrome.space.sm" align="stretch">
+
+                        <VStack
+                            width="fill"
+                            height="$chrome.size.sample"
+                            background="$chrome.grid"
+                            borderColor="$chrome.hairline"
+                            borderWidth="$chrome.stroke.hairline" />
+                        <Text style="$chrome.type.mono" color="$chrome.chalkDim">
+                            chrome.grid — 64pt の主線（3.5%）
+                        </Text>
+
+                        <VStack
+                            width="fill"
+                            height="$chrome.size.sample"
+                            background="$chrome.gridFine"
+                            borderColor="$chrome.hairline"
+                            borderWidth="$chrome.stroke.hairline" />
+                        <Text style="$chrome.type.mono" color="$chrome.chalkDim">
+                            chrome.gridFine — 8pt の細線（1.6%）。本数が多いので方眼のほうには描かない
+                        </Text>
+
+                        <Spacer />
+
+                    </VStack>
+
+                </HStack>
+
+            </VStack>
+
+            <!-- ======================================================= 標本 -->
+
+            <VStack id="mount-specimen" spacing="$chrome.space.sm" align="stretch">
+
+                <Eyebrow label="SPECIMEN — iPhone（375 × 812 pt）" />
+
+                <Text style="$chrome.type.body" color="$chrome.chalkDim">
+                    飾りの見え方は地で逆になる（実測）—— 目安線（chalk 30%）は明るい地との差が
+                    12 でほぼ消え、notch（mat）は暗い地との差が 14 でほぼ消える。
+                    どちらが欠けても気づけないので 2 枚並べる。
+                </Text>
+
+                <HStack width="fill" spacing="$chrome.space.lg" align="start">
+
+                    <VStack spacing="$chrome.space.sm" align="stretch">
+                        <Eyebrow label="LIGHT" />
+                        <Specimen theme="light" />
+                        <HStack width="fill" spacing="$chrome.space.md" align="center">
+                            <Rule color="$chrome.rule" />
+                            <Text style="$chrome.type.toggle" color="$chrome.chalkDim">
+                                375 × 812 pt
+                            </Text>
+                            <Rule color="$chrome.rule" />
+                        </HStack>
+                    </VStack>
+
+                    <VStack spacing="$chrome.space.sm" align="stretch">
+                        <Eyebrow label="DARK" />
+                        <Specimen theme="dark" />
+                        <HStack width="fill" spacing="$chrome.space.md" align="center">
+                            <Rule color="$chrome.rule" />
+                            <Text style="$chrome.type.toggle" color="$chrome.chalkDim">
+                                375 × 812 pt
+                            </Text>
+                            <Rule color="$chrome.rule" />
+                        </HStack>
+                    </VStack>
+
+                    <Spacer />
+
+                </HStack>
+
+            </VStack>
+
+        </VStack>
+
+    </ScrollView>
+
+</Screen>

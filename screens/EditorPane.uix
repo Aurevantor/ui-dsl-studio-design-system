@@ -1,0 +1,244 @@
+<!-- studio-design: EditorPane
+     omitted: editor/ink.ts の 5 色（--ink-tag / --ink-component / --ink-slot /
+     --ink-token / --ink-expression）と、そこが借りている 2 色（未定義タグの --alert・
+     warning の --amber）は持ち込まず、コード行を単色（chrome.chalk）で描く ——
+     5 色は MAT_HUE からの導出値で「手で 1 色だけ触ることが構造的にできない」ことが
+     設計目的なのに、Token の toColor は srgb の hex しか受けないので、書き写すと
+     その構造保証が壊れる（#152）。ここで決めるのは行送り・字送り・ガター幅・
+     字下げ・選択行の地色だけ。CodeMirror が描くもの（補完リスト・hover の吹き出し・
+     lint の波線・キャレット）も描かない —— 前 3 つは shadow root の中にあって台の
+     Token を var() で引くだけの層（editor/theme.ts）で、キャレットは点滅が署名なので
+     静止画に写せない。折り返しと縦スクロールも省き、行は 9 行で切っている。
+
+     .editor の見本。配置は Studio の実物と一致させない（#152 の「守らないもの」）。
+     行番号を右端で揃えるのに HStack + Spacer を使っているのは、UIX に text-align が
+     無いため（Rule.uix が per-side border の代わりに 1 ノードを置いているのと同型の
+     代替）。字下げも同じ理由で空の VStack ―― 先頭の空白は HTML で潰れるので、
+     テキストの中に書いても段が付かない。 -->
+<Screen id="editor-pane" name="EditorPane" background="$chrome.mat">
+
+    <ScrollView width="fill" height="fill">
+
+        <VStack
+            id="editor-body"
+            width="fill"
+            padding="$chrome.space.screen"
+            spacing="$chrome.space.lg"
+            align="stretch">
+
+            <VStack id="cover" spacing="$chrome.space.xs" align="stretch">
+                <Eyebrow label="UI DSL STUDIO — EDITOR" />
+                <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
+                    エディタ
+                </Text>
+                <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
+                    文書そのものを書く場所。語の色分けはカンプに持ち込まず、
+                    行送り・字送り・ガター幅・字下げ・選択行の地色だけをここで決める。
+                </Text>
+            </VStack>
+
+            <Rule color="$chrome.rule" />
+
+            <VStack id="editor-specimen" spacing="$chrome.space.sm" align="stretch">
+
+                <Eyebrow label="LINES — 単色で組んだ 9 行" />
+
+                <VStack
+                    id="editor-box"
+                    width="fill"
+                    padding-vertical="$chrome.space.md"
+                    background="$chrome.mat"
+                    borderColor="$chrome.rule"
+                    borderWidth="$chrome.stroke.hairline"
+                    radius="$chrome.radius.pane"
+                    clip="true"
+                    align="stretch">
+
+                    <HStack width="fill" spacing="$chrome.space.sm" align="stretch">
+                        <HStack width="$chrome.size.gutter">
+                            <Spacer />
+                            <Text style="$chrome.type.code" color="$chrome.chalkDim">1</Text>
+                        </HStack>
+                        <Text style="$chrome.type.code" color="$chrome.chalk">
+                            &lt;Screen id="login" name="Login"&gt;
+                        </Text>
+                    </HStack>
+
+                    <HStack width="fill" spacing="$chrome.space.sm" align="stretch">
+                        <HStack width="$chrome.size.gutter">
+                            <Spacer />
+                            <Text style="$chrome.type.code" color="$chrome.chalkDim">2</Text>
+                        </HStack>
+                        <VStack width="$chrome.size.indent" />
+                        <Text style="$chrome.type.code" color="$chrome.chalk">
+                            &lt;VStack padding="$space.lg" spacing="$space.md"&gt;
+                        </Text>
+                    </HStack>
+
+                    <HStack width="fill" spacing="$chrome.space.sm" align="stretch">
+                        <HStack width="$chrome.size.gutter">
+                            <Spacer />
+                            <Text style="$chrome.type.code" color="$chrome.chalkDim">3</Text>
+                        </HStack>
+                        <VStack width="$chrome.size.indent" />
+                        <VStack width="$chrome.size.indent" />
+                        <Text style="$chrome.type.code" color="$chrome.chalk">
+                            &lt;Text style="$text.title"&gt;サインイン&lt;/Text&gt;
+                        </Text>
+                    </HStack>
+
+                    <HStack width="fill" spacing="$chrome.space.sm" align="stretch">
+                        <HStack width="$chrome.size.gutter">
+                            <Spacer />
+                            <Text style="$chrome.type.code" color="$chrome.chalkDim">4</Text>
+                        </HStack>
+                        <VStack width="$chrome.size.indent" />
+                        <VStack width="$chrome.size.indent" />
+                        <Text style="$chrome.type.code" color="$chrome.chalk">
+                            &lt;Field label="メール" /&gt;
+                        </Text>
+                    </HStack>
+
+                    <!-- 選択行（.cm-activeLine / .cm-activeLineGutter）。地は弱い罫の色で、
+                         **行番号だけ chalk に上がる** —— 選択に新しい色を足さない規律
+                         （.files__item[aria-current] と同じ）が Editor にも通っている。 -->
+                    <HStack
+                        id="editor-active-line"
+                        width="fill"
+                        spacing="$chrome.space.sm"
+                        background="$chrome.ruleSoft"
+                        align="stretch">
+                        <HStack width="$chrome.size.gutter">
+                            <Spacer />
+                            <Text style="$chrome.type.code" color="$chrome.chalk">5</Text>
+                        </HStack>
+                        <VStack width="$chrome.size.indent" />
+                        <VStack width="$chrome.size.indent" />
+                        <Text style="$chrome.type.code" color="$chrome.chalk">
+                            &lt;Field label="パスワード" secure="true" /&gt;
+                        </Text>
+                    </HStack>
+
+                    <HStack width="fill" spacing="$chrome.space.sm" align="stretch">
+                        <HStack width="$chrome.size.gutter">
+                            <Spacer />
+                            <Text style="$chrome.type.code" color="$chrome.chalkDim">6</Text>
+                        </HStack>
+                        <VStack width="$chrome.size.indent" />
+                        <VStack width="$chrome.size.indent" />
+                        <Text style="$chrome.type.code" color="$chrome.chalk">
+                            &lt;Spacer /&gt;
+                        </Text>
+                    </HStack>
+
+                    <HStack width="fill" spacing="$chrome.space.sm" align="stretch">
+                        <HStack width="$chrome.size.gutter">
+                            <Spacer />
+                            <Text style="$chrome.type.code" color="$chrome.chalkDim">7</Text>
+                        </HStack>
+                        <VStack width="$chrome.size.indent" />
+                        <VStack width="$chrome.size.indent" />
+                        <Text style="$chrome.type.code" color="$chrome.chalk">
+                            &lt;Button label="続ける" /&gt;
+                        </Text>
+                    </HStack>
+
+                    <HStack width="fill" spacing="$chrome.space.sm" align="stretch">
+                        <HStack width="$chrome.size.gutter">
+                            <Spacer />
+                            <Text style="$chrome.type.code" color="$chrome.chalkDim">8</Text>
+                        </HStack>
+                        <VStack width="$chrome.size.indent" />
+                        <Text style="$chrome.type.code" color="$chrome.chalk">
+                            &lt;/VStack&gt;
+                        </Text>
+                    </HStack>
+
+                    <HStack width="fill" spacing="$chrome.space.sm" align="stretch">
+                        <HStack width="$chrome.size.gutter">
+                            <Spacer />
+                            <Text style="$chrome.type.code" color="$chrome.chalkDim">9</Text>
+                        </HStack>
+                        <Text style="$chrome.type.code" color="$chrome.chalk">
+                            &lt;/Screen&gt;
+                        </Text>
+                    </HStack>
+
+                </VStack>
+
+            </VStack>
+
+            <!-- ガター幅と字下げの見本。**罫で挟んで幅そのものを見せる** ——
+                 数字（28pt）を書いても、その幅が行番号 2 桁に足りるかは目でしか決まらない。 -->
+            <VStack id="gutter-specimen" spacing="$chrome.space.sm" align="stretch">
+
+                <Eyebrow label="GUTTER / INDENT — 幅を測る" />
+
+                <HStack width="fill" spacing="$chrome.space.sm" align="stretch">
+                    <Rule axis="vertical" color="$chrome.rule" />
+                    <HStack width="$chrome.size.gutter">
+                        <Spacer />
+                        <Text style="$chrome.type.code" color="$chrome.chalkDim">99</Text>
+                    </HStack>
+                    <Rule axis="vertical" color="$chrome.rule" />
+                    <VStack width="$chrome.size.indent" />
+                    <Rule axis="vertical" color="$chrome.rule" />
+                    <Text style="$chrome.type.mono" color="$chrome.chalkDim">
+                        左がガター（行番号は右で揃える）、右が字下げ 1 段
+                    </Text>
+                    <Spacer />
+                </HStack>
+
+            </VStack>
+
+            <!-- 行送りの見本。**2 つ並べないと決められない** —— 1.6 が広いか狭いかは
+                 単体では見えず、注釈の等幅（1.45）と並べて初めて「書く字は広い」が読める。 -->
+            <VStack id="leading-specimen" spacing="$chrome.space.sm" align="stretch">
+
+                <Eyebrow label="LEADING — 1.6（書く字）対 1.45（読む字）" />
+
+                <HStack width="fill" spacing="$chrome.space.md" align="stretch">
+
+                    <VStack
+                        width="fill"
+                        padding="$chrome.space.md"
+                        background="$chrome.wash"
+                        radius="$chrome.radius.pane"
+                        align="stretch">
+                        <Text style="$chrome.type.code" color="$chrome.chalk">
+                            chrome.type.code
+                        </Text>
+                        <Text style="$chrome.type.code" color="$chrome.chalk">
+                            行送り 1.6・字送り 0
+                        </Text>
+                        <Text style="$chrome.type.code" color="$chrome.chalk">
+                            Editor が書く字
+                        </Text>
+                    </VStack>
+
+                    <VStack
+                        width="fill"
+                        padding="$chrome.space.md"
+                        background="$chrome.wash"
+                        radius="$chrome.radius.pane"
+                        align="stretch">
+                        <Text style="$chrome.type.mono" color="$chrome.chalkDim">
+                            chrome.type.mono
+                        </Text>
+                        <Text style="$chrome.type.mono" color="$chrome.chalkDim">
+                            行送り 1.45
+                        </Text>
+                        <Text style="$chrome.type.mono" color="$chrome.chalkDim">
+                            注釈が読む字
+                        </Text>
+                    </VStack>
+
+                </HStack>
+
+            </VStack>
+
+        </VStack>
+
+    </ScrollView>
+
+</Screen>

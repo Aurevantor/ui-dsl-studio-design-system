@@ -30,12 +30,34 @@
       "$description": "studio.css --alert（error / 越えてはいけない線）"
     }
   },
+  "canvas": {
+    "$type": "color",
+    "$description": "標本（Preview の中身）の地。**台の色ではない** —— iframe は別 document で、中身の色は利用者の Design System と color-scheme が決める。ここに在るのは「明るい画面 / 暗い画面」の 2 例を描くための代表値で、値はブラウザが color-scheme に対して既定で塗る canvas の色。",
+    "light": { "$value": "#FFFFFF" },
+    "dark": { "$value": "#121212" }
+  },
   "veil": {
     "$type": "color",
-    "$description": "半透明。studio.css は `rgb(r g b / a%)` の三つ組を直接書くしかないが、Token は #RRGGBBAA で名前を持てる（packages/tokens/src/values.ts の toColor が 8 桁 hex を受ける）。",
+    "$description": "半透明。studio.css は `rgb(r g b / a%)` の三つ組を直接書くしかないが、Token は #RRGGBBAA で名前を持てる（packages/tokens/src/values.ts の toColor が 8 桁 hex を受ける）。**名前の数字は不透明度のパーセント**で、1% 未満の桁を持つものだけ 3 桁で小数第 1 位まで書く（`035` = 3.5%。`16` = 16% と `016` = 1.6% を取り違えないため）。8 桁 hex は 1/255 刻みなので、パーセントは最も近い値へ丸まる（3.5% → 0x09 = 3.53%）—— 丸めの誤差は目に見えないが、**同じ綴りに戻らない**ので studio.css と 1 文字ずつ突き合わせるのには使えない（#152 の「カンプと React 実装の一致」は守らないもの）。",
+    "bone016": {
+      "$value": "#E7E3D604",
+      "$description": "studio.css .preview の rgb(231 227 214 / 1.6%)（8pt の細線）"
+    },
+    "bone035": {
+      "$value": "#E7E3D609",
+      "$description": "studio.css .preview の rgb(231 227 214 / 3.5%)（64pt の主線）"
+    },
     "bone14": {
       "$value": "#E7E3D624",
       "$description": "studio.css の rgb(231 227 214 / 14%)（標本の枠）"
+    },
+    "bone30": {
+      "$value": "#E7E3D64D",
+      "$description": "studio.css .device__home-indicator / .device__safe-area の rgb(231 227 214 / 30%)（デバイスの目安線）"
+    },
+    "bone90": {
+      "$value": "#E7E3D6E6",
+      "$description": "studio.css .mark の rgb(231 227 214 / 90%)（選択枠の内側の線）"
     },
     "mat55": {
       "$value": "#14201E8C",
@@ -44,24 +66,58 @@
     "ochre16": {
       "$value": "#E3A33A29",
       "$description": "studio.css の rgb(227 163 58 / 16%)（印の暈し）"
+    },
+    "black40": {
+      "$value": "#00000066",
+      "$description": "studio.css .mount の rgb(0 0 0 / 40%)（近い影）"
+    },
+    "black75": {
+      "$value": "#000000BF",
+      "$description": "studio.css .mount の rgb(0 0 0 / 75%)（遠い影）"
+    }
+  },
+  "shadow": {
+    "$type": "shadow",
+    "$description": "落ち影。studio.css .mount（標本を載せる箱）の 2 層をそのまま持つ。**近い層と遠い層で役が違う** —— 近いほうが縁を立て、遠いほうが箱を作業面から浮かせる。",
+    "device": {
+      "$value": [
+        { "color": "{veil.black40}", "offsetX": 0, "offsetY": 2, "blur": 6 },
+        { "color": "{veil.black75}", "offsetX": 0, "offsetY": 26, "blur": 60, "spread": -22 }
+      ]
     }
   },
   "spacing": {
     "$type": "dimension",
+    "1": {
+      "$value": { "value": 1, "unit": "px" },
+      "$description": "隣り合う押せるものを分けるだけの隙間（studio.css .device-bar__group の gap: 1px）。**罫の太さ（stroke.hairline）とは別の摘み** —— 同じ 1pt だが、片方は線の太さ、片方は隙間。"
+    },
     "4": { "$value": { "value": 4, "unit": "px" } },
     "6": { "$value": { "value": 6, "unit": "px" } },
     "10": { "$value": { "value": 10, "unit": "px" } },
     "14": { "$value": { "value": 14, "unit": "px" } },
-    "20": { "$value": { "value": 20, "unit": "px" } }
+    "20": { "$value": { "value": 20, "unit": "px" } },
+    "64": {
+      "$value": { "value": 64, "unit": "px" },
+      "$description": "方眼の目。**面の間隔ではなく目盛**なので、xs〜screen の刻みとは別に持つ（studio.css .preview の repeating-linear-gradient の周期）。"
+    }
   },
   "stroke": {
     "$type": "dimension",
-    "hairline": { "$value": { "value": 1, "unit": "px" } }
+    "hairline": { "$value": { "value": 1, "unit": "px" } },
+    "ring": {
+      "$value": { "value": 2, "unit": "px" },
+      "$description": "焦点の輪の太さ。studio.css は outline: 2px solid var(--chalk) + outline-offset: -2px（内側に描く 2px）。"
+    }
   },
   "radius": {
     "$type": "dimension",
     "sm": { "$value": { "value": 2, "unit": "px" } },
-    "md": { "$value": { "value": 12, "unit": "px" } }
+    "md": { "$value": { "value": 12, "unit": "px" } },
+    "lg": {
+      "$value": { "value": 32, "unit": "px" },
+      "$description": "デバイスの縁。device-presets.ts の deviceFrameRadius('phone') と同じ数だが、あちらが正本（機種ごとに違う）—— ここに在るのは、カンプで iPhone の 1 例を描くための写し。"
+    }
   },
   "size": {
     "$type": "dimension",
@@ -72,6 +128,18 @@
     "problemBar": {
       "$value": { "value": 2, "unit": "px" },
       "$description": "studio.css .problem のバー幅（診断 1 行の左に立つ縦棒）。"
+    },
+    "gutter": {
+      "$value": { "value": 28, "unit": "px" },
+      "$description": "Editor の行番号の幅。studio.css には無い（.cm-gutters は中身の桁数で伸びる）ので、ここで決める数のひとつ。"
+    },
+    "indent": {
+      "$value": { "value": 28, "unit": "px" },
+      "$description": "Editor のコード 1 段ぶんの字下げ。12pt の等幅で 4 文字ぶん（1 文字は約 0.6em = 7.2pt）。gutter と同じ数だが別の摘み —— 片方を変えても、もう片方は動かない。"
+    },
+    "grid": {
+      "$value": { "value": 261, "unit": "px" },
+      "$description": "方眼の小見本の一辺。64pt 間隔の罫 5 本ぶん（1×5 + 64×4）。"
     }
   },
   "fontSize": {
@@ -79,12 +147,32 @@
     "eyebrow": { "$value": { "value": 10, "unit": "px" } },
     "body": { "$value": { "value": 11, "unit": "px" } },
     "mono": { "$value": { "value": 11.5, "unit": "px" } },
+    "code": {
+      "$value": { "value": 12, "unit": "px" },
+      "$description": "Editor の本文。注釈の等幅（mono 11.5）より 1 段大きい —— ここだけは読むためではなく書くための字。"
+    },
     "title": { "$value": { "value": 18, "unit": "px" } }
   },
   "tracking": {
     "$type": "dimension",
     "$description": "字間。UIX の長さは UI Point なので em ではなく px で持つ（studio.css の 0.16em は 10px のとき 1.6px）。",
-    "eyebrow": { "$value": { "value": 1.6, "unit": "px" } }
+    "eyebrow": { "$value": { "value": 1.6, "unit": "px" } },
+    "toggle": {
+      "$value": { "value": 0.6, "unit": "px" },
+      "$description": "studio.css .device-bar__button の 0.06em（10px のとき 0.6px）。眉より狭い —— 押せるものは語として読ませたい。"
+    },
+    "code": {
+      "$value": { "value": 0, "unit": "px" },
+      "$description": "**0 を明示的に持つ。** Editor の字送りは「まだ決めていない」ではなく「詰めも空けもしない」で、書いておかないと次に触る人がここに眉の 1.6px を持ち込む。"
+    }
+  },
+  "lineHeight": {
+    "$type": "number",
+    "$description": "行送り（fontSize に対する倍率）。typography Token の中で直接書くと、行間だけを触りたいときに typography ごと写すことになる。",
+    "code": {
+      "$value": 1.6,
+      "$description": "Editor の行送り。editor/theme.ts の .cm-scroller と同じ。"
+    }
   },
   "fontFamily": {
     "$type": "fontFamily",
