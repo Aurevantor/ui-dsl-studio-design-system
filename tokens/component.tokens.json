@@ -1,0 +1,20 @@
+{
+  "$description": "特定 Component 専用。Semantic を alias する（docs/04 §1）。部品の側は chrome.* を直接読まず、ここを経由する —— 「Pane の面を 1 段上げる」を Token 1 件の付け替えで言えるようにするため。",
+  "eyebrow": {
+    "color": { "$type": "color", "$value": "{chrome.chalkDim}" },
+    "typography": { "$type": "typography", "$value": "{chrome.type.eyebrow}" }
+  },
+  "rule": {
+    "color": { "$type": "color", "$value": "{chrome.ruleSoft}" },
+    "thickness": { "$type": "dimension", "$value": "{chrome.stroke.hairline}" }
+  },
+  "pane": {
+    "background": { "$type": "color", "$value": "{chrome.mat}" },
+    "raisedBackground": { "$type": "color", "$value": "{chrome.matRaise}" },
+    "border": { "$type": "color", "$value": "{chrome.rule}" },
+    "borderWidth": { "$type": "dimension", "$value": "{chrome.stroke.hairline}" },
+    "radius": { "$type": "dimension", "$value": "{chrome.radius.pane}" },
+    "padding": { "$type": "dimension", "$value": "{chrome.space.md}" },
+    "spacing": { "$type": "dimension", "$value": "{chrome.space.sm}" }
+  }
+}

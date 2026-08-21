@@ -1,0 +1,25 @@
+<!-- 罫。**per-side border が無いことの代替**（UIX の borderWidth は 4 辺すべてに掛かる
+     ので、「下だけに線」を属性では書けない）。線そのものを 1 ノードとして置く。
+
+     軸の名前は Component が決める（#79）—— `variant=` ではなく `axis=`。
+     `<Variant>` が width / height を宣言しているのは、この 2 つが値ではなく
+     構造（SizeSpec）としてそのまま本体へ載るため（docs/03 §3・#80）。
+
+     濃さは Variant ではなく Prop（軸は 1 Component 1 本）。既定は弱い罫で、
+     区切りを強めたいところだけ利用側が `color=` を渡す。 -->
+<Component name="Rule">
+
+    <Props>
+        <Prop name="axis" type="string" default="horizontal" />
+        <Prop name="color" type="color" default="$rule.color" />
+    </Props>
+
+    <Variant on="axis" name="horizontal" width="fill" height="$rule.thickness" />
+    <Variant on="axis" name="vertical" width="$rule.thickness" height="fill" />
+
+    <VStack
+        width="{$variant.width}"
+        height="{$variant.height}"
+        background="{$props.color}" />
+
+</Component>

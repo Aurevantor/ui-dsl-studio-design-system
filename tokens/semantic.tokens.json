@@ -1,0 +1,81 @@
+{
+  "$description": "デザイン上の意味。Screen と Component がふだん参照する層（docs/04 §1）。名前空間を chrome.* に切って標準 Design System（color.action.primary など）と 1 つも交わらないようにしてある —— 客も依存も違う 3 つ目の Token 集合であることの表明（#152）。",
+  "chrome": {
+    "$description": "Studio の外装（chrome）の設計言語。方向は「カッティングマット」——深い青緑の作業面に UI を置いて眺める道具、という見立て。",
+    "mat": { "$type": "color", "$value": "{teal.900}", "$description": "作業面" },
+    "matRaise": {
+      "$type": "color",
+      "$value": "{teal.850}",
+      "$description": "1 段上げた面（浮くもの）"
+    },
+    "rule": { "$type": "color", "$value": "{teal.750}", "$description": "罫" },
+    "ruleSoft": { "$type": "color", "$value": "{teal.800}", "$description": "弱い罫" },
+    "chalk": { "$type": "color", "$value": "{bone.100}", "$description": "主注釈" },
+    "chalkDim": { "$type": "color", "$value": "{bone.400}", "$description": "副注釈" },
+    "ochre": { "$type": "color", "$value": "{signal.ochre}", "$description": "コンパイルの印" },
+    "amber": { "$type": "color", "$value": "{signal.amber}", "$description": "warning" },
+    "alert": { "$type": "color", "$value": "{signal.vermilion}", "$description": "error" },
+    "hairline": { "$type": "color", "$value": "{veil.bone14}", "$description": "標本の枠" },
+    "wash": { "$type": "color", "$value": "{veil.mat55}", "$description": "面の上に敷く暈し" },
+    "mark": { "$type": "color", "$value": "{veil.ochre16}", "$description": "印の暈し" },
+    "space": {
+      "$type": "dimension",
+      "xs": { "$value": "{spacing.4}" },
+      "sm": { "$value": "{spacing.6}" },
+      "md": { "$value": "{spacing.10}" },
+      "lg": { "$value": "{spacing.14}" },
+      "screen": { "$value": "{spacing.20}" }
+    },
+    "radius": {
+      "$type": "dimension",
+      "mark": { "$value": "{radius.sm}" },
+      "pane": { "$value": "{radius.md}" }
+    },
+    "stroke": {
+      "$type": "dimension",
+      "hairline": { "$value": "{stroke.hairline}" }
+    },
+    "size": {
+      "$type": "dimension",
+      "sample": { "$value": "{size.sample}" }
+    },
+    "type": {
+      "$type": "typography",
+      "eyebrow": {
+        "$value": {
+          "fontFamily": "{fontFamily.mono}",
+          "fontSize": "{fontSize.eyebrow}",
+          "fontWeight": "regular",
+          "lineHeight": 1,
+          "letterSpacing": "{tracking.eyebrow}"
+        },
+        "$description": "道具に印刷された文字。見出し・単位・ラベルはすべてこの声で書く。大文字にするのは書き手の仕事 —— text-transform は DTCG にも IR の TypographyValue にも無い（#152）。"
+      },
+      "mono": {
+        "$value": {
+          "fontFamily": "{fontFamily.mono}",
+          "fontSize": "{fontSize.mono}",
+          "fontWeight": "regular",
+          "lineHeight": 1.45
+        },
+        "$description": "ファイル名・IR・数値。等幅で読む場所。"
+      },
+      "body": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontSize": "{fontSize.body}",
+          "fontWeight": "regular",
+          "lineHeight": 1.55
+        }
+      },
+      "title": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontSize": "{fontSize.title}",
+          "fontWeight": "medium",
+          "lineHeight": 1.2
+        }
+      }
+    }
+  }
+}

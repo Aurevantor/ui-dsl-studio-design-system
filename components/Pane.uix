@@ -1,0 +1,38 @@
+<!-- 5 ペイン（Files / Editor / Preview / Diagnostics / Inspector）の器。
+
+     Slot は 1 つだけなので、利用側は代入タグを書かずに子要素をそのまま渡せる
+     （docs/03 §5「単一 Slot の省略形」）。見出しは Prop —— 文字は Prop、
+     ノードは Slot（docs/03 §3）。
+
+     軸は `tone`（#79）。plain は作業面と同じ高さの面、raised は 1 段上げた面で、
+     studio.css が「浮くもの（tooltip / 補完）」に使っている --mat-raise に当たる。 -->
+<Component name="Pane">
+
+    <Props>
+        <Prop name="tone" type="string" default="plain" />
+        <Prop name="title" type="string" />
+    </Props>
+
+    <Slots>
+        <Slot name="content" />
+    </Slots>
+
+    <Variant on="tone" name="plain" background="$pane.background" />
+    <Variant on="tone" name="raised" background="$pane.raisedBackground" />
+
+    <VStack
+        spacing="$pane.spacing"
+        padding="$pane.padding"
+        background="{$variant.background}"
+        borderColor="$pane.border"
+        borderWidth="$pane.borderWidth"
+        radius="$pane.radius"
+        align="stretch">
+
+        <Eyebrow label="{$props.title}" />
+        <Rule />
+        <SlotOutlet name="content" />
+
+    </VStack>
+
+</Component>

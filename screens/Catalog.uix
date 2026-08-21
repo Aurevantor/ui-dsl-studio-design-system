@@ -1,0 +1,141 @@
+<!-- 部品の Variant を並べる見本帳。**絵の完成度ではなく、経路が主題**（#153）——
+     Studio の Editor で tokens/*.tokens.json を編集すると、ここが即座に描き直される。
+
+     配置は Studio の実物と一致させない（#152 の「守らないもの」）。カンプが決めるのは
+     配色・間隔・字組みで、レイアウトの正本ではない。 -->
+<Screen id="catalog" name="Catalog" background="$chrome.mat">
+
+    <ScrollView width="fill" height="fill">
+
+        <VStack
+            id="catalog-body"
+            width="fill"
+            padding="$chrome.space.screen"
+            spacing="$chrome.space.lg"
+            align="stretch">
+
+            <VStack id="cover" spacing="$chrome.space.xs" align="stretch">
+                <Eyebrow label="UI DSL STUDIO — CHROME" />
+                <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
+                    カンプ
+                </Text>
+                <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
+                    Studio の外装を UIX で置いた見本帳。tokens/ を編集すると Preview が即座に描き直す。
+                    実際の Studio は React + CSS のままで、ここから運ぶのは Token の値だけ。
+                </Text>
+            </VStack>
+
+            <Rule color="$chrome.rule" />
+
+            <VStack id="eyebrow-specimen" spacing="$chrome.space.sm" align="stretch">
+                <Eyebrow label="EYEBROW" />
+                <HStack
+                    height="$chrome.size.sample"
+                    spacing="$chrome.space.lg"
+                    padding-horizontal="$chrome.space.md"
+                    borderColor="$chrome.hairline"
+                    borderWidth="$chrome.stroke.hairline"
+                    radius="$chrome.radius.mark"
+                    align="center">
+                    <Eyebrow label="FILES" />
+                    <Eyebrow label="UIX EDITOR" />
+                    <Eyebrow label="PREVIEW" />
+                    <Eyebrow label="DIAGNOSTICS" />
+                    <Eyebrow label="INSPECTOR" />
+                    <Spacer />
+                </HStack>
+            </VStack>
+
+            <VStack id="rule-specimen" spacing="$chrome.space.sm" align="stretch">
+                <Eyebrow label="RULE — AXIS" />
+                <Rule />
+                <HStack height="$chrome.size.sample" spacing="$chrome.space.md" align="stretch">
+                    <Rule axis="vertical" />
+                    <Text style="$chrome.type.mono" color="$chrome.chalkDim">
+                        axis=vertical（既定の弱い罫）
+                    </Text>
+                    <Rule axis="vertical" color="$chrome.rule" />
+                    <Text style="$chrome.type.mono" color="$chrome.chalkDim">
+                        axis=vertical + color（区切りを強める）
+                    </Text>
+                    <Spacer />
+                </HStack>
+                <Rule color="$chrome.rule" />
+            </VStack>
+
+            <VStack id="pane-specimen" spacing="$chrome.space.sm" align="stretch">
+                <Eyebrow label="PANE — TONE" />
+                <HStack spacing="$chrome.space.md" align="stretch">
+                    <Pane width="fill" title="FILES">
+                        <Text style="$chrome.type.mono" color="$chrome.chalk">
+                            screens/Catalog.uix
+                        </Text>
+                        <Text style="$chrome.type.mono" color="$chrome.chalkDim">
+                            tokens/semantic.tokens.json
+                        </Text>
+                    </Pane>
+                    <Pane width="fill" tone="raised" title="COMPLETION">
+                        <Text style="$chrome.type.mono" color="$chrome.chalk">
+                            chrome.chalkDim
+                        </Text>
+                        <Text style="$chrome.type.mono" color="$chrome.chalkDim">
+                            tone=raised は浮くもの（tooltip / 補完）の面
+                        </Text>
+                    </Pane>
+                </HStack>
+            </VStack>
+
+            <VStack id="signal-specimen" spacing="$chrome.space.sm" align="stretch">
+                <Eyebrow label="SIGNALS" />
+                <VStack
+                    padding="$chrome.space.md"
+                    spacing="$chrome.space.sm"
+                    background="$chrome.wash"
+                    radius="$chrome.radius.pane"
+                    align="stretch">
+                    <HStack spacing="$chrome.space.md" align="center">
+                        <VStack
+                            width="$chrome.size.sample"
+                            height="$chrome.size.sample"
+                            background="$chrome.mark"
+                            radius="$chrome.radius.mark"
+                            align="center"
+                            justify="center">
+                            <VStack
+                                width="$chrome.space.md"
+                                height="$chrome.space.md"
+                                background="$chrome.ochre"
+                                radius="$chrome.radius.mark" />
+                        </VStack>
+                        <Text style="$chrome.type.mono" color="$chrome.ochre">
+                            ochre — コンパイルの印。ここ以外で使うと印が目立たなくなる
+                        </Text>
+                    </HStack>
+                    <HStack spacing="$chrome.space.md" align="center">
+                        <VStack
+                            width="$chrome.size.sample"
+                            height="$chrome.size.sample"
+                            background="$chrome.amber"
+                            radius="$chrome.radius.mark" />
+                        <Text style="$chrome.type.mono" color="$chrome.amber">
+                            amber — warning
+                        </Text>
+                    </HStack>
+                    <HStack spacing="$chrome.space.md" align="center">
+                        <VStack
+                            width="$chrome.size.sample"
+                            height="$chrome.size.sample"
+                            background="$chrome.alert"
+                            radius="$chrome.radius.mark" />
+                        <Text style="$chrome.type.mono" color="$chrome.alert">
+                            alert — error / 越えてはいけない線
+                        </Text>
+                    </HStack>
+                </VStack>
+            </VStack>
+
+        </VStack>
+
+    </ScrollView>
+
+</Screen>

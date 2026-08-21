@@ -1,0 +1,96 @@
+{
+  "$description": "生の値のパレット。UIX からは直接参照しない層（docs/04 §1）。色は apps/studio/src/studio.css の :root から写した —— ただし写しであることは機械で縛らない（#152「カンプと React 実装の一致」は守らないもの。縛るとカンプの用途＝試すことが消える）。",
+  "teal": {
+    "$type": "color",
+    "$description": "作業面（カッティングマット）の緑。深いほど番号が大きい。",
+    "750": { "$value": "#2A3D38", "$description": "studio.css --rule（罫）" },
+    "800": {
+      "$value": "#22322F",
+      "$description": "studio.css --rule-soft（弱い罫・一覧の区切り）"
+    },
+    "850": {
+      "$value": "#1A2825",
+      "$description": "studio.css --mat-raise（マットより 1 段上げた面）"
+    },
+    "900": { "$value": "#14201E", "$description": "studio.css --mat（作業面）" }
+  },
+  "bone": {
+    "$type": "color",
+    "$description": "マットの上に載る文字（チョーク）。",
+    "100": { "$value": "#E7E3D6", "$description": "studio.css --chalk（主注釈）" },
+    "400": { "$value": "#8D9B94", "$description": "studio.css --chalk-dim（副注釈）" }
+  },
+  "signal": {
+    "$type": "color",
+    "$description": "意味を持つ暖色。ochre はコンパイルの印にだけ使う（ほかで使うと印が目立たなくなる）。",
+    "ochre": { "$value": "#E3A33A", "$description": "studio.css --ochre" },
+    "amber": { "$value": "#D6B23C", "$description": "studio.css --amber（warning）" },
+    "vermilion": {
+      "$value": "#EE6A4D",
+      "$description": "studio.css --alert（error / 越えてはいけない線）"
+    }
+  },
+  "veil": {
+    "$type": "color",
+    "$description": "半透明。studio.css は `rgb(r g b / a%)` の三つ組を直接書くしかないが、Token は #RRGGBBAA で名前を持てる（packages/tokens/src/values.ts の toColor が 8 桁 hex を受ける）。",
+    "bone14": {
+      "$value": "#E7E3D624",
+      "$description": "studio.css の rgb(231 227 214 / 14%)（標本の枠）"
+    },
+    "mat55": {
+      "$value": "#14201E8C",
+      "$description": "studio.css の rgb(20 32 30 / 55%)（選択の暈し）"
+    },
+    "ochre16": {
+      "$value": "#E3A33A29",
+      "$description": "studio.css の rgb(227 163 58 / 16%)（印の暈し）"
+    }
+  },
+  "spacing": {
+    "$type": "dimension",
+    "4": { "$value": { "value": 4, "unit": "px" } },
+    "6": { "$value": { "value": 6, "unit": "px" } },
+    "10": { "$value": { "value": 10, "unit": "px" } },
+    "14": { "$value": { "value": 14, "unit": "px" } },
+    "20": { "$value": { "value": 20, "unit": "px" } }
+  },
+  "stroke": {
+    "$type": "dimension",
+    "hairline": { "$value": { "value": 1, "unit": "px" } }
+  },
+  "radius": {
+    "$type": "dimension",
+    "sm": { "$value": { "value": 2, "unit": "px" } },
+    "md": { "$value": { "value": 12, "unit": "px" } }
+  },
+  "size": {
+    "$type": "dimension",
+    "sample": {
+      "$value": { "value": 28, "unit": "px" },
+      "$description": "見本帳で標本を置く枠の高さ。"
+    }
+  },
+  "fontSize": {
+    "$type": "dimension",
+    "eyebrow": { "$value": { "value": 10, "unit": "px" } },
+    "body": { "$value": { "value": 11, "unit": "px" } },
+    "mono": { "$value": { "value": 11.5, "unit": "px" } },
+    "title": { "$value": { "value": 18, "unit": "px" } }
+  },
+  "tracking": {
+    "$type": "dimension",
+    "$description": "字間。UIX の長さは UI Point なので em ではなく px で持つ（studio.css の 0.16em は 10px のとき 1.6px）。",
+    "eyebrow": { "$value": { "value": 1.6, "unit": "px" } }
+  },
+  "fontFamily": {
+    "$type": "fontFamily",
+    "mono": {
+      "$value": ["ui-monospace", "SFMono-Regular", "SF Mono", "Menlo", "Consolas", "monospace"],
+      "$description": "studio.css --mono"
+    },
+    "sans": {
+      "$value": ["system-ui", "-apple-system", "Hiragino Sans", "Noto Sans JP", "sans-serif"],
+      "$description": "studio.css --sans"
+    }
+  }
+}
