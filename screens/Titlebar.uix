@@ -1,0 +1,78 @@
+<!-- studio-design: Titlebar
+     omitted: uix dev の接続状態・IR node 数・token 数は編集のたびに動く値なので、
+     ここでは 1 例の数値を書いている（動く値そのものの正しさは検査しない・#152 の
+     「カンプと実装の一致」は守らないもの）。gauge（コンパイル定規）はこの画面の
+     主題ではないので描かない ―― 対数目盛と打鍵ごとの印は静止画に写せない動きが
+     署名（#115）なので、別画面の対象にする。
+
+     .titlebar の見本。配置は Studio の実物と一致させない（#152 の「守らないもの」）。
+     罫は Rule で表す —— UIX の borderWidth は 4 辺すべてに掛かるので、下だけの線は
+     属性で書けない（Rule.uix の注釈と同じ理由）。 -->
+<Screen id="titlebar" name="Titlebar" background="$chrome.mat">
+
+    <ScrollView width="fill" height="fill">
+
+        <VStack
+            id="titlebar-body"
+            width="fill"
+            padding="$chrome.space.screen"
+            spacing="$chrome.space.lg"
+            align="stretch">
+
+            <VStack id="cover" spacing="$chrome.space.xs" align="stretch">
+                <Eyebrow label="UI DSL STUDIO — TITLEBAR" />
+                <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
+                    タイトルバー
+                </Text>
+                <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
+                    道具の名前・開いているファイル・uix dev の接続状態・件数を横に並べる 1 行。
+                </Text>
+            </VStack>
+
+            <Rule color="$chrome.rule" />
+
+            <VStack id="titlebar-specimen" align="stretch">
+
+                <HStack
+                    id="titlebar-bar"
+                    width="fill"
+                    spacing="$chrome.space.lg"
+                    padding-horizontal="$chrome.space.md"
+                    padding-vertical="$chrome.space.sm"
+                    align="center">
+
+                    <Text style="$chrome.type.eyebrow" color="$chrome.chalk">UI DSL Studio</Text>
+
+                    <Text style="$chrome.type.mono" color="$chrome.chalk">
+                        screens/Titlebar.uix
+                    </Text>
+
+                    <HStack spacing="$chrome.space.xs" align="center">
+                        <Text style="$chrome.type.mono" color="$chrome.chalkDim">uix dev</Text>
+                        <Text style="$chrome.type.mono" color="$chrome.chalk">push #3</Text>
+                    </HStack>
+
+                    <Spacer />
+
+                    <HStack spacing="$chrome.space.lg" align="center">
+                        <HStack spacing="$chrome.space.xs" align="center">
+                            <Text style="$chrome.type.mono" color="$chrome.chalk">12</Text>
+                            <Text style="$chrome.type.mono" color="$chrome.chalkDim">IR nodes</Text>
+                        </HStack>
+                        <HStack spacing="$chrome.space.xs" align="center">
+                            <Text style="$chrome.type.mono" color="$chrome.chalk">48</Text>
+                            <Text style="$chrome.type.mono" color="$chrome.chalkDim">tokens</Text>
+                        </HStack>
+                    </HStack>
+
+                </HStack>
+
+                <Rule color="$chrome.rule" />
+
+            </VStack>
+
+        </VStack>
+
+    </ScrollView>
+
+</Screen>

@@ -1,0 +1,35 @@
+<!-- 診断 1 行。severity（error / warning / info）が軸（#79）—— 濃さの違いではなく
+     種別なので、Rule の `axis` / Pane の `tone` と同じ「1 Component 1 軸」に乗る。
+
+     studio.css の `.problem`（縦棒 + code/message/where の 3 行）と同じ構成。
+     **`info` は色を変えない** —— studio.css は `.problem--error` / `.problem--warning`
+     しか持たず、severity の型（packages/compiler/src/diagnostics.ts の `Severity`）が
+     持つ `error/warning/info` の非対称をそのまま引き継ぐ（info は既定の chalkDim）。 -->
+<Component name="Problem">
+
+    <Props>
+        <Prop name="severity" type="string" default="info" />
+        <Prop name="code" type="string" />
+        <Prop name="message" type="string" />
+        <Prop name="where" type="string" />
+    </Props>
+
+    <Variant on="severity" name="info" color="$problem.infoColor" />
+    <Variant on="severity" name="warning" color="$problem.warningColor" />
+    <Variant on="severity" name="error" color="$problem.errorColor" />
+
+    <HStack spacing="$problem.gap" align="stretch">
+
+        <VStack width="$problem.barWidth" background="{$variant.foreground}" />
+
+        <VStack spacing="$problem.messageGap" align="stretch">
+            <Text style="$problem.codeTypography" color="{$variant.foreground}">{$props.code}</Text>
+            <Text style="$problem.messageTypography" color="$problem.messageColor">
+                {$props.message}
+            </Text>
+            <Text style="$problem.whereTypography" color="$problem.whereColor">{$props.where}</Text>
+        </VStack>
+
+    </HStack>
+
+</Component>

@@ -68,6 +68,10 @@
     "sample": {
       "$value": { "value": 28, "unit": "px" },
       "$description": "見本帳で標本を置く枠の高さ。"
+    },
+    "problemBar": {
+      "$value": { "value": 2, "unit": "px" },
+      "$description": "studio.css .problem のバー幅（診断 1 行の左に立つ縦棒）。"
     }
   },
   "fontSize": {

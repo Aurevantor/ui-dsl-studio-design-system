@@ -1,0 +1,110 @@
+<!-- studio-design: DrawerPanes
+     omitted: Diagnostics の件数表示（pane__note）と Inspector の Props/Layout/Style
+     区画（#20）は選択中ノードに依存する実行時の値なので省く。splitter（ドラッグで
+     幅・高さを変える仕切り）は操作を持たないので Rule で代替する（v0.1 は表示専用・
+     docs/08 のリスク表）。hover / focused / pressed の実際の切り替えは描けないので、
+     State の見え方は 3 つの静止した見本（none / hover / forced）で示す —— 発明では
+     なく、.inspector__state / [aria-pressed] の実際の配色をそのまま並べたもの。
+
+     .drawer（Diagnostics + Inspector の 2 ペイン）の見本。配置は Studio の実物と
+     一致させない（#152 の「守らないもの」）。State を持つのは .inspector__* だけ
+     （#152 の実測。.splitter / .files__item / .device-bar__button は他画面の対象）
+     なので、この画面でだけ State の見本を置く。 -->
+<Screen id="drawer-panes" name="DrawerPanes" background="$chrome.mat">
+
+    <ScrollView width="fill" height="fill">
+
+        <VStack
+            id="drawer-body"
+            width="fill"
+            padding="$chrome.space.screen"
+            spacing="$chrome.space.lg"
+            align="stretch">
+
+            <VStack id="cover" spacing="$chrome.space.xs" align="stretch">
+                <Eyebrow label="UI DSL STUDIO — DRAWER" />
+                <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
+                    ドロワー
+                </Text>
+                <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
+                    下段の Diagnostics と Inspector。2 ペインの間の仕切りは動かせる
+                    （ここでは Rule で代替する）。
+                </Text>
+            </VStack>
+
+            <Rule color="$chrome.rule" />
+
+            <HStack id="drawer-specimen" spacing="$chrome.space.md" align="stretch">
+
+                <Pane width="fill" title="DIAGNOSTICS">
+                    <Problem
+                        severity="error"
+                        code="semantic.unknown-token"
+                        message="Token '$chrome.unknown' が見つかりません。"
+                        where="screens/Titlebar.uix:12:34" />
+                    <Rule color="$chrome.ruleSoft" />
+                    <Problem
+                        severity="warning"
+                        code="semantic.unused-token"
+                        message="Token '$chrome.wash' はどこからも参照されていません。"
+                        where="tokens/semantic.tokens.json:19:5" />
+                    <Rule color="$chrome.ruleSoft" />
+                    <Problem
+                        severity="info"
+                        code="token.shadowed-path"
+                        message="'chrome.mat' は別のワークスペースの定義を上書きしています。"
+                        where="tokens/component.tokens.json:3:3" />
+                </Pane>
+
+                <Rule axis="vertical" />
+
+                <Pane width="fill" title="INSPECTOR">
+
+                    <VStack spacing="$chrome.space.xs" align="stretch">
+                        <Eyebrow label="STATE" />
+                        <HStack spacing="$chrome.space.xs" align="center">
+                            <VStack padding-horizontal="$chrome.space.sm" padding-vertical="$chrome.space.xs">
+                                <Text style="$chrome.type.mono" color="$chrome.chalkDim">none</Text>
+                            </VStack>
+                            <VStack
+                                padding-horizontal="$chrome.space.sm"
+                                padding-vertical="$chrome.space.xs"
+                                background="$chrome.ruleSoft">
+                                <Text style="$chrome.type.mono" color="$chrome.chalkDim">hover</Text>
+                            </VStack>
+                            <VStack
+                                padding-horizontal="$chrome.space.sm"
+                                padding-vertical="$chrome.space.xs"
+                                background="$chrome.rule">
+                                <Text style="$chrome.type.mono" color="$chrome.chalk">forced</Text>
+                            </VStack>
+                            <Spacer />
+                        </HStack>
+                    </VStack>
+
+                    <Rule />
+
+                    <HStack spacing="$chrome.space.sm" align="center">
+                        <Eyebrow label="WORKSPACE" />
+                        <Text style="$chrome.type.mono" color="$chrome.chalk">apps/studio</Text>
+                    </HStack>
+                    <HStack spacing="$chrome.space.sm" align="center">
+                        <Eyebrow label="FILE" />
+                        <Text style="$chrome.type.mono" color="$chrome.chalk">
+                            screens/DrawerPanes.uix
+                        </Text>
+                    </HStack>
+                    <HStack spacing="$chrome.space.sm" align="center">
+                        <Eyebrow label="SELECTED" />
+                        <Text style="$chrome.type.mono" color="$chrome.chalk">VStack (0.2.1)</Text>
+                    </HStack>
+
+                </Pane>
+
+            </HStack>
+
+        </VStack>
+
+    </ScrollView>
+
+</Screen>

@@ -37,7 +37,8 @@
     },
     "size": {
       "$type": "dimension",
-      "sample": { "$value": "{size.sample}" }
+      "sample": { "$value": "{size.sample}" },
+      "problemBar": { "$value": "{size.problemBar}" }
     },
     "type": {
       "$type": "typography",

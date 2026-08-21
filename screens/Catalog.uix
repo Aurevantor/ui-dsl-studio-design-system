@@ -1,4 +1,8 @@
-<!-- 部品の Variant を並べる見本帳。**絵の完成度ではなく、経路が主題**（#153）——
+<!-- studio-design: Catalog
+     omitted: なし（既存の部品（Eyebrow / Rule / Pane / Problem）の Variant を
+     並べるだけの見本帳で、割愛したものは無い）。
+
+     部品の Variant を並べる見本帳。**絵の完成度ではなく、経路が主題**（#153）——
      Studio の Editor で tokens/*.tokens.json を編集すると、ここが即座に描き直される。
 
      配置は Studio の実物と一致させない（#152 の「守らないもの」）。カンプが決めるのは
