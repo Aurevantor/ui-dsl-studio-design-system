@@ -1,0 +1,33 @@
+<!-- Files ペインの木の 1 行（`.files__item`）。State を持つ 4 種の 1 つ（実測・#153）——
+     :hover と [aria-current='true'] が実物にあるので落とさない。
+
+     selected は「いま開いているファイル」を表す**持続する**状態で、CSS の疑似クラスでは
+     ない（#156 の実測と同じ判断・aria-current / aria-pressed は同型）。State 名を pressed
+     にすると `state-css.ts` の STATE_SELECTORS が `:active` を出し、押している間だけ
+     配色が変わる別物になる（実物は押した後も居座る）。だから独自名にする —— docs/03 §4
+     の「独自の名前 → props 制御 → 疑似クラスに写さない」枠で、`declaredStates` が
+     Object.keys を返すので Inspector には出る。実物に無い focused / pressed / disabled は
+     発明しない（.files__item に :focus-visible の規則は無い）。
+
+     選択に新しい色を足さない —— studio.css の規律どおり、面を rule 色で塗るだけで
+     文字はもともと chalk のまま変わらない。 -->
+<Component name="FilesItem">
+
+    <Props>
+        <Prop name="label" type="string" />
+    </Props>
+
+    <State name="normal" />
+    <State name="hover" background="$filesItem.hoverBackground" />
+    <State name="selected" background="$filesItem.selectedBackground" color="$filesItem.color" />
+
+    <VStack
+        width="fill"
+        padding-horizontal="$filesItem.paddingHorizontal"
+        padding-vertical="$filesItem.paddingVertical">
+
+        <Text style="$filesItem.typography" color="$filesItem.color">{$props.label}</Text>
+
+    </VStack>
+
+</Component>

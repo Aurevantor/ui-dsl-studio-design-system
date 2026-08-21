@@ -30,5 +30,28 @@
     "messageColor": { "$type": "color", "$value": "{chrome.chalk}" },
     "whereTypography": { "$type": "typography", "$value": "{chrome.type.mono}" },
     "whereColor": { "$type": "color", "$value": "{chrome.chalkDim}" }
+  },
+  "filesItem": {
+    "$description": "Files ペインの木の 1 行（`.files__item`）。実測（#153・#155）で State を持つ 4 種の 1 つ。既定は文字だけ chalk、hover / selected は面だけを上げる（新しい色を足さない・.files__item[aria-current='true'] の規律どおり）。selected は aria-current 相当の持続する状態なので、State 名は pressed ではなく独自名にする（#156 と揃える・pressed だと state-css.ts が :active を出し、押している間だけ変わる別物になる）。",
+    "color": { "$type": "color", "$value": "{chrome.chalk}" },
+    "typography": { "$type": "typography", "$value": "{chrome.type.mono}" },
+    "hoverBackground": { "$type": "color", "$value": "{chrome.ruleSoft}" },
+    "selectedBackground": { "$type": "color", "$value": "{chrome.rule}" },
+    "paddingHorizontal": { "$type": "dimension", "$value": "{chrome.space.md}" },
+    "paddingVertical": { "$type": "dimension", "$value": "{chrome.space.xs}" }
+  },
+  "gauge": {
+    "$description": "コンパイル定規（.gauge）の見本。対数目盛は本来 left:% で置くが、カンプに <ForEach> も算術も無いので Grid の等分列で近似する（#155）。ここで決めるのは刻みの色・高さ・ラベルの字組みだけ。",
+    "value": { "$type": "color", "$value": "{chrome.chalk}" },
+    "valueUnit": { "$type": "color", "$value": "{chrome.chalkDim}" },
+    "valueTypography": { "$type": "typography", "$value": "{chrome.type.gaugeValue}" },
+    "tickColor": { "$type": "color", "$value": "{chrome.rule}" },
+    "tickLimitColor": { "$type": "color", "$value": "{chrome.alert}" },
+    "tickWidth": { "$type": "dimension", "$value": "{chrome.stroke.hairline}" },
+    "tickHeight": { "$type": "dimension", "$value": "{chrome.space.sm}" },
+    "tickHeightLimit": { "$type": "dimension", "$value": "{chrome.space.md}" },
+    "labelColor": { "$type": "color", "$value": "{chrome.chalkDim}" },
+    "labelLimitColor": { "$type": "color", "$value": "{chrome.alert}" },
+    "noteColor": { "$type": "color", "$value": "{chrome.chalkDim}" }
   }
 }

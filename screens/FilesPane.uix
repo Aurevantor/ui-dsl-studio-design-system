@@ -1,0 +1,74 @@
+<!-- studio-design: FilesPane
+     omitted: 開いているワークスペースは design 1 つだけなので、ワークスペース間の
+     区切り罫（.files__workspace-block + .files__workspace-block）と .files__empty
+     （0 件のグループ）は描く対象が無い。グループの中身は Prop に配列型が無く
+     Studio の Preview は RenderOptions.data を渡していないため ForEach が使えず
+     （docs/02:474-476）、カンプに要るのは「3 件並んだときの縦の律動」だけなので、
+     実在するファイル名を手で 3+2+1 件並べた（#155）。
+
+     .files（Files ペインの木）の見本。State を持つのは .files__item だけ（#153 の実測）
+     —— hover / selected（aria-current 相当）は FilesItem.uix の <State> として宣言して
+     ある。selected を pressed と名付けない理由は FilesItem.uix のコメントと #156 の実測を
+     参照（:active は実物に 0 本）。配置は Studio の実物と一致させない（#152 の「守らないもの」）。 -->
+<Screen id="files-pane" name="FilesPane" background="$chrome.mat">
+
+    <ScrollView width="fill" height="fill">
+
+        <VStack
+            id="files-body"
+            width="fill"
+            padding="$chrome.space.screen"
+            spacing="$chrome.space.lg"
+            align="stretch">
+
+            <VStack id="cover" spacing="$chrome.space.xs" align="stretch">
+                <Eyebrow label="UI DSL STUDIO — FILES" />
+                <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
+                    ファイル
+                </Text>
+                <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
+                    左ペインの木。ワークスペースの下に Screens / Components / Tokens の
+                    3 グループが並ぶ（空でも消さない規約・tree.ts）。
+                </Text>
+            </VStack>
+
+            <Rule color="$chrome.rule" />
+
+            <VStack id="files-specimen" align="stretch">
+
+                <Pane width="fill" title="FILES">
+
+                    <VStack spacing="$chrome.space.xs" align="stretch">
+                        <Text style="$chrome.type.mono" color="$chrome.chalk">design</Text>
+                        <Text style="$chrome.type.mono" color="$chrome.chalkDim">
+                            apps/studio/design
+                        </Text>
+                    </VStack>
+
+                    <Eyebrow label="SCREENS" />
+                    <VStack align="stretch">
+                        <FilesItem label="Gauge.uix" />
+                        <FilesItem label="FilesPane.uix" />
+                        <FilesItem label="Titlebar.uix" />
+                    </VStack>
+
+                    <Eyebrow label="COMPONENTS" />
+                    <VStack align="stretch">
+                        <FilesItem label="Eyebrow.uix" />
+                        <FilesItem label="Pane.uix" />
+                    </VStack>
+
+                    <Eyebrow label="TOKENS" />
+                    <VStack align="stretch">
+                        <FilesItem label="component.tokens.json" />
+                    </VStack>
+
+                </Pane>
+
+            </VStack>
+
+        </VStack>
+
+    </ScrollView>
+
+</Screen>

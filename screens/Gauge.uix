@@ -1,0 +1,115 @@
+<!-- studio-design: Gauge
+     omitted: 対数目盛は本来 left:% の絶対配置（scalePosition・format.ts）で置くが、
+     カンプに ForEach も算術も無いので Grid の等分列で近似する。6 桁（0.01 / 0.1 / 1 /
+     10 / 100 / 1,000）のうち 0.1 を省いた代表 5 本（0.01 / 1 / 10 / 100 / 1,000）を
+     等間隔に置いた —— ここで決めるのは刻みの色・高さ・ラベルの字組みだけなので損失は
+     小さい（#155）。打鍵ごとに最大 24 点まで積み重なる印（.gauge__mark。古いほど薄く、
+     同じ位置に重なると濃度になる）も同じ理由で描かない —— 履歴データなので静止画には
+     1 つの状態しか置けず、「濃度」という主張自体が動きの中にしかない（#115 と同じ
+     「動きが署名」）。
+
+     .gauge（コンパイル定規）の見本。配置は Studio の実物と一致させない（#152 の
+     「守らないもの」）。State は無い —— .gauge に対話は無いので発明しない。 -->
+<Screen id="gauge" name="Gauge" background="$chrome.mat">
+
+    <ScrollView width="fill" height="fill">
+
+        <VStack
+            id="gauge-body"
+            width="fill"
+            padding="$chrome.space.screen"
+            spacing="$chrome.space.lg"
+            align="stretch">
+
+            <VStack id="cover" spacing="$chrome.space.xs" align="stretch">
+                <Eyebrow label="UI DSL STUDIO — GAUGE" />
+                <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
+                    コンパイル定規
+                </Text>
+                <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
+                    打鍵ごとにコンパイル時間を対数目盛へ落とす署名（docs/01・#115）。
+                    100ms が「1 文字変更 → Preview 更新」の予算。
+                </Text>
+            </VStack>
+
+            <Rule color="$chrome.rule" />
+
+            <VStack
+                id="gauge-specimen"
+                spacing="$chrome.space.sm"
+                padding-vertical="$chrome.space.sm"
+                align="stretch">
+
+                <HStack justify="spaceBetween" align="baseline">
+                    <Eyebrow label="COMPILE" />
+                    <HStack spacing="$chrome.space.xs" align="baseline">
+                        <Text style="$chrome.type.gaugeValue" color="$gauge.value">0.42</Text>
+                        <Text style="$chrome.type.mono" color="$gauge.valueUnit">ms</Text>
+                    </HStack>
+                </HStack>
+
+                <VStack spacing="$chrome.space.xs" align="stretch">
+
+                    <Rule color="$chrome.rule" />
+
+                    <Grid columns="5" align="center">
+
+                        <VStack spacing="$chrome.space.xs" align="center">
+                            <VStack
+                                width="$gauge.tickWidth"
+                                height="$gauge.tickHeight"
+                                background="$gauge.tickColor" />
+                            <Text style="$chrome.type.mono" color="$gauge.labelColor">0.01</Text>
+                        </VStack>
+
+                        <VStack spacing="$chrome.space.xs" align="center">
+                            <VStack
+                                width="$gauge.tickWidth"
+                                height="$gauge.tickHeight"
+                                background="$gauge.tickColor" />
+                            <Text style="$chrome.type.mono" color="$gauge.labelColor">1</Text>
+                        </VStack>
+
+                        <VStack spacing="$chrome.space.xs" align="center">
+                            <VStack
+                                width="$gauge.tickWidth"
+                                height="$gauge.tickHeight"
+                                background="$gauge.tickColor" />
+                            <Text style="$chrome.type.mono" color="$gauge.labelColor">10</Text>
+                        </VStack>
+
+                        <VStack spacing="$chrome.space.xs" align="center">
+                            <VStack
+                                width="$gauge.tickWidth"
+                                height="$gauge.tickHeightLimit"
+                                background="$gauge.tickLimitColor" />
+                            <Text style="$chrome.type.mono" color="$gauge.labelLimitColor">100</Text>
+                        </VStack>
+
+                        <VStack spacing="$chrome.space.xs" align="center">
+                            <VStack
+                                width="$gauge.tickWidth"
+                                height="$gauge.tickHeight"
+                                background="$gauge.tickColor" />
+                            <Text style="$chrome.type.mono" color="$gauge.labelColor">1,000</Text>
+                        </VStack>
+
+                    </Grid>
+
+                </VStack>
+
+                <VStack align="trailing">
+                    <Text style="$chrome.type.mono" color="$gauge.noteColor">
+                        100 ms が 1 文字変更 → Preview 更新の予算（docs/01）
+                    </Text>
+                </VStack>
+
+            </VStack>
+
+            <Rule color="$chrome.rule" />
+
+        </VStack>
+
+    </ScrollView>
+
+</Screen>

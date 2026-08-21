@@ -61,6 +61,15 @@
         },
         "$description": "ファイル名・IR・数値。等幅で読む場所。"
       },
+      "gaugeValue": {
+        "$value": {
+          "fontFamily": "{fontFamily.mono}",
+          "fontSize": "{fontSize.title}",
+          "fontWeight": "regular",
+          "lineHeight": 1
+        },
+        "$description": "ゲージの実測値（.gauge__value）。等幅・大きめ・行送り 1 —— 進捗ではなく一瞬の値なので詰める（#155）。"
+      },
       "body": {
         "$value": {
           "fontFamily": "{fontFamily.sans}",
