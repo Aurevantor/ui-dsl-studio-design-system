@@ -17,6 +17,26 @@
     "padding": { "$type": "dimension", "$value": "{chrome.space.md}" },
     "spacing": { "$type": "dimension", "$value": "{chrome.space.sm}" }
   },
+  "splitter": {
+    "$description": "仕切り（studio.css の `.splitter`）。**State を持つ 4 種の 1 つ**（実測・#153）で、実物にあるのは `:hover` と `:focus-visible` の 2 本だけ —— `:active` も `aria-*` も 0 本なので pressed / selected は宣言しない（#156 と同じ規律）。太さ（6pt）は Token にしない —— #152 の「守らないもの」に `--splitter` が挙がっており、正本は `apps/studio/src/panes.ts` の `SPLITTER_PX` と `studio.css` の `--splitter`（2 か所の一致は containment.test.ts が縛る）。",
+    "background": {
+      "$type": "color",
+      "$value": "{chrome.ruleSoft}",
+      "$description": "安静時の地。弱い罫と同じ色 —— 仕切りは「線が太くなったもの」で、新しい色を足さない。"
+    },
+    "hoverBackground": {
+      "$type": "color",
+      "$value": "{chrome.rule}",
+      "$description": "ポインタが乗ったときの地。**罫 1 段ぶんだけ上がる**（studio.css の .splitter:hover も --rule-soft → --rule）。"
+    },
+    "ring": {
+      "$type": "color",
+      "$value": "{chrome.ruleSoft}",
+      "$description": "**安静時の輪の色 = 仕切り自身の地**（＝見えない）。Toggle と同じ代替だが、こちらは幾何が実物とぴったり一致する —— 実物の輪は `outline: 2px solid var(--chalk)` + `outline-offset: -2px` で **6pt の外側 2pt を内側から塗る**ので、芯 2pt + 輪 2pt × 2 = 6pt がそのまま同じ絵になる。"
+    },
+    "ringFocus": { "$type": "color", "$value": "{chrome.chalk}" },
+    "ringWidth": { "$type": "dimension", "$value": "{chrome.stroke.ring}" }
+  },
   "problem": {
     "$description": "診断 1 行（Diagnostics の見本）。severity は色ではなく種別が軸（#79）—— studio.css は error/warning だけ色を変え、info は既定の chalkDim のまま（packages/compiler/src/diagnostics.ts の Severity が持つ非対称をそのまま引き継ぐ）。",
     "infoColor": { "$type": "color", "$value": "{chrome.chalkDim}" },

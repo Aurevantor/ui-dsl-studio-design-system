@@ -1,0 +1,67 @@
+<!-- 仕切り。`studio.css` の `.splitter`（実体は `<button>`）に当たる部品で、
+     **State を持つ 4 種の 1 つ**（実測・#153）。
+
+     ## 何を決める部品なのか
+
+     仕切りは「線が太くなったもの」——**新しい色を足さない**。地は弱い罫と同じ
+     `$chrome.ruleSoft` で、ポインタが乗ると罫 1 段ぶんだけ上がる（`$chrome.rule`）。
+     太さ（6pt）は Token にしない —— #152 の「守らないもの」に `--splitter` が
+     挙がっており、正本は `apps/studio/src/panes.ts` の `SPLITTER_PX` と
+     `studio.css` の `--splitter`（2 か所の一致は `containment.test.ts` が縛る）。
+     ここに在るのは代表 1 例の写しで、`Specimen.uix` が iPhone の 375 × 812 を
+     Token にしていないのと同じ扱い。
+
+     ## State は normal / hover / focused の 3 つ（実測・#156 と同じ数え方）
+
+     `studio.css` の `.splitter` に在る対話の引き金は **`:hover` 1 本と
+     `:focus-visible` 1 本だけ**。`:active` も `aria-pressed` / `aria-current` も
+     0 本なので、`pressed` も `selected` も宣言しない（#153「実物に無い State を
+     発明しない」）。とくに `pressed` は書くと害がある —— `state-css.ts` の
+     `STATE_SELECTORS` が `:active` を出すので、**押し下げている間だけ**配色が変わる
+     絵になり、しかも Inspector で強制表示すれば正しく見えるので気づけない（#131 族）。
+
+     ## 焦点の輪は、ここだけ幾何が実物と一致する
+
+     `Toggle.uix` と同じく UIX に `outline` が無いので `borderColor` / `borderWidth` で
+     代替し、**安静時に地と同色の輪を置いて `focused` で色だけ差し替える**
+     （素直に足すと箱が 4pt 太る —— `packages/renderer-web/src/styles.ts` は
+     `box-sizing` を出さない）。
+
+     ただし Toggle では「輪のぶんの厚みは実物に無い」という妥協が残るのに対し、
+     **仕切りでは妥協が要らない** —— 実物の輪は
+     `outline: 2px solid var(--chalk)` + `outline-offset: -2px` で、
+     **6pt の外側 2pt を内側から塗る**。つまり芯 2pt + 輪 2pt × 2 = 6pt が
+     そのまま同じ絵になる。`hover` が地と輪の両方を塗るのはこのため —— 実物は
+     `background-color` を 6pt 全部に掛けるので、芯だけ塗ると 2pt の縞に見える。
+
+     ## 軸の名前は `Rule.uix` に揃える（`studio.css` とは逆になる）
+
+     `axis="vertical"` は**縦に立つ棒**（列を分ける）。`studio.css` は分ける対象で
+     名前を付けていて `.splitter--column` が縦の棒なので、**綴りが入れ替わって見える**。
+     カンプの中では `Rule` と揃えるほうを採った（同じ画面に両方が並ぶため）。
+     既定を `vertical` にしてあるのは実物の 4 本のうち 3 本が縦だから ——
+     `Rule` の既定（`horizontal`）とは逆なので、`Shell.uix` では毎回明示して書く。 -->
+<Component name="Splitter">
+
+    <Props>
+        <Prop name="axis" type="string" default="vertical" />
+    </Props>
+
+    <!-- 2 は芯（6pt から輪 2 本ぶんを引いた残り）。上のコメントのとおり Token にしない。 -->
+    <Variant on="axis" name="vertical" width="2" height="fill" />
+    <Variant on="axis" name="horizontal" width="fill" height="2" />
+
+    <State name="normal" />
+    <State name="hover"
+           background="$splitter.hoverBackground"
+           borderColor="$splitter.hoverBackground" />
+    <State name="focused" borderColor="$splitter.ringFocus" />
+
+    <VStack
+        width="{$variant.width}"
+        height="{$variant.height}"
+        background="$splitter.background"
+        borderColor="$splitter.ring"
+        borderWidth="$splitter.ringWidth" />
+
+</Component>
