@@ -17,10 +17,11 @@ Preview を見ながら配色・間隔・字組みを決めるための絵。
 | 守らないもの | なぜ |
 |---|---|
 | **ピクセル**（VRT を張らない） | カンプは**変えるためのもの**。配色を試すたびに golden を焼き直すと、基準画像が「意図した変更」で埋まって**検出力がゼロになる**（`golden-testing`） |
-| **カンプと `studio.css` の一致** | 機械で縛るとカンプの用途（試す）が消える。一致は Token の橋が**一方向に**運ぶ |
+| **カンプと `studio.css` の一致** | 機械で縛るとカンプの用途（試す）が消える。一致は Token の橋が**一方向に**運ぶ（色 9 件 + 字組みの尺度 25 件・#158 / #204） |
 | **カンプの配置と実物の配置** | カンプが決めるのは配色・間隔・字組みで、レイアウトの正本ではない |
 | **`--splitter` / `--age`** | 前者は `apps/studio/src/panes.ts` の `SPLITTER_PX` と対（`containment.test.ts` が一致を縛る）、後者は打鍵ごとに変わる実行時の値 |
-| **`text-transform` / `font-variant-numeric`** | DTCG にも IR の `TypographyValue`（`packages/ir/src/value.ts`。5 つしか無い）にも無い。大文字にするのは**書き手の仕事**で、`<Eyebrow label="FILES" />` のように綴りで書く |
+| **`text-transform`** | DTCG にも IR の `TypographyValue`（`packages/ir/src/value.ts`。5 つしか無い）にも無い。大文字にするのは**書き手の仕事**で、`<Eyebrow label="FILES" />` のように綴りで書く。**`studio.css` に残る手書きはこの 2 件だけ**（#204。`containment.test.ts` が理由つきで固定している） |
+| **`font-variant-numeric`** | 同じく持てないが、**#204 で `studio.css` から消した** —— 5 件とも等幅の上にあり、実測で幅もピクセルも 1px 変わらなかった（docs/04 §8） |
 
 **逆に、機械で縛ってあるものは 4 つだけ**（`apps/studio/src/design.test.tsx`）——
 ①画面と部品が実在する ②診断 0 件 ③**描いて** `RenderIssue` 0 件
@@ -116,6 +117,25 @@ make push WS=apps/studio/design
 `tokens/primitive.tokens.json` → `semantic.tokens.json` → `component.tokens.json`
 （docs/04 §1）。画面と部品が読むのは **semantic（`chrome.*`）と component** で、
 primitive は直接参照しない。
+
+**字組みだけ semantic の中でもう 1 段ある**（#204）:
+
+```text
+fontSize.eyebrow            （primitive・生の 10px）
+  → chrome.fontSize.eyebrow （尺度。**`:root` に出るのはここ**）
+    → chrome.type.eyebrow   （役。画面と部品はここを読む）
+      → eyebrow.typography  （component）
+```
+
+**役（`chrome.type.*`）の `fontSize` / `lineHeight` / `letterSpacing` は必ず尺度を alias する。**
+裸の数値を書くと ①尺度を通らないので `:root` に出ず、カンプにだけ値が生まれる
+②行送りは 4 以下だと**倍率として畳まれる**（`lineHeight: 3` は 3pt ではなく 30pt）——
+**どちらも診断 0 件で通る**ので、`tools/studio-design-tokens.test.ts` が構造として縛っている。
+
+**行送りは px で持つ**（倍率ではない）。`toTypography` は倍率を受けると `fontSize` を掛けて
+畳むので Token の真実はどのみち px で、px で書けば畳まれず、上の 4 以下の分岐にも入らない。
+**px にすると継承の意味が変わる** —— 無単位は係数として、px は長さとして継承するので、
+親の行送りを px にしたら**大きさの違う子が自分の行送りを持つ必要がある**（docs/04 §8）。
 
 `chrome.*` に切ってあるのは、標準の Design System（`color.action.primary` など）と
 **名前が 1 つも交わらない**ようにするため —— 客も依存も違う 3 つ目の Token 集合である

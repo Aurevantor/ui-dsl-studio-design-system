@@ -37,6 +37,11 @@
             <HStack id="drawer-specimen" spacing="$chrome.space.md" align="stretch">
 
                 <Pane width="fill" title="DIAGNOSTICS">
+                    <Text style="$chrome.type.paneBody" color="$chrome.chalkDim">
+                        ペインの地の文はここ（.problems / .inspector）。等幅ではなく sans で、
+                        道具が人に話す声。
+                    </Text>
+                    <Rule color="$chrome.ruleSoft" />
                     <Problem
                         severity="error"
                         code="semantic.unknown-token"
@@ -54,6 +59,10 @@
                         code="token.shadowed-path"
                         message="'chrome.mat' は別のワークスペースの定義を上書きしています。"
                         where="tokens/component.tokens.json:3:3" />
+                    <Rule color="$chrome.ruleSoft" />
+                    <!-- 空のとき（.problems__clear）。**空も 1 件の知らせ**なので、
+                         診断の本文と同じ大きさで書く。 -->
+                    <Text style="$chrome.type.emptyNote" color="$chrome.chalkDim">問題なし。</Text>
                 </Pane>
 
                 <Rule axis="vertical" />
@@ -64,19 +73,19 @@
                         <Eyebrow label="STATE" />
                         <HStack spacing="$chrome.space.xs" align="center">
                             <VStack padding-horizontal="$chrome.space.sm" padding-vertical="$chrome.space.xs">
-                                <Text style="$chrome.type.mono" color="$chrome.chalkDim">none</Text>
+                                <Text style="$chrome.type.toggle" color="$chrome.chalkDim">none</Text>
                             </VStack>
                             <VStack
                                 padding-horizontal="$chrome.space.sm"
                                 padding-vertical="$chrome.space.xs"
                                 background="$chrome.ruleSoft">
-                                <Text style="$chrome.type.mono" color="$chrome.chalkDim">hover</Text>
+                                <Text style="$chrome.type.toggle" color="$chrome.chalkDim">hover</Text>
                             </VStack>
                             <VStack
                                 padding-horizontal="$chrome.space.sm"
                                 padding-vertical="$chrome.space.xs"
                                 background="$chrome.rule">
-                                <Text style="$chrome.type.mono" color="$chrome.chalk">forced</Text>
+                                <Text style="$chrome.type.toggle" color="$chrome.chalk">forced</Text>
                             </VStack>
                             <Spacer />
                         </HStack>
@@ -98,6 +107,31 @@
                         <Eyebrow label="SELECTED" />
                         <Text style="$chrome.type.mono" color="$chrome.chalk">VStack (0.2.1)</Text>
                     </HStack>
+
+                    <!-- Token の解決の連鎖（.inspector__chain）。値そのものではなく経路なので、
+                         値（mono）より 1 段落とす。 -->
+                    <VStack spacing="$chrome.space.tight" align="stretch">
+                        <HStack spacing="$chrome.space.sm" align="center">
+                            <Eyebrow label="BACKGROUND" />
+                            <Text style="$chrome.type.mono" color="$chrome.chalk">#14201e</Text>
+                        </HStack>
+                        <Text style="$chrome.type.chain" color="$chrome.chalkDim">
+                            chrome.mat → teal.900
+                        </Text>
+                    </VStack>
+
+                    <!-- 定義へ跳ぶ（.inspector__jump）。値と同じ等幅の声。 -->
+                    <Text style="$chrome.type.mono" color="$chrome.chalk">→ 定義へ</Text>
+
+                    <Rule />
+
+                    <!-- **この台で唯一の「読ませる散文」**（.inspector__note）。
+                         行送りがいちばんゆるいのはそのため。 -->
+                    <Text style="$chrome.type.note" color="$chrome.chalkDim">
+                        選択した節点の Props / Layout / Style は、実行時に決まる値なので
+                        ここには描かない。この注記は行送りをいちばんゆるく取る唯一の場所で、
+                        2 行以上になったときに読めるかどうかで決める。
+                    </Text>
 
                 </Pane>
 

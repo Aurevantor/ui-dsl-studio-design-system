@@ -78,11 +78,11 @@
                     padding-horizontal="$chrome.space.md"
                     padding-vertical="$chrome.space.sm"
                     align="baseline">
-                    <Text style="$chrome.type.eyebrow" color="$chrome.chalk">UI DSL Studio</Text>
+                    <Text style="$chrome.type.mark" color="$chrome.chalk">UI DSL Studio</Text>
                     <Text style="$chrome.type.mono" color="$chrome.chalk">screens/Shell.uix</Text>
-                    <Text style="$chrome.type.mono" color="$chrome.chalkDim">uix dev push #3</Text>
+                    <Text style="$chrome.type.link" color="$chrome.chalkDim">uix dev push #3</Text>
                     <Spacer />
-                    <Text style="$chrome.type.mono" color="$chrome.chalkDim">
+                    <Text style="$chrome.type.meta" color="$chrome.chalkDim">
                         184 IR nodes 62 tokens
                     </Text>
                 </HStack>
@@ -100,8 +100,8 @@
                     align="center">
                     <Eyebrow label="COMPILE" />
                     <HStack spacing="$chrome.space.xs" shrink="0" align="baseline">
-                        <Text style="$chrome.type.mono" color="$chrome.chalk">0.42</Text>
-                        <Text style="$chrome.type.mono" color="$chrome.chalkDim">ms</Text>
+                        <Text style="$chrome.type.gaugeValue" color="$chrome.chalk">0.42</Text>
+                        <Text style="$chrome.type.gaugeUnit" color="$chrome.chalkDim">ms</Text>
                     </HStack>
                     <Rule color="$chrome.rule" />
                 </HStack>
@@ -226,7 +226,7 @@
                             padding-vertical="$chrome.space.sm"
                             align="baseline">
                             <Eyebrow label="DIAGNOSTICS" />
-                            <Text style="$chrome.type.mono" color="$chrome.chalk">2</Text>
+                            <Text style="$chrome.type.paneNote" color="$chrome.chalk">2</Text>
                         </HStack>
                         <Rule color="$chrome.ruleSoft" />
                         <VStack

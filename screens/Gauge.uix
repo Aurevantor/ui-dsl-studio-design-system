@@ -43,8 +43,8 @@
                 <HStack justify="spaceBetween" align="baseline">
                     <Eyebrow label="COMPILE" />
                     <HStack spacing="$chrome.space.xs" align="baseline">
-                        <Text style="$chrome.type.gaugeValue" color="$gauge.value">0.42</Text>
-                        <Text style="$chrome.type.mono" color="$gauge.valueUnit">ms</Text>
+                        <Text style="$gauge.valueTypography" color="$gauge.value">0.42</Text>
+                        <Text style="$gauge.valueUnitTypography" color="$gauge.valueUnit">ms</Text>
                     </HStack>
                 </HStack>
 
@@ -59,7 +59,7 @@
                                 width="$gauge.tickWidth"
                                 height="$gauge.tickHeight"
                                 background="$gauge.tickColor" />
-                            <Text style="$chrome.type.mono" color="$gauge.labelColor">0.01</Text>
+                            <Text style="$gauge.labelTypography" color="$gauge.labelColor">0.01</Text>
                         </VStack>
 
                         <VStack spacing="$chrome.space.xs" align="center">
@@ -67,7 +67,7 @@
                                 width="$gauge.tickWidth"
                                 height="$gauge.tickHeight"
                                 background="$gauge.tickColor" />
-                            <Text style="$chrome.type.mono" color="$gauge.labelColor">1</Text>
+                            <Text style="$gauge.labelTypography" color="$gauge.labelColor">1</Text>
                         </VStack>
 
                         <VStack spacing="$chrome.space.xs" align="center">
@@ -75,7 +75,7 @@
                                 width="$gauge.tickWidth"
                                 height="$gauge.tickHeight"
                                 background="$gauge.tickColor" />
-                            <Text style="$chrome.type.mono" color="$gauge.labelColor">10</Text>
+                            <Text style="$gauge.labelTypography" color="$gauge.labelColor">10</Text>
                         </VStack>
 
                         <VStack spacing="$chrome.space.xs" align="center">
@@ -83,7 +83,7 @@
                                 width="$gauge.tickWidth"
                                 height="$gauge.tickHeightLimit"
                                 background="$gauge.tickLimitColor" />
-                            <Text style="$chrome.type.mono" color="$gauge.labelLimitColor">100</Text>
+                            <Text style="$gauge.labelTypography" color="$gauge.labelLimitColor">100</Text>
                         </VStack>
 
                         <VStack spacing="$chrome.space.xs" align="center">
@@ -91,7 +91,7 @@
                                 width="$gauge.tickWidth"
                                 height="$gauge.tickHeight"
                                 background="$gauge.tickColor" />
-                            <Text style="$chrome.type.mono" color="$gauge.labelColor">1,000</Text>
+                            <Text style="$gauge.labelTypography" color="$gauge.labelColor">1,000</Text>
                         </VStack>
 
                     </Grid>
@@ -99,7 +99,7 @@
                 </VStack>
 
                 <VStack align="trailing">
-                    <Text style="$chrome.type.mono" color="$gauge.noteColor">
+                    <Text style="$gauge.noteTypography" color="$gauge.noteColor">
                         100 ms が 1 文字変更 → Preview 更新の予算（docs/01）
                     </Text>
                 </VStack>

@@ -41,27 +41,27 @@
                     padding-vertical="$chrome.space.sm"
                     align="center">
 
-                    <Text style="$chrome.type.eyebrow" color="$chrome.chalk">UI DSL Studio</Text>
+                    <Text style="$chrome.type.mark" color="$chrome.chalk">UI DSL Studio</Text>
 
                     <Text style="$chrome.type.mono" color="$chrome.chalk">
                         screens/Titlebar.uix
                     </Text>
 
                     <HStack spacing="$chrome.space.xs" align="center">
-                        <Text style="$chrome.type.mono" color="$chrome.chalkDim">uix dev</Text>
-                        <Text style="$chrome.type.mono" color="$chrome.chalk">push #3</Text>
+                        <Text style="$chrome.type.link" color="$chrome.chalkDim">uix dev</Text>
+                        <Text style="$chrome.type.link" color="$chrome.chalk">push #3</Text>
                     </HStack>
 
                     <Spacer />
 
                     <HStack spacing="$chrome.space.lg" align="center">
                         <HStack spacing="$chrome.space.xs" align="center">
-                            <Text style="$chrome.type.mono" color="$chrome.chalk">12</Text>
-                            <Text style="$chrome.type.mono" color="$chrome.chalkDim">IR nodes</Text>
+                            <Text style="$chrome.type.meta" color="$chrome.chalk">12</Text>
+                            <Text style="$chrome.type.meta" color="$chrome.chalkDim">IR nodes</Text>
                         </HStack>
                         <HStack spacing="$chrome.space.xs" align="center">
-                            <Text style="$chrome.type.mono" color="$chrome.chalk">48</Text>
-                            <Text style="$chrome.type.mono" color="$chrome.chalkDim">tokens</Text>
+                            <Text style="$chrome.type.meta" color="$chrome.chalk">48</Text>
+                            <Text style="$chrome.type.meta" color="$chrome.chalkDim">tokens</Text>
                         </HStack>
                     </HStack>
 

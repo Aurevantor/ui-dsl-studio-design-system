@@ -184,7 +184,7 @@
                         <Specimen theme="light" />
                         <HStack width="fill" spacing="$chrome.space.md" align="center">
                             <Rule color="$chrome.rule" />
-                            <Text style="$chrome.type.toggle" color="$chrome.chalkDim">
+                            <Text style="$chrome.type.dimension" color="$chrome.chalkDim">
                                 375 × 812 pt
                             </Text>
                             <Rule color="$chrome.rule" />
@@ -196,11 +196,27 @@
                         <Specimen theme="dark" />
                         <HStack width="fill" spacing="$chrome.space.md" align="center">
                             <Rule color="$chrome.rule" />
-                            <Text style="$chrome.type.toggle" color="$chrome.chalkDim">
+                            <Text style="$chrome.type.dimension" color="$chrome.chalkDim">
                                 375 × 812 pt
                             </Text>
                             <Rule color="$chrome.rule" />
                         </HStack>
+                    </VStack>
+
+                    <!-- 描けなかったとき（.specimen__failure）。**箱が空になるのではなく
+                         文章が出る**ので、地の上で読める声を決めておく必要がある。 -->
+                    <VStack spacing="$chrome.space.sm" align="stretch">
+                        <Eyebrow label="描けないとき" />
+                        <VStack
+                            width="180"
+                            padding="$chrome.space.md"
+                            borderColor="$chrome.hairline"
+                            borderWidth="$specimen.frameWidth"
+                            radius="$chrome.radius.pane">
+                            <Text style="$chrome.type.failure" color="$chrome.chalkDim">
+                                この画面は描けませんでした。診断を見てください。
+                            </Text>
+                        </VStack>
                     </VStack>
 
                     <Spacer />

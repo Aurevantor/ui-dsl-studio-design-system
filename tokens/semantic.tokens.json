@@ -133,71 +133,258 @@
         "$description": "標本の箱を作業面から浮かせる影。"
       }
     },
+    "fontSize": {
+      "$type": "dimension",
+      "$description": "字の大きさの尺度。**`:root` に出るのはこの層**（#204）—— 役（type.*）はここを参照するので、尺度を 1 件動かすとカンプと studio.css が同時に動く。8 段すべてに印が付いているのは、実物が 8 段とも使っているから（印の意味は docs/04 §8）。",
+      "tick": { "$value": "{fontSize.tick}", "$extensions": { "ui-dsl.studio-css": true } },
+      "eyebrow": { "$value": "{fontSize.eyebrow}", "$extensions": { "ui-dsl.studio-css": true } },
+      "note": { "$value": "{fontSize.note}", "$extensions": { "ui-dsl.studio-css": true } },
+      "body": { "$value": "{fontSize.body}", "$extensions": { "ui-dsl.studio-css": true } },
+      "mono": { "$value": "{fontSize.mono}", "$extensions": { "ui-dsl.studio-css": true } },
+      "code": { "$value": "{fontSize.code}", "$extensions": { "ui-dsl.studio-css": true } },
+      "message": { "$value": "{fontSize.message}", "$extensions": { "ui-dsl.studio-css": true } },
+      "title": { "$value": "{fontSize.title}", "$extensions": { "ui-dsl.studio-css": true } }
+    },
+    "tracking": {
+      "$type": "dimension",
+      "$description": "字送りの尺度。**px で出す**（#204）—— studio.css は em で書いていたが、IR は UI Point 固定なので em のままだと大きさを変えたときに 2 つが割れる。px に揃えると「追随しない」がカンプ側から一元的に決まる。",
+      "code": { "$value": "{tracking.code}", "$extensions": { "ui-dsl.studio-css": true } },
+      "gaugeNote": {
+        "$value": "{tracking.gaugeNote}",
+        "$extensions": { "ui-dsl.studio-css": true }
+      },
+      "link": { "$value": "{tracking.link}", "$extensions": { "ui-dsl.studio-css": true } },
+      "toggle": { "$value": "{tracking.toggle}", "$extensions": { "ui-dsl.studio-css": true } },
+      "tick": { "$value": "{tracking.tick}", "$extensions": { "ui-dsl.studio-css": true } },
+      "problemCode": {
+        "$value": "{tracking.problemCode}",
+        "$extensions": { "ui-dsl.studio-css": true }
+      },
+      "dimension": {
+        "$value": "{tracking.dimension}",
+        "$extensions": { "ui-dsl.studio-css": true }
+      },
+      "eyebrow": { "$value": "{tracking.eyebrow}", "$extensions": { "ui-dsl.studio-css": true } },
+      "mark": { "$value": "{tracking.mark}", "$extensions": { "ui-dsl.studio-css": true } }
+    },
+    "leading": {
+      "$type": "dimension",
+      "$description": "行送りの尺度。**8 段のうち印が付くのは 6 段**で、body（表紙の説明文）と title（表紙の題）は studio.css に対応する規則が無いカンプ専用（色で hairline / wash などに印が付かないのと同じ形）。",
+      "eyebrow": { "$value": "{leading.eyebrow}", "$extensions": { "ui-dsl.studio-css": true } },
+      "paneNote": { "$value": "{leading.paneNote}", "$extensions": { "ui-dsl.studio-css": true } },
+      "gaugeUnit": {
+        "$value": "{leading.gaugeUnit}",
+        "$extensions": { "ui-dsl.studio-css": true }
+      },
+      "body": { "$value": "{leading.body}" },
+      "gaugeValue": {
+        "$value": "{leading.gaugeValue}",
+        "$extensions": { "ui-dsl.studio-css": true }
+      },
+      "failure": { "$value": "{leading.failure}", "$extensions": { "ui-dsl.studio-css": true } },
+      "code": { "$value": "{leading.code}", "$extensions": { "ui-dsl.studio-css": true } },
+      "message": { "$value": "{leading.message}", "$extensions": { "ui-dsl.studio-css": true } },
+      "note": { "$value": "{leading.note}", "$extensions": { "ui-dsl.studio-css": true } },
+      "title": { "$value": "{leading.title}" }
+    },
     "type": {
       "$type": "typography",
+      "$description": "声。**副値は必ず尺度（chrome.fontSize / tracking / leading）を参照する**（#204）—— 裸の数値を書くと ①尺度を通らないので `:root` に出ず、カンプにだけ値が生まれる ②行送りは 4 以下だと倍率として畳まれる（`lineHeight: 3` は 3pt ではなく 30pt）、の 2 つをどちらも診断 0 件で踏む。参照であることは containment.test.ts が縛る。書体と太さは尺度を持たない（橋の対象外・docs/04 §8）。",
       "eyebrow": {
         "$value": {
           "fontFamily": "{fontFamily.mono}",
-          "fontSize": "{fontSize.eyebrow}",
+          "fontSize": "{chrome.fontSize.eyebrow}",
           "fontWeight": "regular",
-          "lineHeight": 1,
-          "letterSpacing": "{tracking.eyebrow}"
+          "lineHeight": "{chrome.leading.eyebrow}",
+          "letterSpacing": "{chrome.tracking.eyebrow}"
         },
-        "$description": "道具に印刷された文字。見出し・単位・ラベルはすべてこの声で書く。大文字にするのは書き手の仕事 —— text-transform は DTCG にも IR の TypographyValue にも無い（#152）。ここに書くと token.unknown-key（error）になる（#173）。"
+        "$description": "道具に印刷された文字。見出し・単位・ラベルはすべてこの声で書く。大文字にするのは書き手の仕事 —— text-transform は DTCG にも IR の TypographyValue にも無い（#152）。ここに書くと token.unknown-key（error）になる（#173）。studio.css では .eyebrow / .titlebar__mark / .pane__head / .files__group / .inspector__list dt の 5 セレクタが共有する。"
+      },
+      "mark": {
+        "$value": {
+          "fontFamily": "{fontFamily.mono}",
+          "fontSize": "{chrome.fontSize.eyebrow}",
+          "fontWeight": "regular",
+          "lineHeight": "{chrome.leading.eyebrow}",
+          "letterSpacing": "{chrome.tracking.mark}"
+        },
+        "$description": "道具の名前（.titlebar__mark）。眉との違いは字送りだけ（1.6 → 2.2）だが、**役として持つ** —— studio.css 側は眉からの差分 1 行で書いており、その 1 行がこの Token に対応する。"
       },
       "mono": {
         "$value": {
           "fontFamily": "{fontFamily.mono}",
-          "fontSize": "{fontSize.mono}",
-          "fontWeight": "regular",
-          "lineHeight": 1.45
+          "fontSize": "{chrome.fontSize.mono}"
         },
-        "$description": "ファイル名・IR・数値。等幅で読む場所。"
+        "$description": "ファイル名・IR・値。等幅で読む場所（.titlebar__file / .files / .inspector__list dd / .inspector__jump）。**行送りを持たない** —— studio.css のどの規則も line-height を書いておらず、持たせると実物より詰まった絵になる（#204 でカンプ側を実物に合わせた）。"
+      },
+      "meta": {
+        "$value": {
+          "fontFamily": "{fontFamily.mono}",
+          "fontSize": "{chrome.fontSize.body}"
+        },
+        "$description": "編集中ほとんど動かない数（.titlebar__meta の IR ノード数・Token 数）。mono より半段小さい。"
+      },
+      "gaugeUnit": {
+        "$value": {
+          "fontFamily": "{fontFamily.mono}",
+          "fontSize": "{chrome.fontSize.body}",
+          "lineHeight": "{chrome.leading.gaugeUnit}"
+        },
+        "$description": "ゲージの単位（.gauge__value の中の ms）。meta と同じ大きさだが**行送りを自分で持つ** —— 実測値（18px / 行送り 18px）の中に居るので、持たないと親の行送りを長さとして継ぐ（#204）。"
+      },
+      "link": {
+        "$value": {
+          "fontFamily": "{fontFamily.mono}",
+          "fontSize": "{chrome.fontSize.body}",
+          "letterSpacing": "{chrome.tracking.link}"
+        },
+        "$description": "uix dev に繋がっているか（.titlebar__link）。**未接続を alert で塗らない**（繋いでいないのはふつうの状態）ので、色ではなく字送りで他と区別する。"
       },
       "gaugeValue": {
         "$value": {
           "fontFamily": "{fontFamily.mono}",
-          "fontSize": "{fontSize.title}",
+          "fontSize": "{chrome.fontSize.title}",
           "fontWeight": "regular",
-          "lineHeight": 1
+          "lineHeight": "{chrome.leading.gaugeValue}"
         },
         "$description": "ゲージの実測値（.gauge__value）。等幅・大きめ・行送り 1 —— 進捗ではなく一瞬の値なので詰める（#155）。"
       },
-      "code": {
+      "tick": {
         "$value": {
           "fontFamily": "{fontFamily.mono}",
-          "fontSize": "{fontSize.code}",
+          "fontSize": "{chrome.fontSize.tick}",
           "fontWeight": "regular",
-          "lineHeight": "{lineHeight.code}",
-          "letterSpacing": "{tracking.code}"
+          "letterSpacing": "{chrome.tracking.tick}"
         },
-        "$description": "Editor が書く文書そのもの。**mono とは別に持つ** —— こちらは読む字ではなく書く字で、行送り（1.6）も字送り（0）も別に決める。色は 1 色（chalk）で、語の色分け（editor/ink.ts の 5 色）はカンプに持ち込まない（#152）。"
+        "$description": "ゲージの目盛ラベル（.gauge__decade-label）。この台でいちばん小さい字で、対数の桁を読ませるだけ。"
+      },
+      "gaugeNote": {
+        "$value": {
+          "fontFamily": "{fontFamily.mono}",
+          "fontSize": "{chrome.fontSize.eyebrow}",
+          "letterSpacing": "{chrome.tracking.gaugeNote}"
+        },
+        "$description": "ゲージの注記（.gauge__note）。眉と同じ大きさだが字送りが狭い —— 印刷されたラベルではなく、読ませる短文。"
+      },
+      "paneNote": {
+        "$value": {
+          "fontFamily": "{fontFamily.mono}",
+          "fontSize": "{chrome.fontSize.note}",
+          "lineHeight": "{chrome.leading.paneNote}",
+          "letterSpacing": "{chrome.tracking.code}"
+        },
+        "$description": "ペインの見出しに添える数や位置（.pane__note）。**眉の中に居る**ので、字送り 0 と text-transform: none で打ち消す（打ち消しの片方だけが Token に乗る —— text-transform は #173 の決裁で足さない）。"
+      },
+      "filesRoot": {
+        "$value": {
+          "fontFamily": "{fontFamily.mono}",
+          "fontSize": "{chrome.fontSize.eyebrow}"
+        },
+        "$description": "Files のワークスペースの実パス（.files__root）。ワークスペース名（mono）より 1 段落とす。"
       },
       "toggle": {
         "$value": {
           "fontFamily": "{fontFamily.mono}",
-          "fontSize": "{fontSize.eyebrow}",
-          "fontWeight": "regular",
-          "lineHeight": 1,
-          "letterSpacing": "{tracking.toggle}"
+          "fontSize": "{chrome.fontSize.eyebrow}",
+          "letterSpacing": "{chrome.tracking.toggle}"
         },
-        "$description": "押せるものの字。眉と同じ大きさだが字送りが狭い（0.6px 対 1.6px）—— 眉は印刷された label、こちらは押すと変わる語なので、一続きの単語として読ませる。"
+        "$description": "押せる語（.device-bar__button / .inspector__state）。眉と同じ大きさだが字送りが狭い（0.6 対 1.6）—— 眉は印刷された label、こちらは押すと変わる語なので、一続きの単語として読ませる。"
+      },
+      "dimension": {
+        "$value": {
+          "fontFamily": "{fontFamily.mono}",
+          "fontSize": "{chrome.fontSize.eyebrow}",
+          "letterSpacing": "{chrome.tracking.dimension}"
+        },
+        "$description": "寸法線の数（.dimension__value）。眉と押せる語の中間の字送りで、図面の注記の声。"
+      },
+      "problemCode": {
+        "$value": {
+          "fontFamily": "{fontFamily.mono}",
+          "fontSize": "{chrome.fontSize.eyebrow}",
+          "letterSpacing": "{chrome.tracking.problemCode}"
+        },
+        "$description": "診断コード（.problem__code）。機械が付けた識別子なので等幅・小さく・字送りを開ける。"
+      },
+      "problemWhere": {
+        "$value": {
+          "fontFamily": "{fontFamily.mono}",
+          "fontSize": "{chrome.fontSize.note}"
+        },
+        "$description": "診断の位置（.problem__where）。ファイル名と行桁。"
+      },
+      "code": {
+        "$value": {
+          "fontFamily": "{fontFamily.mono}",
+          "fontSize": "{chrome.fontSize.code}",
+          "fontWeight": "regular",
+          "lineHeight": "{chrome.leading.code}",
+          "letterSpacing": "{chrome.tracking.code}"
+        },
+        "$description": "Editor が書く文書そのもの。**mono とは別に持つ** —— こちらは読む字ではなく書く字で、行送り（19.2）も字送り（0）も別に決める。色は 1 色（chalk）で、語の色分け（editor/ink.ts の 5 色）はカンプに持ち込まない（#152）。実物の受け手は studio.css ではなく apps/studio/src/editor/theme.ts で、カスタムプロパティが shadow root を越えて届く（#204）。"
+      },
+      "paneBody": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontSize": "{chrome.fontSize.code}"
+        },
+        "$description": "ペインの地の文（.problems / .inspector）。Editor の本文と同じ大きさだが sans —— 等幅は「機械が書いたもの」の声なので、道具が人に話す文には使わない。"
+      },
+      "problemMessage": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontSize": "{chrome.fontSize.message}",
+          "lineHeight": "{chrome.leading.message}"
+        },
+        "$description": "診断の本文（.problem__message）。この台でいちばん大きい本文で、行送りも持つ —— 唯一「必ず読ませたい」文。"
+      },
+      "emptyNote": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontSize": "{chrome.fontSize.message}"
+        },
+        "$description": "診断が 1 件も無いときの一言（.problems__clear の「問題なし。」）。診断の本文と同じ大きさ —— 空であることも 1 件の知らせなので、小さくしない。"
+      },
+      "failure": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontSize": "{chrome.fontSize.mono}",
+          "lineHeight": "{chrome.leading.failure}"
+        },
+        "$description": "標本が描けなかったときの説明（.specimen__failure）。"
+      },
+      "note": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontSize": "{chrome.fontSize.mono}",
+          "lineHeight": "{chrome.leading.note}"
+        },
+        "$description": "Inspector の注記（.inspector__note）。**この台でいちばんゆるい行送り**（1.7）—— 唯一の読ませる散文。"
+      },
+      "chain": {
+        "$value": {
+          "fontFamily": "{fontFamily.sans}",
+          "fontSize": "{chrome.fontSize.eyebrow}"
+        },
+        "$description": "Token の解決の連鎖（.inspector__chain の chrome.mat → teal.900）。値そのものではなく経路なので、値（mono）より落とす。"
       },
       "body": {
         "$value": {
           "fontFamily": "{fontFamily.sans}",
-          "fontSize": "{fontSize.body}",
+          "fontSize": "{chrome.fontSize.body}",
           "fontWeight": "regular",
-          "lineHeight": 1.55
-        }
+          "lineHeight": "{chrome.leading.body}"
+        },
+        "$description": "**カンプ専用**（表紙の説明文）。studio.css に対応する規則は無い —— カンプが自分自身に付けている注釈の声で、Studio の外装ではない。だから尺度に印も付かない。"
       },
       "title": {
         "$value": {
           "fontFamily": "{fontFamily.sans}",
-          "fontSize": "{fontSize.title}",
+          "fontSize": "{chrome.fontSize.title}",
           "fontWeight": "medium",
-          "lineHeight": 1.2
-        }
+          "lineHeight": "{chrome.leading.title}"
+        },
+        "$description": "**カンプ専用**（表紙の題）。body と同じ理由で studio.css に対応が無い。"
       }
     }
   }

@@ -45,10 +45,10 @@
     "barWidth": { "$type": "dimension", "$value": "{chrome.size.problemBar}" },
     "gap": { "$type": "dimension", "$value": "{chrome.space.md}" },
     "messageGap": { "$type": "dimension", "$value": "{chrome.space.xs}" },
-    "codeTypography": { "$type": "typography", "$value": "{chrome.type.mono}" },
-    "messageTypography": { "$type": "typography", "$value": "{chrome.type.body}" },
+    "codeTypography": { "$type": "typography", "$value": "{chrome.type.problemCode}" },
+    "messageTypography": { "$type": "typography", "$value": "{chrome.type.problemMessage}" },
     "messageColor": { "$type": "color", "$value": "{chrome.chalk}" },
-    "whereTypography": { "$type": "typography", "$value": "{chrome.type.mono}" },
+    "whereTypography": { "$type": "typography", "$value": "{chrome.type.problemWhere}" },
     "whereColor": { "$type": "color", "$value": "{chrome.chalkDim}" }
   },
   "filesItem": {
@@ -65,6 +65,9 @@
     "value": { "$type": "color", "$value": "{chrome.chalk}" },
     "valueUnit": { "$type": "color", "$value": "{chrome.chalkDim}" },
     "valueTypography": { "$type": "typography", "$value": "{chrome.type.gaugeValue}" },
+    "valueUnitTypography": { "$type": "typography", "$value": "{chrome.type.gaugeUnit}" },
+    "labelTypography": { "$type": "typography", "$value": "{chrome.type.tick}" },
+    "noteTypography": { "$type": "typography", "$value": "{chrome.type.gaugeNote}" },
     "tickColor": { "$type": "color", "$value": "{chrome.rule}" },
     "tickLimitColor": { "$type": "color", "$value": "{chrome.alert}" },
     "tickWidth": { "$type": "dimension", "$value": "{chrome.stroke.hairline}" },

@@ -144,34 +144,107 @@
   },
   "fontSize": {
     "$type": "dimension",
+    "$description": "字の大きさ。**8 段あるのは studio.css の実測**（#204）——「設計として 8 段が要る」ではなく「実物が 8 段使っている」ので、減らすなら studio.css のほうを先に減らす。",
+    "tick": {
+      "$value": { "value": 9, "unit": "px" },
+      "$description": "ゲージの目盛ラベル（.gauge__decade-label）。**この台でいちばん小さい字**。"
+    },
     "eyebrow": { "$value": { "value": 10, "unit": "px" } },
+    "note": {
+      "$value": { "value": 10.5, "unit": "px" },
+      "$description": "件数・位置などの添え物（.pane__note / .problem__where）。眉より半段だけ大きい。"
+    },
     "body": { "$value": { "value": 11, "unit": "px" } },
     "mono": { "$value": { "value": 11.5, "unit": "px" } },
     "code": {
       "$value": { "value": 12, "unit": "px" },
-      "$description": "Editor の本文。注釈の等幅（mono 11.5）より 1 段大きい —— ここだけは読むためではなく書くための字。"
+      "$description": "Editor の本文。注釈の等幅（mono 11.5）より 1 段大きい —— ここだけは読むためではなく書くための字。ペインの地の文（.problems / .inspector）も同じ数だが、あちらは sans。"
+    },
+    "message": {
+      "$value": { "value": 12.5, "unit": "px" },
+      "$description": "診断の本文（.problem__message / .problems__clear）。**この台でいちばん大きい本文** —— 読ませる字だけ 1 段上げる。"
     },
     "title": { "$value": { "value": 18, "unit": "px" } }
   },
   "tracking": {
     "$type": "dimension",
-    "$description": "字間。UIX の長さは UI Point なので em ではなく px で持つ（studio.css の 0.16em は 10px のとき 1.6px）。",
-    "eyebrow": { "$value": { "value": 1.6, "unit": "px" } },
+    "$description": "字間。UIX の長さは UI Point なので em ではなく px で持つ（studio.css の 0.16em は 10px のとき 1.6px）。**#204 で studio.css 側も px に揃えた** —— em のままだと、大きさを変えたときにカンプ（px 固定）と実物（em で追随）が割れる。",
+    "code": {
+      "$value": { "value": 0, "unit": "px" },
+      "$description": "**0 を明示的に持つ。** Editor の字送りは「まだ決めていない」ではなく「詰めも空けもしない」で、書いておかないと次に触る人がここに眉の 1.6px を持ち込む。眉の中に居る添え物（.pane__note）も、同じ 0 で打ち消す。"
+    },
+    "gaugeNote": {
+      "$value": { "value": 0.4, "unit": "px" },
+      "$description": "ゲージの注記（.gauge__note）の 0.04em（10px のとき 0.4px）。"
+    },
+    "link": {
+      "$value": { "value": 0.44, "unit": "px" },
+      "$description": "接続の表示（.titlebar__link）の 0.04em（**11px** のとき 0.44px）。gaugeNote と**同じ 0.04em なのに px が違う** —— em を px に畳むと、1 つの意匠が大きさの数だけ枝分かれする。"
+    },
     "toggle": {
       "$value": { "value": 0.6, "unit": "px" },
       "$description": "studio.css .device-bar__button の 0.06em（10px のとき 0.6px）。眉より狭い —— 押せるものは語として読ませたい。"
     },
-    "code": {
-      "$value": { "value": 0, "unit": "px" },
-      "$description": "**0 を明示的に持つ。** Editor の字送りは「まだ決めていない」ではなく「詰めも空けもしない」で、書いておかないと次に触る人がここに眉の 1.6px を持ち込む。"
+    "tick": {
+      "$value": { "value": 0.72, "unit": "px" },
+      "$description": "ゲージの目盛ラベル（.gauge__decade-label）の 0.08em（**9px** のとき 0.72px）。"
+    },
+    "problemCode": {
+      "$value": { "value": 0.8, "unit": "px" },
+      "$description": "診断コード（.problem__code）の 0.08em（**10px** のとき 0.8px）。tick と同じ 0.08em の別解。"
+    },
+    "dimension": {
+      "$value": { "value": 1.2, "unit": "px" },
+      "$description": "寸法線の数（.dimension__value）の 0.12em。眉（1.6）と押せる語（0.6）の間。"
+    },
+    "eyebrow": { "$value": { "value": 1.6, "unit": "px" } },
+    "mark": {
+      "$value": { "value": 2.2, "unit": "px" },
+      "$description": "道具の名前（.titlebar__mark）の 0.22em。**この台でいちばん広い字送り**で、1 か所だけに使う。"
     }
   },
-  "lineHeight": {
-    "$type": "number",
-    "$description": "行送り（fontSize に対する倍率）。typography Token の中で直接書くと、行間だけを触りたいときに typography ごと写すことになる。",
+  "leading": {
+    "$type": "dimension",
+    "$description": "行送り。**倍率ではなく px で持つ**（#204）—— `packages/tokens` の `toTypography` は倍率（無単位数値）を受けると fontSize を掛けて畳むので、**Token の真実はどのみち px**。px で書けば畳まれず、`4` 以下を倍率と読む分岐にも入らない（実測: 裸の 3 は 30 になるが、3px は 3 のまま）。値は studio.css の倍率を実効 font-size で畳んだもの。",
+    "eyebrow": {
+      "$value": { "value": 10, "unit": "px" },
+      "$description": "10px の眉に対する 1.0（詰め切る）。"
+    },
+    "paneNote": {
+      "$value": { "value": 10.5, "unit": "px" },
+      "$description": "10.5px の添え物（.pane__note）に対する 1.0。**眉の中に居るので自分で持つ必要がある** —— 眉の行送りを px にすると、係数として継承していた子が親の px をそのまま受け取ってしまう（無単位の行送りは係数として継承し、px は長さとして継承する・#204 の実測）。"
+    },
+    "gaugeUnit": {
+      "$value": { "value": 11, "unit": "px" },
+      "$description": "11px の単位（.gauge__value の中の ms）に対する 1.0。paneNote と同じ理由で自分で持つ。"
+    },
+    "body": {
+      "$value": { "value": 17.05, "unit": "px" },
+      "$description": "11px の本文に対する 1.55。**カンプ専用** —— studio.css にこの声の規則は無く、カンプの表紙の説明文のためだけに在る。"
+    },
+    "gaugeValue": {
+      "$value": { "value": 18, "unit": "px" },
+      "$description": "18px の実測値に対する 1.0。進捗ではなく一瞬の値なので詰める（#155）。"
+    },
+    "failure": {
+      "$value": { "value": 18.4, "unit": "px" },
+      "$description": "11.5px の「描けません」（.specimen__failure）に対する 1.6。"
+    },
     "code": {
-      "$value": 1.6,
-      "$description": "Editor の行送り。editor/theme.ts の .cm-scroller と同じ。"
+      "$value": { "value": 19.2, "unit": "px" },
+      "$description": "12px の Editor 本文に対する 1.6。editor/theme.ts の .cm-scroller と同じ。"
+    },
+    "message": {
+      "$value": { "value": 19.375, "unit": "px" },
+      "$description": "12.5px の診断本文（.problem__message）に対する 1.55。"
+    },
+    "note": {
+      "$value": { "value": 19.55, "unit": "px" },
+      "$description": "11.5px の Inspector の注記（.inspector__note）に対する 1.7。**この台でいちばんゆるい行送り** —— 唯一の「読ませる散文」。"
+    },
+    "title": {
+      "$value": { "value": 21.6, "unit": "px" },
+      "$description": "18px の見出しに対する 1.2。**カンプ専用**（表紙の題）。"
     }
   },
   "fontFamily": {
