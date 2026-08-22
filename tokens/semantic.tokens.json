@@ -143,7 +143,7 @@
           "lineHeight": 1,
           "letterSpacing": "{tracking.eyebrow}"
         },
-        "$description": "道具に印刷された文字。見出し・単位・ラベルはすべてこの声で書く。大文字にするのは書き手の仕事 —— text-transform は DTCG にも IR の TypographyValue にも無い（#152）。"
+        "$description": "道具に印刷された文字。見出し・単位・ラベルはすべてこの声で書く。大文字にするのは書き手の仕事 —— text-transform は DTCG にも IR の TypographyValue にも無い（#152）。ここに書くと token.unknown-key（error）になる（#173）。"
       },
       "mono": {
         "$value": {

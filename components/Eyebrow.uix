@@ -7,7 +7,8 @@
      見た目だけ崩れる」と書いている問題自体が起きない。
 
      **大文字にするのは書き手の仕事。** text-transform は DTCG にも IR の
-     TypographyValue にも無いので、Token には持てない（#152）。 -->
+     TypographyValue にも無いので、Token には持てない（#152）。書いても運ばれないが、
+     黙って捨てられることはない —— token.unknown-key（error）が出る（#173）。 -->
 <Component name="Eyebrow">
 
     <Props>
