@@ -21,8 +21,7 @@
             spacing="$chrome.space.lg"
             align="stretch">
 
-            <VStack id="cover" spacing="$chrome.space.xs" align="stretch">
-                <Eyebrow label="UI DSL STUDIO — DRAWER" />
+            <Note id="cover" label="UI DSL STUDIO — DRAWER">
                 <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
                     ドロワー
                 </Text>
@@ -30,9 +29,7 @@
                     下段の Diagnostics と Inspector。2 ペインの間の仕切りは動かせる
                     （ここでは Rule で代替する）。
                 </Text>
-            </VStack>
-
-            <Rule color="$chrome.rule" />
+            </Note>
 
             <HStack id="drawer-specimen" spacing="$chrome.space.md" align="stretch">
 

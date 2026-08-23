@@ -12,7 +12,11 @@
       "$value": "#1A2825",
       "$description": "studio.css --mat-raise（マットより 1 段上げた面）"
     },
-    "900": { "$value": "#14201E", "$description": "studio.css --mat（作業面）" }
+    "900": { "$value": "#14201E", "$description": "studio.css --mat（作業面）" },
+    "950": {
+      "$value": "#101A18",
+      "$description": "**この 1 段だけは studio.css からの写しではない**（#208）。カンプが自分に付けた注釈の紙（chrome.aside）に使う沈んだ面で、実物には対応する色が無い（studio.css に --mat より暗い面は 1 件も無い）。値はランプ自身の刻み（1 段 ≈ ×0.8・線形輝度で 850→900 が 1.467）を 900 から延長して導出した（900→950 は 1.394）。"
+    }
   },
   "bone": {
     "$type": "color",

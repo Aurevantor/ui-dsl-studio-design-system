@@ -19,17 +19,14 @@
             spacing="$chrome.space.lg"
             align="stretch">
 
-            <VStack id="cover" spacing="$chrome.space.xs" align="stretch">
-                <Eyebrow label="UI DSL STUDIO — TITLEBAR" />
+            <Note id="cover" label="UI DSL STUDIO — TITLEBAR">
                 <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
                     タイトルバー
                 </Text>
                 <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
                     道具の名前・開いているファイル・uix dev の接続状態・件数を横に並べる 1 行。
                 </Text>
-            </VStack>
-
-            <Rule color="$chrome.rule" />
+            </Note>
 
             <VStack id="titlebar-specimen" align="stretch">
 

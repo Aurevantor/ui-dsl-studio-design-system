@@ -21,8 +21,7 @@
             spacing="$chrome.space.lg"
             align="stretch">
 
-            <VStack id="cover" spacing="$chrome.space.xs" align="stretch">
-                <Eyebrow label="UI DSL STUDIO — FILES" />
+            <Note id="cover" label="UI DSL STUDIO — FILES">
                 <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
                     ファイル
                 </Text>
@@ -30,9 +29,7 @@
                     左ペインの木。ワークスペースの下に Screens / Components / Tokens の
                     3 グループが並ぶ（空でも消さない規約・tree.ts）。
                 </Text>
-            </VStack>
-
-            <Rule color="$chrome.rule" />
+            </Note>
 
             <VStack id="files-specimen" align="stretch">
 

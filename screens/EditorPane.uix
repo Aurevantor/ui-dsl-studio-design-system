@@ -26,8 +26,7 @@
             spacing="$chrome.space.lg"
             align="stretch">
 
-            <VStack id="cover" spacing="$chrome.space.xs" align="stretch">
-                <Eyebrow label="UI DSL STUDIO — EDITOR" />
+            <Note id="cover" label="UI DSL STUDIO — EDITOR">
                 <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
                     エディタ
                 </Text>
@@ -35,9 +34,7 @@
                     文書そのものを書く場所。語の色分けはカンプに持ち込まず、
                     行送り・字送り・ガター幅・字下げ・選択行の地色だけをここで決める。
                 </Text>
-            </VStack>
-
-            <Rule color="$chrome.rule" />
+            </Note>
 
             <VStack id="editor-specimen" spacing="$chrome.space.sm" align="stretch">
 

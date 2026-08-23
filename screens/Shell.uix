@@ -23,6 +23,11 @@
      shadow root の中に居る（#17）。つまり **Studio の外装で面が上がるのは「浮くもの」
      だけ**で、5 ペインはどれも同じ作業面に載っている。分けているのは面ではなく罫。
 
+     窓の**外**には沈んだ面（`$chrome.aside`）を敷く（#208）—— あれは**カンプが自分に
+     付けた注釈の紙**（`Note.uix`）で、Studio の外装ではない。だから `:root` にも出ない。
+     窓の**中**に段差が無いことは `design.test.tsx` の「作業面は 1 枚」と
+     「窓の中に沈んだ面を敷かない」が両側から縛る。
+
      ## 罫は 2 段 ―― 強いほうが窓を横断し、弱いほうがペインの中を分ける
 
      `$chrome.rule`（強）はタイトルバーの下と定規の下、つまり**窓の全幅を横断する
@@ -45,8 +50,7 @@
             spacing="$chrome.space.lg"
             align="stretch">
 
-            <VStack id="cover" spacing="$chrome.space.xs" align="stretch">
-                <Eyebrow label="UI DSL STUDIO — SHELL" />
+            <Note id="cover" label="UI DSL STUDIO — SHELL">
                 <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
                     ぜんたい
                 </Text>
@@ -54,9 +58,7 @@
                     部位を組み上げた 1 枚。面は 1 枚（一段上がるのは shadow root の中の
                     浮くものだけ）、分けるのは罫 2 段と仕切り 4 本。
                 </Text>
-            </VStack>
-
-            <Rule color="$chrome.rule" />
+            </Note>
 
             <!-- ========================================================== 窓 -->
 
@@ -289,13 +291,14 @@
 
             <VStack id="rule-steps" spacing="$chrome.space.sm" align="stretch">
 
-                <Eyebrow label="RULES — 2 段" />
+                <Note label="RULES — 2 段">
+                    <Text style="$chrome.type.body" color="$chrome.chalkDim">
+                        強いほうは窓を横断する帯の境目にだけ入り、弱いほうはペインの中を分ける。
+                        2 段の差が付きすぎると帯が箱に見え、付かなすぎると上下の帯が 1 枚に溶ける。
+                    </Text>
+                </Note>
 
-                <Text style="$chrome.type.body" color="$chrome.chalkDim">
-                    強いほうは窓を横断する帯の境目にだけ入り、弱いほうはペインの中を分ける。
-                    2 段の差が付きすぎると帯が箱に見え、付かなすぎると上下の帯が 1 枚に溶ける。
-                </Text>
-
+                <!-- **見本は作業面のまま。** 沈んだ面に載せると 2 段の濃さの判断が狂う（#208）。 -->
                 <VStack spacing="$chrome.space.xs" align="stretch">
                     <Rule color="$chrome.rule" />
                     <Text style="$chrome.type.mono" color="$chrome.chalkDim">
@@ -316,14 +319,16 @@
 
             <VStack id="splitter-specimen" spacing="$chrome.space.sm" align="stretch">
 
-                <Eyebrow label="SPLITTER — 6PT" />
+                <Note label="SPLITTER — 6PT">
+                    <Text style="$chrome.type.body" color="$chrome.chalkDim">
+                        窓の中では 6pt しか見えないので、ここに横向きで並べて濃さを決める。
+                        State は normal / hover / focused の 3 つで、Inspector から強制表示できる
+                        （実物に :active は 1 本も無いので pressed は宣言しない）。
+                    </Text>
+                </Note>
 
-                <Text style="$chrome.type.body" color="$chrome.chalkDim">
-                    窓の中では 6pt しか見えないので、ここに横向きで並べて濃さを決める。
-                    State は normal / hover / focused の 3 つで、Inspector から強制表示できる
-                    （実物に :active は 1 本も無いので pressed は宣言しない）。
-                </Text>
-
+                <!-- **見本は作業面のまま**（#208）。安静時の輪は地と同色なので、
+                     地が変わると輪の消え方まで変わる。 -->
                 <Splitter axis="horizontal" />
 
                 <Text style="$chrome.type.mono" color="$chrome.chalkDim">

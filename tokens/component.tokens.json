@@ -17,6 +17,23 @@
     "padding": { "$type": "dimension", "$value": "{chrome.space.md}" },
     "spacing": { "$type": "dimension", "$value": "{chrome.space.sm}" }
   },
+  "note": {
+    "$description": "**カンプ専用の紙**（#208）。カンプが自分に付けた注釈を、作業面より 1 段沈んだ面に載せて絵から分ける。**Pane との違いは 3 つ** ——（1）地が沈む（chrome.aside・実物に対応が無い）（2）罫を持たない（罫は実物の語彙で「2 段」が語彙として宣言されている・design.test.tsx。カンプの都合で 3 本目の役を足さない）（3）見出しに Eyebrow を使わず声だけ借りる（labelTypography）。",
+    "background": { "$type": "color", "$value": "{chrome.aside}" },
+    "padding": { "$type": "dimension", "$value": "{chrome.space.md}" },
+    "spacing": { "$type": "dimension", "$value": "{chrome.space.xs}" },
+    "radius": {
+      "$type": "dimension",
+      "$value": "{chrome.radius.mark}",
+      "$description": "2pt。**pane の 12pt を使わない** —— 大きく丸めると「札」に見えて、実物の器（Pane）と紛れる。注釈の紙は角を落とすだけ。"
+    },
+    "labelTypography": {
+      "$type": "typography",
+      "$value": "{chrome.type.eyebrow}",
+      "$description": "**声だけを借りる**（部品は借りない）。`<Eyebrow>` は実物の部品で、その尺度は印つきで studio.css へ渡るので、注釈を読みやすくしようと動かすと実物の 5 セレクタが動く。ここを別の声に分岐させたくなったら、この 1 行を付け替える。"
+    },
+    "labelColor": { "$type": "color", "$value": "{chrome.chalkDim}" }
+  },
   "splitter": {
     "$description": "仕切り（studio.css の `.splitter`）。**State を持つ 4 種の 1 つ**（実測・#153）で、実物にあるのは `:hover` と `:focus-visible` の 2 本だけ —— `:active` も `aria-*` も 0 本なので pressed / selected は宣言しない（#156 と同じ規律）。太さ（6pt）は Token にしない —— #152 の「守らないもの」に `--splitter` が挙がっており、正本は `apps/studio/src/panes.ts` の `SPLITTER_PX` と `studio.css` の `--splitter`（2 か所の一致は containment.test.ts が縛る）。",
     "background": {

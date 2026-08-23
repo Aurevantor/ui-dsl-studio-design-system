@@ -18,8 +18,7 @@
             spacing="$chrome.space.lg"
             align="stretch">
 
-            <VStack id="cover" spacing="$chrome.space.xs" align="stretch">
-                <Eyebrow label="UI DSL STUDIO — CHROME" />
+            <Note id="cover" label="UI DSL STUDIO — CHROME">
                 <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
                     カンプ
                 </Text>
@@ -27,9 +26,7 @@
                     Studio の外装を UIX で置いた見本帳。tokens/ を編集すると Preview が即座に描き直す。
                     実際の Studio は React + CSS のままで、ここから運ぶのは Token の値だけ。
                 </Text>
-            </VStack>
-
-            <Rule color="$chrome.rule" />
+            </Note>
 
             <VStack id="eyebrow-specimen" spacing="$chrome.space.sm" align="stretch">
                 <Eyebrow label="EYEBROW" />

@@ -14,6 +14,11 @@
       "$description": "マットより 1 段上げた面。hello-world は計器のパネルに、Studio は浮くもの（tooltip / 補完）に使う。",
       "$extensions": { "ui-dsl.studio-css": true }
     },
+    "aside": {
+      "$type": "color",
+      "$value": "{teal.950}",
+      "$description": "**カンプ専用**（#208）。カンプが自分に付けた注釈を載せる、作業面より 1 段沈んだ紙。**matRaise の反対側ではない** —— matRaise は実物にある面（浮くもの）で、こちらは実物に対応が無い（studio.css に --mat より暗い面は 1 件も無い）。だから **`$extensions` の印を持たない** = `:root` には出ない（chrome.type.body / title と同じ扱い・docs/04 §8）。"
+    },
     "rule": {
       "$type": "color",
       "$value": "{teal.750}",

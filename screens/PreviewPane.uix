@@ -32,8 +32,7 @@
             spacing="$chrome.space.lg"
             align="stretch">
 
-            <VStack id="cover" spacing="$chrome.space.xs" align="stretch">
-                <Eyebrow label="UI DSL STUDIO — PREVIEW" />
+            <Note id="cover" label="UI DSL STUDIO — PREVIEW">
                 <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
                     プレビュー
                 </Text>
@@ -41,22 +40,22 @@
                     標本を載せる作業面。方眼の濃さ・デバイスの飾り・選択枠の二重線を、
                     絶対配置を使わずに置いて決める。
                 </Text>
-            </VStack>
-
-            <Rule color="$chrome.rule" />
+            </Note>
 
             <!-- ================================================== デバイスバー -->
 
             <VStack id="device-bar-specimen" spacing="$chrome.space.sm" align="stretch">
 
-                <Eyebrow label="DEVICE BAR — TOGGLE" />
+                <Note label="DEVICE BAR — TOGGLE">
+                    <Text style="$chrome.type.body" color="$chrome.chalkDim">
+                        State は Inspector から強制表示できる（宣言は normal / hover /
+                        focused / selected の 4 つ）。selected は押した後も居座る「入り」なので
+                        props 制御の枠に置いてあり、疑似クラスには写らない。
+                    </Text>
+                </Note>
 
-                <Text style="$chrome.type.body" color="$chrome.chalkDim">
-                    State は Inspector から強制表示できる（宣言は normal / hover /
-                    focused / selected の 4 つ）。selected は押した後も居座る「入り」なので
-                    props 制御の枠に置いてあり、疑似クラスには写らない。
-                </Text>
-
+                <!-- **見本は作業面のまま**（#208）。押せる語の安静時の輪は背後の作業面の色で、
+                     地が変わると「見えない輪」が見えてしまう。 -->
                 <VStack id="device-bar" width="fill" align="stretch">
 
                     <HStack
@@ -169,14 +168,16 @@
 
             <VStack id="mount-specimen" spacing="$chrome.space.sm" align="stretch">
 
-                <Eyebrow label="SPECIMEN — iPhone（375 × 812 pt）" />
+                <Note label="SPECIMEN — iPhone（375 × 812 pt）">
+                    <Text style="$chrome.type.body" color="$chrome.chalkDim">
+                        飾りの見え方は地で逆になる（実測）—— 目安線（chalk 30%）は明るい地との差が
+                        12 でほぼ消え、notch（mat）は暗い地との差が 14 でほぼ消える。
+                        どちらが欠けても気づけないので 2 枚並べる。
+                    </Text>
+                </Note>
 
-                <Text style="$chrome.type.body" color="$chrome.chalkDim">
-                    飾りの見え方は地で逆になる（実測）—— 目安線（chalk 30%）は明るい地との差が
-                    12 でほぼ消え、notch（mat）は暗い地との差が 14 でほぼ消える。
-                    どちらが欠けても気づけないので 2 枚並べる。
-                </Text>
-
+                <!-- **見本は作業面のまま**（#208）。飾りの見え方は地で逆になるので、
+                     載せる面を変えると上の実測がそのまま嘘になる。 -->
                 <HStack width="fill" spacing="$chrome.space.lg" align="start">
 
                     <VStack spacing="$chrome.space.sm" align="stretch">
