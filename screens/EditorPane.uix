@@ -26,16 +26,6 @@
             spacing="$chrome.space.lg"
             align="stretch">
 
-            <Note id="cover" label="UI DSL STUDIO — EDITOR">
-                <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
-                    エディタ
-                </Text>
-                <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
-                    文書そのものを書く場所。語の色分けはカンプに持ち込まず、
-                    行送り・字送り・ガター幅・字下げ・選択行の地色だけをここで決める。
-                </Text>
-            </Note>
-
             <VStack id="editor-specimen" spacing="$chrome.space.sm" align="stretch">
 
                 <Eyebrow label="LINES — 単色で組んだ 9 行" />
@@ -239,3 +229,24 @@
     </ScrollView>
 
 </Screen>
+
+<Aside
+    id="editor-pane-aside"
+    spacing="$chrome.space.md"
+    padding="$aside.padding"
+    background="$aside.background"
+    radius="$aside.radius"
+    align="stretch">
+
+    <VStack spacing="$aside.spacing" align="stretch">
+        <Text style="$aside.labelTypography" color="$aside.labelColor">UI DSL STUDIO — EDITOR</Text>
+        <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
+            エディタ
+        </Text>
+        <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
+            文書そのものを書く場所。語の色分けはカンプに持ち込まず、
+            行送り・字送り・ガター幅・字下げ・選択行の地色だけをここで決める。
+        </Text>
+    </VStack>
+
+</Aside>

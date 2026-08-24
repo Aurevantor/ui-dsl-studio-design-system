@@ -21,16 +21,6 @@
             spacing="$chrome.space.lg"
             align="stretch">
 
-            <Note id="cover" label="UI DSL STUDIO — GAUGE">
-                <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
-                    コンパイル定規
-                </Text>
-                <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
-                    打鍵ごとにコンパイル時間を対数目盛へ落とす署名（docs/01・#115）。
-                    100ms が「1 文字変更 → Preview 更新」の予算。
-                </Text>
-            </Note>
-
             <VStack
                 id="gauge-specimen"
                 spacing="$chrome.space.sm"
@@ -110,3 +100,24 @@
     </ScrollView>
 
 </Screen>
+
+<Aside
+    id="gauge-aside"
+    spacing="$chrome.space.md"
+    padding="$aside.padding"
+    background="$aside.background"
+    radius="$aside.radius"
+    align="stretch">
+
+    <VStack spacing="$aside.spacing" align="stretch">
+        <Text style="$aside.labelTypography" color="$aside.labelColor">UI DSL STUDIO — GAUGE</Text>
+        <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
+            コンパイル定規
+        </Text>
+        <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
+            打鍵ごとにコンパイル時間を対数目盛へ落とす署名（docs/01・#115）。
+            100ms が「1 文字変更 → Preview 更新」の予算。
+        </Text>
+    </VStack>
+
+</Aside>

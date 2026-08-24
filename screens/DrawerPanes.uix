@@ -21,16 +21,6 @@
             spacing="$chrome.space.lg"
             align="stretch">
 
-            <Note id="cover" label="UI DSL STUDIO — DRAWER">
-                <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
-                    ドロワー
-                </Text>
-                <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
-                    下段の Diagnostics と Inspector。2 ペインの間の仕切りは動かせる
-                    （ここでは Rule で代替する）。
-                </Text>
-            </Note>
-
             <HStack id="drawer-specimen" spacing="$chrome.space.md" align="stretch">
 
                 <Pane width="fill" title="DIAGNOSTICS">
@@ -139,3 +129,24 @@
     </ScrollView>
 
 </Screen>
+
+<Aside
+    id="drawer-panes-aside"
+    spacing="$chrome.space.md"
+    padding="$aside.padding"
+    background="$aside.background"
+    radius="$aside.radius"
+    align="stretch">
+
+    <VStack spacing="$aside.spacing" align="stretch">
+        <Text style="$aside.labelTypography" color="$aside.labelColor">UI DSL STUDIO — DRAWER</Text>
+        <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
+            ドロワー
+        </Text>
+        <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
+            下段の Diagnostics と Inspector。2 ペインの間の仕切りは動かせる
+            （ここでは Rule で代替する）。
+        </Text>
+    </VStack>
+
+</Aside>

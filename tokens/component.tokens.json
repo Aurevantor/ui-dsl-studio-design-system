@@ -17,11 +17,15 @@
     "padding": { "$type": "dimension", "$value": "{chrome.space.md}" },
     "spacing": { "$type": "dimension", "$value": "{chrome.space.sm}" }
   },
-  "note": {
-    "$description": "**カンプ専用の紙**（#208）。カンプが自分に付けた注釈を、作業面より 1 段沈んだ面に載せて絵から分ける。**Pane との違いは 3 つ** ——（1）地が沈む（chrome.aside・実物に対応が無い）（2）罫を持たない（罫は実物の語彙で「2 段」が語彙として宣言されている・design.test.tsx。カンプの都合で 3 本目の役を足さない）（3）見出しに Eyebrow を使わず声だけ借りる（labelTypography）。",
+  "aside": {
+    "$description": "**カンプ専用の紙**（#208 → #218）。カンプが自分に付けた注釈を載せる面。**#218 で Screen の外（`<Aside>`）へ出た** —— 紙は Note 1 枚ごとではなく **`<Aside>` の根 1 枚**になり、中を入れ子で区切って 1 件ずつの注釈にする。**Pane との違いは 3 つ** ——（1）地が沈む（chrome.aside・実物に対応が無い）（2）罫を持たない（罫は実物の語彙で「2 段」が語彙として宣言されている・design.test.tsx。カンプの都合で 3 本目の役を足さない）（3）見出しに Eyebrow を使わず声だけ借りる（labelTypography）。**名前は `chrome.aside`（色）と別物** —— あちらは面の色、こちらは紙の役。",
     "background": { "$type": "color", "$value": "{chrome.aside}" },
     "padding": { "$type": "dimension", "$value": "{chrome.space.md}" },
-    "spacing": { "$type": "dimension", "$value": "{chrome.space.xs}" },
+    "spacing": {
+      "$type": "dimension",
+      "$value": "{chrome.space.xs}",
+      "$description": "**1 件の注釈の中**（見出しと本文の間）。**注釈どうしの間ではない** —— そちらは画面の他の塊と同じ `chrome.space.md` で、紙の中の詰まりより広い（近いものほど近く置く）。"
+    },
     "radius": {
       "$type": "dimension",
       "$value": "{chrome.radius.mark}",
@@ -30,7 +34,8 @@
     "labelTypography": {
       "$type": "typography",
       "$value": "{chrome.type.eyebrow}",
-      "$description": "**声だけを借りる**（部品は借りない）。`<Eyebrow>` は実物の部品で、その尺度は印つきで studio.css へ渡るので、注釈を読みやすくしようと動かすと実物の 5 セレクタが動く。ここを別の声に分岐させたくなったら、この 1 行を付け替える。"
+      "$description": "**声だけを借りる**（部品は借りない）。`<Eyebrow>` は実物の部品で、その尺度は印つきで studio.css へ渡るので、注釈を読みやすくしようと動かすと実物の 5 セレクタが動く。ここを別の声に分岐させたくなったら、この 1 行を付け替える。**絵の側に残った見本の見出しは逆に `<Eyebrow>` そのもの**（#218）—— あちらは絵の一部で、実物の語彙で書くのが正しい。値は両方とも `chrome.type.eyebrow` なので字は 1px も変わらない。",
+      "$extensions": {}
     },
     "labelColor": { "$type": "color", "$value": "{chrome.chalkDim}" }
   },

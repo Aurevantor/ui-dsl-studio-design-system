@@ -23,10 +23,10 @@
      shadow root の中に居る（#17）。つまり **Studio の外装で面が上がるのは「浮くもの」
      だけ**で、5 ペインはどれも同じ作業面に載っている。分けているのは面ではなく罫。
 
-     窓の**外**には沈んだ面（`$chrome.aside`）を敷く（#208）—— あれは**カンプが自分に
-     付けた注釈の紙**（`Note.uix`）で、Studio の外装ではない。だから `:root` にも出ない。
-     窓の**中**に段差が無いことは `design.test.tsx` の「作業面は 1 枚」と
-     「窓の中に沈んだ面を敷かない」が両側から縛る。
+     沈んだ面（`$chrome.aside`）は**画面の外**にある（#208 → #218）—— あれは**カンプが自分に
+     付けた注釈の紙**で、いまは `<Screen>` の外の `<Aside>` の根 1 枚。Studio の外装ではない
+     ので `:root` にも出ない。**`<Screen>` の側に沈んだ面は 1 つも無い**ことを
+     `design.test.tsx` の「作業面は 1 枚」と「沈んだ面は Screen のどこにも無い」が両側から縛る。
 
      ## 罫は 2 段 ―― 強いほうが窓を横断し、弱いほうがペインの中を分ける
 
@@ -49,16 +49,6 @@
             padding="$chrome.space.screen"
             spacing="$chrome.space.lg"
             align="stretch">
-
-            <Note id="cover" label="UI DSL STUDIO — SHELL">
-                <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
-                    ぜんたい
-                </Text>
-                <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
-                    部位を組み上げた 1 枚。面は 1 枚（一段上がるのは shadow root の中の
-                    浮くものだけ）、分けるのは罫 2 段と仕切り 4 本。
-                </Text>
-            </Note>
 
             <!-- ========================================================== 窓 -->
 
@@ -291,14 +281,10 @@
 
             <VStack id="rule-steps" spacing="$chrome.space.sm" align="stretch">
 
-                <Note label="RULES — 2 段">
-                    <Text style="$chrome.type.body" color="$chrome.chalkDim">
-                        強いほうは窓を横断する帯の境目にだけ入り、弱いほうはペインの中を分ける。
-                        2 段の差が付きすぎると帯が箱に見え、付かなすぎると上下の帯が 1 枚に溶ける。
-                    </Text>
-                </Note>
+                <Eyebrow label="RULES — 2 段" />
 
-                <!-- **見本は作業面のまま。** 沈んだ面に載せると 2 段の濃さの判断が狂う（#208）。 -->
+                <!-- **見本も見出しも作業面のまま**（#208 → #218）。沈んだ面に載せると 2 段の濃さの
+                     判断が狂うので、解説だけを <Aside> へ出した。見出しは見本の名前なので絵の側。 -->
                 <VStack spacing="$chrome.space.xs" align="stretch">
                     <Rule color="$chrome.rule" />
                     <Text style="$chrome.type.mono" color="$chrome.chalkDim">
@@ -319,16 +305,10 @@
 
             <VStack id="splitter-specimen" spacing="$chrome.space.sm" align="stretch">
 
-                <Note label="SPLITTER — 6PT">
-                    <Text style="$chrome.type.body" color="$chrome.chalkDim">
-                        窓の中では 6pt しか見えないので、ここに横向きで並べて濃さを決める。
-                        State は normal / hover / focused の 3 つで、Inspector から強制表示できる
-                        （実物に :active は 1 本も無いので pressed は宣言しない）。
-                    </Text>
-                </Note>
+                <Eyebrow label="SPLITTER — 6PT" />
 
-                <!-- **見本は作業面のまま**（#208）。安静時の輪は地と同色なので、
-                     地が変わると輪の消え方まで変わる。 -->
+                <!-- **見本も見出しも作業面のまま**（#208 → #218）。安静時の輪は地と同色なので、
+                     地が変わると輪の消え方まで変わる。解説は <Aside> の同名の節に居る。 -->
                 <Splitter axis="horizontal" />
 
                 <Text style="$chrome.type.mono" color="$chrome.chalkDim">
@@ -343,3 +323,41 @@
     </ScrollView>
 
 </Screen>
+
+<Aside
+    id="shell-aside"
+    spacing="$chrome.space.md"
+    padding="$aside.padding"
+    background="$aside.background"
+    radius="$aside.radius"
+    align="stretch">
+
+    <VStack spacing="$aside.spacing" align="stretch">
+        <Text style="$aside.labelTypography" color="$aside.labelColor">UI DSL STUDIO — SHELL</Text>
+        <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
+            ぜんたい
+        </Text>
+        <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
+            部位を組み上げた 1 枚。面は 1 枚（一段上がるのは shadow root の中の
+            浮くものだけ）、分けるのは罫 2 段と仕切り 4 本。
+        </Text>
+    </VStack>
+
+    <VStack spacing="$aside.spacing" align="stretch">
+        <Text style="$aside.labelTypography" color="$aside.labelColor">RULES — 2 段</Text>
+        <Text style="$chrome.type.body" color="$chrome.chalkDim">
+            強いほうは窓を横断する帯の境目にだけ入り、弱いほうはペインの中を分ける。
+            2 段の差が付きすぎると帯が箱に見え、付かなすぎると上下の帯が 1 枚に溶ける。
+        </Text>
+    </VStack>
+
+    <VStack spacing="$aside.spacing" align="stretch">
+        <Text style="$aside.labelTypography" color="$aside.labelColor">SPLITTER — 6PT</Text>
+        <Text style="$chrome.type.body" color="$chrome.chalkDim">
+            窓の中では 6pt しか見えないので、ここに横向きで並べて濃さを決める。
+            State は normal / hover / focused の 3 つで、Inspector から強制表示できる
+            （実物に :active は 1 本も無いので pressed は宣言しない）。
+        </Text>
+    </VStack>
+
+</Aside>

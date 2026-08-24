@@ -18,16 +18,6 @@
             spacing="$chrome.space.lg"
             align="stretch">
 
-            <Note id="cover" label="UI DSL STUDIO — CHROME">
-                <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
-                    カンプ
-                </Text>
-                <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
-                    Studio の外装を UIX で置いた見本帳。tokens/ を編集すると Preview が即座に描き直す。
-                    実際の Studio は React + CSS のままで、ここから運ぶのは Token の値だけ。
-                </Text>
-            </Note>
-
             <VStack id="eyebrow-specimen" spacing="$chrome.space.sm" align="stretch">
                 <Eyebrow label="EYEBROW" />
                 <HStack
@@ -140,3 +130,24 @@
     </ScrollView>
 
 </Screen>
+
+<Aside
+    id="catalog-aside"
+    spacing="$chrome.space.md"
+    padding="$aside.padding"
+    background="$aside.background"
+    radius="$aside.radius"
+    align="stretch">
+
+    <VStack spacing="$aside.spacing" align="stretch">
+        <Text style="$aside.labelTypography" color="$aside.labelColor">UI DSL STUDIO — CHROME</Text>
+        <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
+            カンプ
+        </Text>
+        <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
+            Studio の外装を UIX で置いた見本帳。tokens/ を編集すると Preview が即座に描き直す。
+            実際の Studio は React + CSS のままで、ここから運ぶのは Token の値だけ。
+        </Text>
+    </VStack>
+
+</Aside>

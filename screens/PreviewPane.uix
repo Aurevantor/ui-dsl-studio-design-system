@@ -32,30 +32,14 @@
             spacing="$chrome.space.lg"
             align="stretch">
 
-            <Note id="cover" label="UI DSL STUDIO — PREVIEW">
-                <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
-                    プレビュー
-                </Text>
-                <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
-                    標本を載せる作業面。方眼の濃さ・デバイスの飾り・選択枠の二重線を、
-                    絶対配置を使わずに置いて決める。
-                </Text>
-            </Note>
-
             <!-- ================================================== デバイスバー -->
 
             <VStack id="device-bar-specimen" spacing="$chrome.space.sm" align="stretch">
 
-                <Note label="DEVICE BAR — TOGGLE">
-                    <Text style="$chrome.type.body" color="$chrome.chalkDim">
-                        State は Inspector から強制表示できる（宣言は normal / hover /
-                        focused / selected の 4 つ）。selected は押した後も居座る「入り」なので
-                        props 制御の枠に置いてあり、疑似クラスには写らない。
-                    </Text>
-                </Note>
+                <Eyebrow label="DEVICE BAR — TOGGLE" />
 
-                <!-- **見本は作業面のまま**（#208）。押せる語の安静時の輪は背後の作業面の色で、
-                     地が変わると「見えない輪」が見えてしまう。 -->
+                <!-- **見本も見出しも作業面のまま**（#208 → #218）。押せる語の安静時の輪は背後の作業面の
+                     色で、地が変わると「見えない輪」が見えてしまう。解説は <Aside> の同名の節に居る。 -->
                 <VStack id="device-bar" width="fill" align="stretch">
 
                     <HStack
@@ -168,16 +152,10 @@
 
             <VStack id="mount-specimen" spacing="$chrome.space.sm" align="stretch">
 
-                <Note label="SPECIMEN — iPhone（375 × 812 pt）">
-                    <Text style="$chrome.type.body" color="$chrome.chalkDim">
-                        飾りの見え方は地で逆になる（実測）—— 目安線（chalk 30%）は明るい地との差が
-                        12 でほぼ消え、notch（mat）は暗い地との差が 14 でほぼ消える。
-                        どちらが欠けても気づけないので 2 枚並べる。
-                    </Text>
-                </Note>
+                <Eyebrow label="SPECIMEN — iPhone（375 × 812 pt）" />
 
-                <!-- **見本は作業面のまま**（#208）。飾りの見え方は地で逆になるので、
-                     載せる面を変えると上の実測がそのまま嘘になる。 -->
+                <!-- **見本も見出しも作業面のまま**（#208 → #218）。飾りの見え方は地で逆になるので、
+                     載せる面を変えると Aside 側に書いた実測がそのまま嘘になる。 -->
                 <HStack width="fill" spacing="$chrome.space.lg" align="start">
 
                     <VStack spacing="$chrome.space.sm" align="stretch">
@@ -231,3 +209,42 @@
     </ScrollView>
 
 </Screen>
+
+<Aside
+    id="preview-pane-aside"
+    spacing="$chrome.space.md"
+    padding="$aside.padding"
+    background="$aside.background"
+    radius="$aside.radius"
+    align="stretch">
+
+    <VStack spacing="$aside.spacing" align="stretch">
+        <Text style="$aside.labelTypography" color="$aside.labelColor">UI DSL STUDIO — PREVIEW</Text>
+        <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
+            プレビュー
+        </Text>
+        <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
+            標本を載せる作業面。方眼の濃さ・デバイスの飾り・選択枠の二重線を、
+            絶対配置を使わずに置いて決める。
+        </Text>
+    </VStack>
+
+    <VStack spacing="$aside.spacing" align="stretch">
+        <Text style="$aside.labelTypography" color="$aside.labelColor">DEVICE BAR — TOGGLE</Text>
+        <Text style="$chrome.type.body" color="$chrome.chalkDim">
+            State は Inspector から強制表示できる（宣言は normal / hover /
+            focused / selected の 4 つ）。selected は押した後も居座る「入り」なので
+            props 制御の枠に置いてあり、疑似クラスには写らない。
+        </Text>
+    </VStack>
+
+    <VStack spacing="$aside.spacing" align="stretch">
+        <Text style="$aside.labelTypography" color="$aside.labelColor">SPECIMEN — iPhone（375 × 812 pt）</Text>
+        <Text style="$chrome.type.body" color="$chrome.chalkDim">
+            飾りの見え方は地で逆になる（実測）—— 目安線（chalk 30%）は明るい地との差が
+            12 でほぼ消え、notch（mat）は暗い地との差が 14 でほぼ消える。
+            どちらが欠けても気づけないので 2 枚並べる。
+        </Text>
+    </VStack>
+
+</Aside>

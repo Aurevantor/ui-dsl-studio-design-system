@@ -21,16 +21,6 @@
             spacing="$chrome.space.lg"
             align="stretch">
 
-            <Note id="cover" label="UI DSL STUDIO — FILES">
-                <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
-                    ファイル
-                </Text>
-                <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
-                    左ペインの木。ワークスペースの下に Screens / Components / Tokens の
-                    3 グループが並ぶ（空でも消さない規約・tree.ts）。
-                </Text>
-            </Note>
-
             <VStack id="files-specimen" align="stretch">
 
                 <Pane width="fill" title="FILES">
@@ -69,3 +59,24 @@
     </ScrollView>
 
 </Screen>
+
+<Aside
+    id="files-pane-aside"
+    spacing="$chrome.space.md"
+    padding="$aside.padding"
+    background="$aside.background"
+    radius="$aside.radius"
+    align="stretch">
+
+    <VStack spacing="$aside.spacing" align="stretch">
+        <Text style="$aside.labelTypography" color="$aside.labelColor">UI DSL STUDIO — FILES</Text>
+        <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
+            ファイル
+        </Text>
+        <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
+            左ペインの木。ワークスペースの下に Screens / Components / Tokens の
+            3 グループが並ぶ（空でも消さない規約・tree.ts）。
+        </Text>
+    </VStack>
+
+</Aside>
