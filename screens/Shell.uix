@@ -11,8 +11,9 @@
      5 ペインは地続きの 1 枚（罫と仕切りだけで分かれる）なので、使うと Shell が
      決めるはずの「どこに罫が入るか」を部品が先に決めてしまう。仕切りは掴めない
      （v0.1 は表示専用・docs/08 のリスク表）ので、ドラッグで比が変わることは描けず、
-     比は panes.ts の DEFAULT_LAYOUT の写しを 1 例だけ置いている。窓の大きさも代表
-     1 例（実物は可変で、狭いと Editor から詰まる）。タイトルバーの折り返し
+     比は panes.ts の DEFAULT_LAYOUT の写しを 1 例だけ置いている。窓の高さは Screen を
+     fill し、固定高の下段を除いた残りを上段が grow で取る（実物と同じ可変高）。横幅の比は
+     代表 1 例で、狭いと Editor から詰まる。タイトルバーの折り返し
      （studio.css の .titlebar は flex-wrap: wrap）は UIX の Stack に無いので省き、
      狭ければ切れるほうに倒してある。
 
@@ -41,286 +42,242 @@
      から始めている。 -->
 <Screen id="shell" name="Shell" background="$chrome.mat">
 
-    <ScrollView width="fill" height="fill">
+    <VStack
+        id="shell-body"
+        width="fill"
+        height="fill"
+        padding="$chrome.space.screen"
+        spacing="$chrome.space.lg"
+        align="stretch">
+
+        <!-- ========================================================== 窓 -->
 
         <VStack
-            id="shell-body"
+            id="shell-window"
             width="fill"
-            padding="$chrome.space.screen"
-            spacing="$chrome.space.lg"
+            height="fill"
+            borderColor="$chrome.rule"
+            borderWidth="$chrome.stroke.hairline"
+            radius="$chrome.radius.pane"
+            clip="true"
             align="stretch">
 
-            <!-- ========================================================== 窓 -->
-
-            <VStack
-                id="shell-window"
+            <!-- 帯 1: タイトルバー。下は**強い罫**（窓を横断する境目）。 -->
+            <HStack
+                id="shell-titlebar"
                 width="fill"
-                height="620"
-                borderColor="$chrome.rule"
-                borderWidth="$chrome.stroke.hairline"
-                radius="$chrome.radius.pane"
-                clip="true"
-                align="stretch">
-
-                <!-- 帯 1: タイトルバー。下は**強い罫**（窓を横断する境目）。 -->
-                <HStack
-                    id="shell-titlebar"
-                    width="fill"
-                    spacing="$chrome.space.lg"
-                    padding-horizontal="$chrome.space.md"
-                    padding-vertical="$chrome.space.sm"
-                    align="baseline">
-                    <Text style="$chrome.type.mark" color="$chrome.chalk">UI DSL Studio</Text>
-                    <Text style="$chrome.type.mono" color="$chrome.chalk">screens/Shell.uix</Text>
-                    <Text style="$chrome.type.link" color="$chrome.chalkDim">uix dev push #3</Text>
-                    <Spacer />
-                    <Text style="$chrome.type.meta" color="$chrome.chalkDim">
-                        184 IR nodes 62 tokens
-                    </Text>
-                </HStack>
-
-                <Rule color="$chrome.rule" />
-
-                <!-- 帯 2: コンパイル定規。**帯 2 本ぶんが窓の上に積む階調の全部** ——
-                     どちらも面は作業面のままで、境目だけが強い罫。 -->
-                <HStack
-                    id="shell-gauge"
-                    width="fill"
-                    spacing="$chrome.space.lg"
-                    padding-horizontal="$chrome.space.md"
-                    padding-vertical="$chrome.space.sm"
-                    align="center">
-                    <Eyebrow label="COMPILE" />
-                    <HStack spacing="$chrome.space.xs" shrink="0" align="baseline">
-                        <Text style="$chrome.type.gaugeValue" color="$chrome.chalk">0.42</Text>
-                        <Text style="$chrome.type.gaugeUnit" color="$chrome.chalkDim">ms</Text>
-                    </HStack>
-                    <Rule color="$chrome.rule" />
-                </HStack>
-
-                <Rule color="$chrome.rule" />
-
-                <!-- 上段: Files | Editor | Preview。**Editor が残りを取る**
-                     （panes.ts の columnsOf も `minmax(0, 1fr)` は Editor の列だけ）。 -->
-                <HStack id="shell-stage" width="fill" grow="1" align="stretch">
-
-                    <VStack id="pane-files" width="220" align="stretch">
-                        <VStack
-                            padding-horizontal="$chrome.space.md"
-                            padding-vertical="$chrome.space.sm">
-                            <Eyebrow label="FILES" />
-                        </VStack>
-                        <Rule color="$chrome.ruleSoft" />
-                        <VStack padding-vertical="$chrome.space.xs" align="stretch">
-                            <FilesItem label="Shell.uix" />
-                            <FilesItem label="Titlebar.uix" />
-                            <FilesItem label="Splitter.uix" />
-                        </VStack>
-                    </VStack>
-
-                    <Splitter axis="vertical" />
-
-                    <VStack id="pane-editor" width="fill" align="stretch">
-                        <VStack
-                            padding-horizontal="$chrome.space.md"
-                            padding-vertical="$chrome.space.sm">
-                            <Eyebrow label="UIX EDITOR" />
-                        </VStack>
-                        <Rule color="$chrome.ruleSoft" />
-                        <VStack
-                            padding-horizontal="$chrome.space.sm"
-                            padding-vertical="$chrome.space.sm"
-                            align="stretch">
-                            <HStack width="fill" spacing="$chrome.space.sm" align="stretch">
-                                <HStack width="$chrome.size.gutter">
-                                    <Spacer />
-                                    <Text style="$chrome.type.code" color="$chrome.chalkDim">1</Text>
-                                </HStack>
-                                <Text style="$chrome.type.code" color="$chrome.chalk">
-                                    &lt;Screen id="shell" name="Shell"&gt;
-                                </Text>
-                            </HStack>
-                            <HStack width="fill" spacing="$chrome.space.sm" align="stretch">
-                                <HStack width="$chrome.size.gutter">
-                                    <Spacer />
-                                    <Text style="$chrome.type.code" color="$chrome.chalkDim">2</Text>
-                                </HStack>
-                                <VStack width="$chrome.size.indent" />
-                                <Text style="$chrome.type.code" color="$chrome.chalk">
-                                    &lt;HStack grow="1"&gt;
-                                </Text>
-                            </HStack>
-                            <HStack width="fill" spacing="$chrome.space.sm" align="stretch">
-                                <HStack width="$chrome.size.gutter">
-                                    <Spacer />
-                                    <Text style="$chrome.type.code" color="$chrome.chalkDim">3</Text>
-                                </HStack>
-                                <VStack width="$chrome.size.indent" />
-                                <VStack width="$chrome.size.indent" />
-                                <Text style="$chrome.type.code" color="$chrome.chalk">
-                                    &lt;Splitter axis="vertical" /&gt;
-                                </Text>
-                            </HStack>
-                        </VStack>
-                    </VStack>
-
-                    <Splitter axis="vertical" />
-
-                    <VStack id="pane-preview" width="420" align="stretch">
-                        <VStack
-                            padding-horizontal="$chrome.space.md"
-                            padding-vertical="$chrome.space.sm">
-                            <Eyebrow label="PREVIEW" />
-                        </VStack>
-                        <Rule color="$chrome.ruleSoft" />
-                        <!-- デバイスバーはペインの中に居る（窓を横断しない）ので、
-                             下は**弱い罫**。 -->
-                        <HStack
-                            spacing="$chrome.space.tight"
-                            padding-horizontal="$chrome.space.sm"
-                            padding-vertical="$chrome.space.xs"
-                            align="center">
-                            <Toggle label="iPhone" />
-                            <Toggle label="Mac" />
-                            <Spacer />
-                        </HStack>
-                        <Rule color="$chrome.ruleSoft" />
-                        <VStack
-                            width="fill"
-                            grow="1"
-                            padding="$chrome.space.md"
-                            align="center"
-                            justify="center">
-                            <VStack
-                                id="preview-standin"
-                                width="150"
-                                height="200"
-                                background="$chrome.specimenLight"
-                                radius="$chrome.radius.device"
-                                borderColor="$chrome.hairline"
-                                borderWidth="$chrome.stroke.hairline"
-                                shadow="$chrome.shadow.device" />
-                        </VStack>
-                    </VStack>
-
-                </HStack>
-
-                <!-- 上段と下段を分ける唯一の横の仕切り。 -->
-                <Splitter axis="horizontal" />
-
-                <!-- 下段: Diagnostics | Inspector。 -->
-                <HStack id="shell-drawer" width="fill" height="180" shrink="0" align="stretch">
-
-                    <VStack id="pane-diagnostics" width="520" align="stretch">
-                        <HStack
-                            spacing="$chrome.space.md"
-                            padding-horizontal="$chrome.space.md"
-                            padding-vertical="$chrome.space.sm"
-                            align="baseline">
-                            <Eyebrow label="DIAGNOSTICS" />
-                            <Text style="$chrome.type.paneNote" color="$chrome.chalk">2</Text>
-                        </HStack>
-                        <Rule color="$chrome.ruleSoft" />
-                        <VStack
-                            padding-horizontal="$chrome.space.md"
-                            padding-vertical="$chrome.space.xs"
-                            spacing="$chrome.space.xs"
-                            align="stretch">
-                            <Problem
-                                severity="warning"
-                                code="lint.unused-token"
-                                message="Token '$chrome.gridFine' はどこからも参照されていません。"
-                                where="tokens/semantic.tokens.json:74:5" />
-                            <Rule color="$chrome.ruleSoft" />
-                            <Problem
-                                severity="info"
-                                code="token.shadowed-path"
-                                message="'chrome.mat' は別のワークスペースの定義を上書きしています。"
-                                where="tokens/component.tokens.json:12:5" />
-                        </VStack>
-                    </VStack>
-
-                    <Splitter axis="vertical" />
-
-                    <VStack id="pane-inspector" width="fill" align="stretch">
-                        <VStack
-                            padding-horizontal="$chrome.space.md"
-                            padding-vertical="$chrome.space.sm">
-                            <Eyebrow label="INSPECTOR" />
-                        </VStack>
-                        <Rule color="$chrome.ruleSoft" />
-                        <VStack
-                            padding-horizontal="$chrome.space.md"
-                            padding-vertical="$chrome.space.sm"
-                            spacing="$chrome.space.xs"
-                            align="stretch">
-                            <HStack spacing="$chrome.space.sm" align="baseline">
-                                <Eyebrow label="WORKSPACE" />
-                                <Text style="$chrome.type.mono" color="$chrome.chalk">design</Text>
-                            </HStack>
-                            <HStack spacing="$chrome.space.sm" align="baseline">
-                                <Eyebrow label="FILE" />
-                                <Text style="$chrome.type.mono" color="$chrome.chalk">
-                                    screens/Shell.uix
-                                </Text>
-                            </HStack>
-                            <HStack spacing="$chrome.space.sm" align="baseline">
-                                <Eyebrow label="SELECTED" />
-                                <Text style="$chrome.type.mono" color="$chrome.chalk">
-                                    HStack (0.0.4)
-                                </Text>
-                            </HStack>
-                        </VStack>
-                    </VStack>
-
-                </HStack>
-
-            </VStack>
-
-            <!-- ==================================================== 罫は 2 段 -->
-
-            <VStack id="rule-steps" spacing="$chrome.space.sm" align="stretch">
-
-                <Eyebrow label="RULES — 2 段" />
-
-                <!-- **見本も見出しも作業面のまま**（#208 → #218）。沈んだ面に載せると 2 段の濃さの
-                     判断が狂うので、解説だけを <Aside> へ出した。見出しは見本の名前なので絵の側。 -->
-                <VStack spacing="$chrome.space.xs" align="stretch">
-                    <Rule color="$chrome.rule" />
-                    <Text style="$chrome.type.mono" color="$chrome.chalkDim">
-                        rule — タイトルバーの下・定規の下
-                    </Text>
-                </VStack>
-
-                <VStack spacing="$chrome.space.xs" align="stretch">
-                    <Rule color="$chrome.ruleSoft" />
-                    <Text style="$chrome.type.mono" color="$chrome.chalkDim">
-                        ruleSoft — ペインの見出しの下・デバイスバーの下・診断 1 行の間
-                    </Text>
-                </VStack>
-
-            </VStack>
-
-            <!-- ================================================== 仕切り 4 本 -->
-
-            <VStack id="splitter-specimen" spacing="$chrome.space.sm" align="stretch">
-
-                <Eyebrow label="SPLITTER — 6PT" />
-
-                <!-- **見本も見出しも作業面のまま**（#208 → #218）。安静時の輪は地と同色なので、
-                     地が変わると輪の消え方まで変わる。解説は <Aside> の同名の節に居る。 -->
-                <Splitter axis="horizontal" />
-
-                <Text style="$chrome.type.mono" color="$chrome.chalkDim">
-                    芯 2pt + 輪 2pt × 2 = 6pt。安静時の輪は地と同色で、焦点で chalk に変わる
-                    （実物の outline-offset: -2px と同じ幾何）
+                spacing="$chrome.space.lg"
+                padding-horizontal="$chrome.space.md"
+                padding-vertical="$chrome.space.sm"
+                align="baseline">
+                <Text style="$chrome.type.mark" color="$chrome.chalk">UI DSL Studio</Text>
+                <Text style="$chrome.type.mono" color="$chrome.chalk">screens/Shell.uix</Text>
+                <Text style="$chrome.type.link" color="$chrome.chalkDim">uix dev push #3</Text>
+                <Spacer />
+                <Text style="$chrome.type.meta" color="$chrome.chalkDim">
+                    184 IR nodes 62 tokens
                 </Text>
+            </HStack>
 
-            </VStack>
+            <Rule color="$chrome.rule" />
+
+            <!-- 帯 2: コンパイル定規。**帯 2 本ぶんが窓の上に積む階調の全部** ——
+                 どちらも面は作業面のままで、境目だけが強い罫。 -->
+            <HStack
+                id="shell-gauge"
+                width="fill"
+                spacing="$chrome.space.lg"
+                padding-horizontal="$chrome.space.md"
+                padding-vertical="$chrome.space.sm"
+                align="center">
+                <Eyebrow label="COMPILE" />
+                <HStack spacing="$chrome.space.xs" shrink="0" align="baseline">
+                    <Text style="$chrome.type.gaugeValue" color="$chrome.chalk">0.42</Text>
+                    <Text style="$chrome.type.gaugeUnit" color="$chrome.chalkDim">ms</Text>
+                </HStack>
+                <Rule color="$chrome.rule" />
+            </HStack>
+
+            <Rule color="$chrome.rule" />
+
+            <!-- 上段: Files | Editor | Preview。**Editor が残りを取る**
+                 （panes.ts の columnsOf も `minmax(0, 1fr)` は Editor の列だけ）。 -->
+            <HStack id="shell-stage" width="fill" grow="1" align="stretch">
+
+                <VStack id="pane-files" width="220" align="stretch">
+                    <VStack
+                        padding-horizontal="$chrome.space.md"
+                        padding-vertical="$chrome.space.sm">
+                        <Eyebrow label="FILES" />
+                    </VStack>
+                    <Rule color="$chrome.ruleSoft" />
+                    <VStack padding-vertical="$chrome.space.xs" align="stretch">
+                        <FilesItem label="Shell.uix" />
+                        <FilesItem label="Titlebar.uix" />
+                        <FilesItem label="Splitter.uix" />
+                    </VStack>
+                </VStack>
+
+                <Splitter axis="vertical" />
+
+                <VStack id="pane-editor" width="fill" align="stretch">
+                    <VStack
+                        padding-horizontal="$chrome.space.md"
+                        padding-vertical="$chrome.space.sm">
+                        <Eyebrow label="UIX EDITOR" />
+                    </VStack>
+                    <Rule color="$chrome.ruleSoft" />
+                    <VStack
+                        padding-horizontal="$chrome.space.sm"
+                        padding-vertical="$chrome.space.sm"
+                        align="stretch">
+                        <HStack width="fill" spacing="$chrome.space.sm" align="stretch">
+                            <HStack width="$chrome.size.gutter">
+                                <Spacer />
+                                <Text style="$chrome.type.code" color="$chrome.chalkDim">1</Text>
+                            </HStack>
+                            <Text style="$chrome.type.code" color="$chrome.chalk">
+                                &lt;Screen id="shell" name="Shell"&gt;
+                            </Text>
+                        </HStack>
+                        <HStack width="fill" spacing="$chrome.space.sm" align="stretch">
+                            <HStack width="$chrome.size.gutter">
+                                <Spacer />
+                                <Text style="$chrome.type.code" color="$chrome.chalkDim">2</Text>
+                            </HStack>
+                            <VStack width="$chrome.size.indent" />
+                            <Text style="$chrome.type.code" color="$chrome.chalk">
+                                &lt;HStack grow="1"&gt;
+                            </Text>
+                        </HStack>
+                        <HStack width="fill" spacing="$chrome.space.sm" align="stretch">
+                            <HStack width="$chrome.size.gutter">
+                                <Spacer />
+                                <Text style="$chrome.type.code" color="$chrome.chalkDim">3</Text>
+                            </HStack>
+                            <VStack width="$chrome.size.indent" />
+                            <VStack width="$chrome.size.indent" />
+                            <Text style="$chrome.type.code" color="$chrome.chalk">
+                                &lt;Splitter axis="vertical" /&gt;
+                            </Text>
+                        </HStack>
+                    </VStack>
+                </VStack>
+
+                <Splitter axis="vertical" />
+
+                <VStack id="pane-preview" width="420" align="stretch">
+                    <VStack
+                        padding-horizontal="$chrome.space.md"
+                        padding-vertical="$chrome.space.sm">
+                        <Eyebrow label="PREVIEW" />
+                    </VStack>
+                    <Rule color="$chrome.ruleSoft" />
+                    <!-- デバイスバーはペインの中に居る（窓を横断しない）ので、
+                         下は**弱い罫**。 -->
+                    <HStack
+                        spacing="$chrome.space.tight"
+                        padding-horizontal="$chrome.space.sm"
+                        padding-vertical="$chrome.space.xs"
+                        align="center">
+                        <Toggle label="iPhone" />
+                        <Toggle label="Mac" />
+                        <Spacer />
+                    </HStack>
+                    <Rule color="$chrome.ruleSoft" />
+                    <VStack
+                        width="fill"
+                        grow="1"
+                        padding="$chrome.space.md"
+                        align="center"
+                        justify="center">
+                        <VStack
+                            id="preview-standin"
+                            width="150"
+                            height="200"
+                            background="$chrome.specimenLight"
+                            radius="$chrome.radius.device"
+                            borderColor="$chrome.hairline"
+                            borderWidth="$chrome.stroke.hairline"
+                            shadow="$chrome.shadow.device" />
+                    </VStack>
+                </VStack>
+
+            </HStack>
+
+            <!-- 上段と下段を分ける唯一の横の仕切り。 -->
+            <Splitter axis="horizontal" />
+
+            <!-- 下段: Diagnostics | Inspector。 -->
+            <HStack id="shell-drawer" width="fill" height="180" shrink="0" align="stretch">
+
+                <VStack id="pane-diagnostics" width="520" align="stretch">
+                    <HStack
+                        spacing="$chrome.space.md"
+                        padding-horizontal="$chrome.space.md"
+                        padding-vertical="$chrome.space.sm"
+                        align="baseline">
+                        <Eyebrow label="DIAGNOSTICS" />
+                        <Text style="$chrome.type.paneNote" color="$chrome.chalk">2</Text>
+                    </HStack>
+                    <Rule color="$chrome.ruleSoft" />
+                    <VStack
+                        padding-horizontal="$chrome.space.md"
+                        padding-vertical="$chrome.space.xs"
+                        spacing="$chrome.space.xs"
+                        align="stretch">
+                        <Problem
+                            severity="warning"
+                            code="lint.unused-token"
+                            message="Token '$chrome.gridFine' はどこからも参照されていません。"
+                            where="tokens/semantic.tokens.json:74:5" />
+                        <Rule color="$chrome.ruleSoft" />
+                        <Problem
+                            severity="info"
+                            code="token.shadowed-path"
+                            message="'chrome.mat' は別のワークスペースの定義を上書きしています。"
+                            where="tokens/component.tokens.json:12:5" />
+                    </VStack>
+                </VStack>
+
+                <Splitter axis="vertical" />
+
+                <VStack id="pane-inspector" width="fill" align="stretch">
+                    <VStack
+                        padding-horizontal="$chrome.space.md"
+                        padding-vertical="$chrome.space.sm">
+                        <Eyebrow label="INSPECTOR" />
+                    </VStack>
+                    <Rule color="$chrome.ruleSoft" />
+                    <VStack
+                        padding-horizontal="$chrome.space.md"
+                        padding-vertical="$chrome.space.sm"
+                        spacing="$chrome.space.xs"
+                        align="stretch">
+                        <HStack spacing="$chrome.space.sm" align="baseline">
+                            <Eyebrow label="WORKSPACE" />
+                            <Text style="$chrome.type.mono" color="$chrome.chalk">design</Text>
+                        </HStack>
+                        <HStack spacing="$chrome.space.sm" align="baseline">
+                            <Eyebrow label="FILE" />
+                            <Text style="$chrome.type.mono" color="$chrome.chalk">
+                                screens/Shell.uix
+                            </Text>
+                        </HStack>
+                        <HStack spacing="$chrome.space.sm" align="baseline">
+                            <Eyebrow label="SELECTED" />
+                            <Text style="$chrome.type.mono" color="$chrome.chalk">
+                                HStack (0.0.4)
+                            </Text>
+                        </HStack>
+                    </VStack>
+                </VStack>
+
+            </HStack>
 
         </VStack>
 
-    </ScrollView>
+    </VStack>
 
 </Screen>
 
@@ -349,6 +306,18 @@
             強いほうは窓を横断する帯の境目にだけ入り、弱いほうはペインの中を分ける。
             2 段の差が付きすぎると帯が箱に見え、付かなすぎると上下の帯が 1 枚に溶ける。
         </Text>
+        <VStack spacing="$chrome.space.xs" align="stretch">
+            <Rule color="$chrome.rule" />
+            <Text style="$chrome.type.mono" color="$chrome.chalkDim">
+                rule — タイトルバーの下・定規の下
+            </Text>
+        </VStack>
+        <VStack spacing="$chrome.space.xs" align="stretch">
+            <Rule color="$chrome.ruleSoft" />
+            <Text style="$chrome.type.mono" color="$chrome.chalkDim">
+                ruleSoft — ペインの見出しの下・デバイスバーの下・診断 1 行の間
+            </Text>
+        </VStack>
     </VStack>
 
     <VStack spacing="$aside.spacing" align="stretch">
@@ -357,6 +326,11 @@
             窓の中では 6pt しか見えないので、ここに横向きで並べて濃さを決める。
             State は normal / hover / focused の 3 つで、Inspector から強制表示できる
             （実物に :active は 1 本も無いので pressed は宣言しない）。
+        </Text>
+        <Splitter axis="horizontal" />
+        <Text style="$chrome.type.mono" color="$chrome.chalkDim">
+            芯 2pt + 輪 2pt × 2 = 6pt。安静時の輪は地と同色で、焦点で chalk に変わる
+            （実物の outline-offset: -2px と同じ幾何）
         </Text>
     </VStack>
 

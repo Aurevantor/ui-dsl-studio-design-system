@@ -20,7 +20,11 @@
   "aside": {
     "$description": "**カンプ専用の紙**（#208 → #218）。カンプが自分に付けた注釈を載せる面。**#218 で Screen の外（`<Aside>`）へ出た** —— 紙は Note 1 枚ごとではなく **`<Aside>` の根 1 枚**になり、中を入れ子で区切って 1 件ずつの注釈にする。**Pane との違いは 3 つ** ——（1）地が沈む（chrome.aside・実物に対応が無い）（2）罫を持たない（罫は実物の語彙で「2 段」が語彙として宣言されている・design.test.tsx。カンプの都合で 3 本目の役を足さない）（3）見出しに Eyebrow を使わず声だけ借りる（labelTypography）。**名前は `chrome.aside`（色）と別物** —— あちらは面の色、こちらは紙の役。",
     "background": { "$type": "color", "$value": "{chrome.aside}" },
-    "padding": { "$type": "dimension", "$value": "{chrome.space.md}" },
+    "padding": {
+      "$type": "dimension",
+      "$value": "{chrome.space.screen}",
+      "$description": "Screen と同じ広い内側余白を取り、注釈の紙を 1 つの塊として読ませる。節どうしの spacing（chrome.space.md）より十分広くする。"
+    },
     "spacing": {
       "$type": "dimension",
       "$value": "{chrome.space.xs}",
