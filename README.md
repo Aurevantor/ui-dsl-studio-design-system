@@ -67,12 +67,12 @@ make push WS=apps/studio/design
 （`getComputedStyle` か、色なら canvas の probe。AGENTS.md「色は `getComputedStyle` から
 測れないことがある」）。**変わったことを別の器で確かめてから、変わり方を目で判断する。**
 
-### 見るときの注意 — Preview ペインの幅で頭打ちになる
+### 見るときの注意 — Screen の UI Point 寸法は固定
 
-`.specimen` は `max-width: 100%` なので、**Preview ペインの実効幅が preset の幅より狭いと
-そこで頭打ちになる**。Mac preset（1280pt）で見るなら、ペインを広げるか窓を広げること。
-実寸かどうかは寸法線（`data-testid="preview-size"`）が**実測**して出しているので、
-そこに出ている数が preset の数と違えば頭打ちしている。
+Screen は Preview ペイン幅へ頭打ちせず、preset の幅と高さをそのまま確保する。Mac preset は
+`uix.json` の `preview.mac`、未指定なら **2056 × 1305pt**。収まらない場合、Macを選んだ直後は
+`Fit`で全体を縮小し、100%などの固定Zoomへ切り替えた後は外側Previewをスクロールして読む。
+寸法線（`data-testid="preview-size"`）はScreen mountを実測し、Zoomに依らない幅と高さを表示する。
 
 ## 何が在るか
 

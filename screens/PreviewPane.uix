@@ -11,7 +11,7 @@
      Preview の中身（利用者の画面）は描かない —— あれは別 document で、色も字組みも
      利用者の Design System のものだから、chrome.* の設計言語には属さない。地だけを
      2 例（ブラウザが color-scheme に対して塗る canvas の色）で置く。
-     ズーム（.device の transform: scale）も無い。デバイスバーは折り返さない ——
+     実物のズーム（.specimen の CSS zoom）も無い。デバイスバーは折り返さない ——
      studio.css の .device-bar は flex-wrap: wrap だが、UIX の Stack に折り返しは無い。
      縮めて重ねると壊れて見えるので、群には shrink="0" を置いて「狭ければ切れる」に
      倒してある（この画面は Mac の preset で見る）。
