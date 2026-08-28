@@ -43,8 +43,10 @@ make push WS=apps/studio/design
 `http://localhost:5173/` を開き、Files から `design` の下の `.uix` / `.tokens.json` を選ぶ。
 
 **端末 2 が要る。** Studio の Editor で編集すると Preview は即座に描き直すが、
-**ディスクには書き戻さない**（`apps/studio/src/push.ts` —「編集中のバッファ。保存はしない
-（Studio は fs を持たない）」）。そして逆向きも繋がっていない ——
+**ブラウザで開いているあいだはディスクへ書き戻さない**（`apps/studio/src/push.ts`）。
+**書けるのは macOS の殻（`swift/app`・`make app`）で開いたときだけ**で、
+そのときは ⌘S で保存・「破棄」でディスクの内容に戻せる（#241）。
+そして逆向きも繋がっていない ——
 `apps/studio/vite.config.ts` の `readWorkspace` は読んだ実ファイルを
 **意図的に `addWatchFile` に載せていない**（#110）ので、**エディタでディスクを編集して
 ブラウザをリロードしても古いまま**（dev サーバを立て直すまで変わらない）。
