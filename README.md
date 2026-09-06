@@ -1,4 +1,8 @@
-# apps/studio/design — Studio 自身のカンプ
+# ui-dsl-studio-design-system — Studio 自身のカンプ
+
+このリポジトリは `ui-dsl-studio` の `apps/studio/design` から切り出した
+private な UIX デザインシステムです。親リポジトリでは同パスの submodule として
+参照されます。
 
 Studio の外装（chrome）を **UIX で書いたデザインカンプ**。Studio で開いて、
 Preview を見ながら配色・間隔・字組みを決めるための絵。
