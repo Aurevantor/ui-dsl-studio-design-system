@@ -1,6 +1,6 @@
 # ui-dsl-studio-design-system — Studio 自身のカンプ
 
-このリポジトリは `ui-dsl-studio` の `apps/studio/design` から切り出した
+このリポジトリは `ui-dsl-studio` の Studio 用 fixture から切り出した
 private な UIX デザインシステムです。親リポジトリでは同パスの submodule として
 参照されます。
 
@@ -41,7 +41,7 @@ Preview を見ながら配色・間隔・字組みを決めるための絵。
 make dev
 
 # 端末 2: uix dev を立てて、このワークスペースを見張らせる
-make push WS=apps/studio/design
+make push WS=tests/fixtures/ui-dsl-studio-design-system
 ```
 
 `http://localhost:5173/` を開き、Files から `design` の下の `.uix` / `.tokens.json` を選ぶ。

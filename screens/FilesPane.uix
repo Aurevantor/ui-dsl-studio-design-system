@@ -28,7 +28,7 @@
                     <VStack spacing="$chrome.space.xs" align="stretch">
                         <Text style="$chrome.type.mono" color="$chrome.chalk">design</Text>
                         <Text style="$chrome.type.filesRoot" color="$chrome.chalkDim">
-                            apps/studio/design
+                            tests/fixtures/ui-dsl-studio-design-system
                         </Text>
                     </VStack>
 
