@@ -79,6 +79,8 @@ Screen は Preview ペイン幅へ頭打ちせず、preset の幅と高さをそ
 `uix.json` の `preview.mac`、未指定なら **2056 × 1305pt**。収まらない場合、Macを選んだ直後は
 `Fit`で全体を縮小し、100%などの固定Zoomへ切り替えた後は外側Previewをスクロールして読む。
 寸法線（`data-testid="preview-size"`）はScreen mountを実測し、Zoomに依らない幅と高さを表示する。
+このカンプは macOS アプリ用なので、`preview.defaultDevice` は `mac` とする。保存済みの Device 選択が
+無い初回は Mac + Fit で開き、その後は Studio がワークスペース別に記憶した選択を優先する。
 
 ## 何が在るか
 

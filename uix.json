@@ -1,1 +1,5 @@
-{}
+{
+  "preview": {
+    "defaultDevice": "mac"
+  }
+}
