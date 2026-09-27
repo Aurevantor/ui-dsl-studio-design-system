@@ -1,7 +1,7 @@
 <!-- studio-design: Titlebar
      omitted: uix dev の接続状態・IR node 数・token 数は編集のたびに動く値なので、
      1 例の数値を書いている。定規（Gauge.uix）はこの画面の主題ではないので描かない。
-     Design / Flow の「入り」は画面から固定できないので描かない。「保存 ⌘S」は App の
+     Design / Flow の初期選択は Screen の State input で固定して描く。「保存 ⌘S」は App の
      殻で開いたときだけ出る（ブラウザでは破棄だけ）が、ここでは出ている側を描く。
      折り返し（.titlebar の flex-wrap）は UIX の Stack に無いので省く。
 
@@ -32,7 +32,7 @@
                     <Text style="$chrome.type.mark" color="$chrome.chalk">UI DSL Studio</Text>
 
                     <ToggleGroup>
-                        <Toggle label="Design" />
+                        <Toggle label="Design" selected="true" />
                         <Toggle label="Flow" />
                     </ToggleGroup>
 
@@ -76,7 +76,7 @@
                     <Text style="$chrome.type.mark" color="$chrome.chalk">UI DSL Studio</Text>
 
                     <ToggleGroup>
-                        <Toggle label="Design" />
+                        <Toggle label="Design" selected="true" />
                         <Toggle label="Flow" />
                     </ToggleGroup>
 
@@ -123,7 +123,7 @@
                     <Text style="$chrome.type.mark" color="$chrome.chalk">UI DSL Studio</Text>
 
                     <ToggleGroup>
-                        <Toggle label="Design" />
+                        <Toggle label="Design" selected="true" />
                         <Toggle label="Flow" />
                     </ToggleGroup>
 

@@ -52,20 +52,20 @@
                         <ToggleGroup>
                             <Toggle label="iPhone" />
                             <Toggle label="iPad" />
-                            <Toggle label="Mac" />
+                            <Toggle label="Mac" selected="true" />
                             <Toggle label="Web" />
                         </ToggleGroup>
 
                         <!-- Web を選んでいるあいだだけ出る幅の群（device-presets.ts の WEB_PRESETS）。 -->
                         <ToggleGroup>
-                            <Toggle label="1440" />
+                            <Toggle label="1440" selected="true" />
                             <Toggle label="1280" />
                             <Toggle label="768" />
                             <Toggle label="390" />
                         </ToggleGroup>
 
                         <ToggleGroup>
-                            <Toggle label="Light" />
+                            <Toggle label="Light" selected="true" />
                             <Toggle label="Dark" />
                         </ToggleGroup>
 
@@ -76,11 +76,11 @@
                             <Toggle label="200%" />
                             <Toggle label="+" />
                             <Text style="$toggle.typography" color="$chrome.chalkDim">40.7%</Text>
-                            <Toggle label="Fit" />
+                            <Toggle label="Fit" selected="true" />
                         </ToggleGroup>
 
                         <ToggleGroup>
-                            <Toggle label="Mat" />
+                            <Toggle label="Mat" selected="true" />
                             <Toggle label="Dim" />
                             <Toggle label="Chalk" />
                         </ToggleGroup>
@@ -330,9 +330,11 @@
     <VStack spacing="$aside.spacing" align="stretch">
         <Text style="$aside.labelTypography" color="$aside.labelColor">DEVICE BAR — TOGGLE</Text>
         <Text style="$chrome.type.body" color="$chrome.chalkDim">
-            State は Inspector から強制表示できる（宣言は normal / hover /
-            focused / selected の 4 つ）。selected は押した後も居座る「入り」なので
-            props 制御の枠に置いてあり、疑似クラスには写らない。
+            Screen では Component の State input と同名の boolean 属性で状態を固定できる。
+            Device / Theme / Zoom / Backdrop は実装の既定（Mac / Light / Fit / Mat）に合わせ、
+            Web 幅の群は Web を選んだときの既定（1440）を選ぶ。
+            hover / focused は Inspector から強制表示する。selected は押した後も居座る
+            「入り」なので props 制御の枠に置き、疑似クラスには写さない。
         </Text>
     </VStack>
 

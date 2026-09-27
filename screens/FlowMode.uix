@@ -3,8 +3,9 @@
      無いので、横並びの画面の間に水平の罫とラベルで置く（縦の分岐 = sheet / fullScreenCover
      の下向きの線は描かない）。図の地の点の方眼（--flow-grid）も描かない。サムネイルは
      実物では各 Screen を縮小して描くが、ここでは白い矩形。入力（select / input）は
-     地を一段上げた箱で代替する。再生（Walkthrough の電話枠・.flow-phone）は描かない。ボタンの「入り」と disabled
-     （Undo / Redo / 破棄の 45% の薄さ）は画面から固定できないので描かない。
+     地を一段上げた箱で代替する。再生（Walkthrough の電話枠・.flow-phone）は描かない。
+     FlowButton の「入り」は State input で固定できるが、この画面では selected のボタンはない。
+     disabled（Undo / Redo / 破棄の 45% の薄さ）は State として宣言されていないので描かない。
 
      Flow モード（.flow-mode）。Design / Flow の Flow を選ぶと、タイトルバーと定規を残して
      下を覆う。上から toolbar → 3 列（Screens とフロー設定 290 │ 図 │ Inspector 360）。
@@ -32,7 +33,7 @@
                 <Text style="$chrome.type.mark" color="$chrome.chalk">UI DSL Studio</Text>
                 <ToggleGroup>
                     <Toggle label="Design" />
-                    <Toggle label="Flow" />
+                    <Toggle label="Flow" selected="true" />
                 </ToggleGroup>
                 <Text style="$chrome.type.mono" color="$chrome.chalk">screens/Inbox.uix</Text>
                 <Spacer />

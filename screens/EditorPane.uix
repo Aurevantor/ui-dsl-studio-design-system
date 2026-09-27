@@ -45,7 +45,7 @@
                     <Spacer />
                     <ToggleGroup>
                         <Toggle label="Text" />
-                        <Toggle label="Visual" />
+                        <Toggle label="Visual" selected="true" />
                     </ToggleGroup>
                 </HStack>
 

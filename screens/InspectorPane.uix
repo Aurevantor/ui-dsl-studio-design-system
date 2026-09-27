@@ -1,7 +1,7 @@
 <!-- studio-design: InspectorPane
      omitted: Props / Layout / Style の区画は選択中ノードで変わるので、Toggle を選んだ
-     1 例だけを置く。State の「入り」（強制中の State）は画面から固定できないので描かず、
-     このペインの Toggle を Inspector で強制表示して見る。
+     1 例だけを置く。State 欄は初期状態の none を selected="true" で描く。hover / focused
+     などの見た目は Inspector の強制表示で見る。
 
      右の Workbench の下段（.stage__inspector）。上から 選択の要約 → Workspace の一覧 →
      State → Props / Layout / Style。左が選んでいるとき、右が何も選んでいないとき。 -->
@@ -59,7 +59,7 @@
                     <InspectorRow label="RENDER ISSUES" value="0" />
                     <Eyebrow label="STATE" />
                     <HStack spacing="$chrome.space.tight" align="center">
-                        <Toggle label="none" />
+                        <Toggle label="none" selected="true" />
                         <Toggle label="normal" />
                         <Toggle label="hover" />
                         <Toggle label="focused" />
