@@ -1,6 +1,6 @@
 <!-- studio-design: DiagnosticsPane
-     omitted: 行の中身は代表の 3 件。件数は実行時の値。Bottom View のトグルの
-     「入り」は画面から固定できないので描かない。
+     omitted: 行の中身は代表の 3 件。件数は実行時の値。Bottom View On の状態は
+     Toggle の State input で固定して描く（Off の既定状態は Shell.uix が持つ）。
 
      窓の底の Drawer（Bottom View On のとき）。見出しの右に件数、右端に Bottom View を
      畳むトグル。行は Problem（軸は色ではなく severity）で、空のときは「問題なし。」。 -->
@@ -28,7 +28,7 @@
                     <Text style="$chrome.type.paneNote" color="$chrome.chalkDim">3</Text>
                     <Spacer />
                     <HStack shrink="0">
-                        <Toggle label="Bottom View On" />
+                        <Toggle label="Bottom View On" selected="true" />
                     </HStack>
                 </HStack>
                 <Rule color="$chrome.ruleSoft" />
@@ -72,7 +72,7 @@
                     <Text style="$chrome.type.paneNote" color="$chrome.chalkDim">0</Text>
                     <Spacer />
                     <HStack shrink="0">
-                        <Toggle label="Bottom View On" />
+                        <Toggle label="Bottom View On" selected="true" />
                     </HStack>
                 </HStack>
                 <Rule color="$chrome.ruleSoft" />

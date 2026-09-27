@@ -2,8 +2,8 @@
      omitted: グループの中身は Prop に配列型が無く ForEach が使えないので、実在する
      ファイル名を手で並べた（要るのは縦の律動だけ）。「Project を追加」「削除」は
      App の殻で開いたときだけ出る（ブラウザでは出ない）が、ここでは出ている側を描く。
-     Toggle の「入り」（選んだ Project / 開いているファイル）は画面から固定できないので
-     描かず、Inspector の強制表示で見る。
+     選択中の State は Component の State input と同名の属性で固定できる。Projects の一覧は
+     未選択の状態、Files 段は Editor に開いている FilesPane.uix を selected="true" で描く。
 
      Files ペイン（.files）の 2 段。左が Projects の一覧（.files__project）、右が
      Project を選んだあとの木（.files__back → .files__workspace → .files__group）。
@@ -90,7 +90,11 @@
                     <Eyebrow label="SCREENS" />
                     <VStack spacing="$chrome.space.tight" align="stretch">
                         <FilesItem label="Shell.uix" path="screens/Shell.uix" />
-                        <FilesItem label="FilesPane.uix" path="screens/FilesPane.uix" held="編集中（外部の保存を保留）" />
+                        <FilesItem
+                            label="FilesPane.uix"
+                            path="screens/FilesPane.uix"
+                            held="編集中（外部の保存を保留）"
+                            selected="true" />
                         <FilesItem label="Titlebar.uix" path="screens/Titlebar.uix" />
                     </VStack>
                     <Eyebrow label="COMPONENTS" />

@@ -5,8 +5,8 @@
      どの比で並ぶか。定規の帯は高さと軸線だけ（Gauge.uix の担当）。Preview の中身は
      白い矩形 1 つで、方眼・デバイスの飾り・選択枠は描かない（PreviewPane.uix の担当）。
      仕切りは掴めない（v0.1 は表示専用）ので、比は panes.ts の DEFAULT_LAYOUT の写しを
-     1 例だけ置く。Toggle の「入り」（Design / Mac / Fit など）は画面から固定できない
-     ので描かず、Inspector の強制表示で見る。タイトルバーと操作バーの折り返しは省く。
+     1 例だけ置く。Toggle 群の初期選択は実装の既定に合わせて selected="true" で描く。
+     hover / focused の見た目と、タイトルバー・操作バーの折り返しは省く。
      Bottom View On の構図は ShellBottomOn.uix、Flow モードは FlowMode.uix が持つ。
 
      ## この画面は既定の状態 ―― Bottom View Off
@@ -56,7 +56,7 @@
                 align="center">
                 <Text style="$chrome.type.mark" color="$chrome.chalk">UI DSL Studio</Text>
                 <ToggleGroup>
-                    <Toggle label="Design" />
+                    <Toggle label="Design" selected="true" />
                     <Toggle label="Flow" />
                 </ToggleGroup>
                 <Text style="$chrome.type.mono" color="$chrome.chalk">screens/Shell.uix</Text>
@@ -111,7 +111,7 @@
                         spacing="$chrome.space.tight"
                         align="stretch">
                         <Eyebrow label="SCREENS" />
-                        <FilesItem label="Shell.uix" path="screens/Shell.uix" />
+                        <FilesItem label="Shell.uix" path="screens/Shell.uix" selected="true" />
                         <FilesItem label="Titlebar.uix" path="screens/Titlebar.uix" />
                         <Eyebrow label="COMPONENTS" />
                         <FilesItem label="Toggle.uix" path="components/Toggle.uix" />
@@ -139,18 +139,18 @@
                         <ToggleGroup>
                             <Toggle label="iPhone" />
                             <Toggle label="iPad" />
-                            <Toggle label="Mac" />
+                            <Toggle label="Mac" selected="true" />
                             <Toggle label="Web" />
                         </ToggleGroup>
                         <ToggleGroup>
-                            <Toggle label="Light" />
+                            <Toggle label="Light" selected="true" />
                             <Toggle label="Dark" />
                         </ToggleGroup>
                         <ToggleGroup>
                             <Toggle label="−" />
                             <Toggle label="100%" />
                             <Toggle label="+" />
-                            <Toggle label="Fit" />
+                            <Toggle label="Fit" selected="true" />
                         </ToggleGroup>
                         <Spacer />
                     </HStack>
