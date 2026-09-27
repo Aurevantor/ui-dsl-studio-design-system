@@ -84,10 +84,12 @@ Mac preset は 2056 × 1305pt で、Fit で全体、100% で細部を見る。
 
 - **`omitted:` を宣言する。** screen の先頭コメントに
   `<!-- studio-design: 名前 / omitted: 省いたもの（無ければ「なし」） -->` を書く。
-  UIX で描けないもの（曲線・グラデーション・絶対配置・折り返し）や、画面から固定できない
-  State の「入り」を、**黙って省かない**
-- **State の「入り」は画面から固定できない。** 画面側の書き方が無いので、選択中の見た目は
-  Studio の Inspector の強制表示で見る
+  UIX で描けないもの（曲線・グラデーション・絶対配置・折り返し）や、Screen に固定して
+  描いていない State を、**黙って省かない**
+- **State の「入り」は Screen から固定して描ける。** Component の State input と同名の
+  boolean 属性を渡す（例: `<Toggle label="Design" selected="true" />`）。同じ操作群では
+  実装の既定に合う 1 つを選ぶ。`hover` / `focused` など操作で変わる State は Inspector
+  から強制表示して見る
 - **実物に無い State を発明しない。** とくに `pressed` は書かない —— `state-css.ts` が
   `:active` を出すので「押している間だけ変わる」別物になり、強制表示では正しく見えるので
   気づけない。持続する「入り」は `selected` という独自名で書く

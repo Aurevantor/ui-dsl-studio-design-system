@@ -35,7 +35,7 @@
                 align="center">
                 <Text style="$chrome.type.mark" color="$chrome.chalk">UI DSL Studio</Text>
                 <ToggleGroup>
-                    <Toggle label="Design" />
+                    <Toggle label="Design" selected="true" />
                     <Toggle label="Flow" />
                 </ToggleGroup>
                 <Text style="$chrome.type.mono" color="$chrome.chalk">screens/Shell.uix</Text>
@@ -90,7 +90,7 @@
                         spacing="$chrome.space.tight"
                         align="stretch">
                         <Eyebrow label="SCREENS" />
-                        <FilesItem label="Shell.uix" path="screens/Shell.uix" />
+                        <FilesItem label="Shell.uix" path="screens/Shell.uix" selected="true" />
                         <FilesItem label="Titlebar.uix" path="screens/Titlebar.uix" />
                         <Eyebrow label="COMPONENTS" />
                         <FilesItem label="Toggle.uix" path="components/Toggle.uix" />
@@ -118,18 +118,18 @@
                         <ToggleGroup>
                             <Toggle label="iPhone" />
                             <Toggle label="iPad" />
-                            <Toggle label="Mac" />
+                            <Toggle label="Mac" selected="true" />
                             <Toggle label="Web" />
                         </ToggleGroup>
                         <ToggleGroup>
-                            <Toggle label="Light" />
+                            <Toggle label="Light" selected="true" />
                             <Toggle label="Dark" />
                         </ToggleGroup>
                         <ToggleGroup>
                             <Toggle label="−" />
                             <Toggle label="100%" />
                             <Toggle label="+" />
-                            <Toggle label="Fit" />
+                            <Toggle label="Fit" selected="true" />
                         </ToggleGroup>
                         <Spacer />
                     </HStack>
@@ -244,7 +244,7 @@
                     <Eyebrow label="DIAGNOSTICS" />
                     <Text style="$chrome.type.paneNote" color="$chrome.chalk">2</Text>
                     <Spacer />
-                    <Toggle label="Bottom View On" />
+                    <Toggle label="Bottom View On" selected="true" />
                 </HStack>
                 <Rule color="$chrome.ruleSoft" />
                 <VStack
