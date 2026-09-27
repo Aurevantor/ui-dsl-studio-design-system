@@ -98,12 +98,12 @@
     },
     "space": {
       "$type": "dimension",
-      "tight": { "$value": "{spacing.1}" },
-      "xs": { "$value": "{spacing.4}" },
-      "sm": { "$value": "{spacing.6}" },
+      "tight": { "$value": "{spacing.1}", "$extensions": { "ui-dsl.studio-css": true } },
+      "xs": { "$value": "{spacing.4}", "$extensions": { "ui-dsl.studio-css": true } },
+      "sm": { "$value": "{spacing.6}", "$extensions": { "ui-dsl.studio-css": true } },
       "md": { "$value": "{spacing.10}" },
-      "pane": { "$value": "{spacing.12}", "$description": "ペイン見出し・操作バーの左右の余白（studio.css .pane__head / .device-bar の 12px）。" },
-      "lg": { "$value": "{spacing.14}" },
+      "pane": { "$value": "{spacing.12}", "$description": "ペイン見出し・操作バーの左右の余白（studio.css .pane__head / .device-bar の 12px）。", "$extensions": { "ui-dsl.studio-css": true } },
+      "lg": { "$value": "{spacing.14}", "$extensions": { "ui-dsl.studio-css": true } },
       "screen": { "$value": "{spacing.20}" },
       "grid": { "$value": "{spacing.64}" }
     },
@@ -112,20 +112,22 @@
       "mark": { "$value": "{radius.sm}" },
       "pill": {
         "$value": "{radius.sm}",
-        "$description": "端を丸め切るもの（home indicator）。mark と同じ数だが役が違う —— あちらは角を落とす、こちらは棒の端。"
+        "$description": "端を丸め切るもの（home indicator）。mark と同じ数だが役が違う —— あちらは角を落とす、こちらは棒の端。",
+        "$extensions": { "ui-dsl.studio-css": true }
       },
       "pane": { "$value": "{radius.md}" },
       "notch": {
         "$value": "{radius.md}",
-        "$description": "notch の角。studio.css は下 2 隅だけ（0 0 12px 12px）だが、UIX の radius は 4 隅に掛かる。"
+        "$description": "notch の角。studio.css は下 2 隅だけ（0 0 12px 12px）だが、UIX の radius は 4 隅に掛かる。",
+        "$extensions": { "ui-dsl.studio-css": true }
       },
       "device": { "$value": "{radius.lg}" },
-      "control": { "$value": "{radius.3}", "$description": "押せる語（.device-bar__button）の角。" },
-      "button": { "$value": "{radius.5}", "$description": "Flow モードの枠付きボタン・入力（.flow-mode button / select / input）の角。" },
-      "item": { "$value": "{radius.4}", "$description": "Files / Projects の 1 行（.files__item）の角。" },
-      "group": { "$value": "{radius.6}", "$description": "操作群（.device-bar__group / .studio-mode）の角。" },
-      "window": { "$value": "{radius.8}", "$description": "Mac / Web の窓の縁（deviceFrameRadius の mac / web）。" },
-      "mount": { "$value": "{radius.16}", "$description": "Aside を描く面（.aside-mount）の角。" },
+      "control": { "$value": "{radius.3}", "$description": "押せる語（.device-bar__button）の角。", "$extensions": { "ui-dsl.studio-css": true } },
+      "button": { "$value": "{radius.5}", "$description": "Flow モードの枠付きボタン・入力（.flow-mode button / select / input）の角。", "$extensions": { "ui-dsl.studio-css": true } },
+      "item": { "$value": "{radius.4}", "$description": "Files / Projects の 1 行（.files__item）の角。", "$extensions": { "ui-dsl.studio-css": true } },
+      "group": { "$value": "{radius.6}", "$description": "操作群（.device-bar__group / .studio-mode）の角。", "$extensions": { "ui-dsl.studio-css": true } },
+      "window": { "$value": "{radius.8}", "$description": "Mac / Web の窓の縁（deviceFrameRadius の mac / web）。", "$extensions": { "ui-dsl.studio-css": true } },
+      "mount": { "$value": "{radius.16}", "$description": "Aside を描く面（.aside-mount）の角。", "$extensions": { "ui-dsl.studio-css": true } },
       "tablet": { "$value": "{radius.20}", "$description": "iPad の縁（deviceFrameRadius の tablet）。" }
     },
     "stroke": {
