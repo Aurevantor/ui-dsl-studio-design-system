@@ -1,0 +1,27 @@
+<!-- Projects 段の 1 行（`.files__project`）。名前と root の 2 行で、State は FilesItem と同じ
+     normal / hover / selected（選んだ Project は aria-current で居座る）。 -->
+<Component name="ProjectItem">
+
+    <Props>
+        <Prop name="name" type="string" />
+        <Prop name="root" type="string" />
+    </Props>
+
+    <State name="normal" />
+    <State name="hover" background="$filesItem.hoverBackground" />
+    <State name="selected" background="$filesItem.selectedBackground" />
+
+    <VStack
+        width="fill"
+        spacing="$chrome.space.tight"
+        padding-horizontal="$filesItem.paddingHorizontal"
+        padding-vertical="$filesItem.paddingVertical"
+        radius="$filesItem.radius"
+        align="stretch">
+
+        <Text style="$filesItem.typography" color="$filesItem.color">{$props.name}</Text>
+        <Text style="$filesItem.pathTypography" color="$filesItem.pathColor">{$props.root}</Text>
+
+    </VStack>
+
+</Component>

@@ -5,8 +5,7 @@
      部品の Variant を並べる見本帳。**絵の完成度ではなく、経路が主題**（#153）——
      Studio の Editor で tokens/*.tokens.json を編集すると、ここが即座に描き直される。
 
-     配置は Studio の実物と一致させない（#152 の「守らないもの」）。カンプが決めるのは
-     配色・間隔・字組みで、レイアウトの正本ではない。 -->
+     見本帳なので部品の並べ方は実物と対応しない。窓の中の配置の正本は Shell.uix（#298）。 -->
 <Screen id="catalog" name="Catalog" background="$chrome.mat">
 
     <ScrollView width="fill" height="fill">

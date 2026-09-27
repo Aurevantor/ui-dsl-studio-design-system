@@ -1,0 +1,28 @@
+<!-- Bottom View Off のときに Diagnostics の代わりに窓の底に出る 1 行（`.status-bar`）。
+     件数・Project・ファイルを並べ、右端に Bottom View を戻すトグルを置く。 -->
+<Component name="StatusBar">
+
+    <Props>
+        <Prop name="diagnostics" type="string" />
+        <Prop name="project" type="string" />
+        <Prop name="file" type="string" />
+    </Props>
+
+    <HStack
+        width="fill"
+        spacing="$statusBar.spacing"
+        padding-horizontal="$statusBar.paddingHorizontal"
+        padding-vertical="$statusBar.paddingVertical"
+        align="center">
+
+        <Eyebrow label="STATUS" />
+        <Text style="$statusBar.typography" color="$statusBar.color">Diagnostics</Text>
+        <Text style="$statusBar.typography" color="$statusBar.valueColor">{$props.diagnostics}</Text>
+        <Text style="$statusBar.typography" color="$statusBar.color">{$props.project}</Text>
+        <Text style="$statusBar.typography" color="$statusBar.valueColor">{$props.file}</Text>
+        <Spacer />
+        <Toggle label="Bottom View Off" />
+
+    </HStack>
+
+</Component>

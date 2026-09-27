@@ -1,13 +1,13 @@
 <!-- studio-design: Titlebar
      omitted: uix dev の接続状態・IR node 数・token 数は編集のたびに動く値なので、
-     ここでは 1 例の数値を書いている（動く値そのものの正しさは検査しない・#152 の
-     「カンプと実装の一致」は守らないもの）。gauge（コンパイル定規）はこの画面の
-     主題ではないので描かない ―― 対数目盛と打鍵ごとの印は静止画に写せない動きが
-     署名（#115）なので、別画面の対象にする。
+     1 例の数値を書いている。定規（Gauge.uix）はこの画面の主題ではないので描かない。
+     Design / Flow の「入り」は画面から固定できないので描かない。「保存 ⌘S」は App の
+     殻で開いたときだけ出る（ブラウザでは破棄だけ）が、ここでは出ている側を描く。
+     折り返し（.titlebar の flex-wrap）は UIX の Stack に無いので省く。
 
-     .titlebar の見本。配置は Studio の実物と一致させない（#152 の「守らないもの」）。
-     罫は Rule で表す —— UIX の borderWidth は 4 辺すべてに掛かるので、下だけの線は
-     属性で書けない（Rule.uix の注釈と同じ理由）。 -->
+     .titlebar の見本。左から 名前 → Design / Flow → 開いているファイル（と未保存の出口）、
+     右寄せで uix dev と件数。3 つの状態を縦に並べる：安静・未保存・保存の失敗。
+     罫は Rule で表す（UIX の borderWidth は 4 辺すべてに掛かる）。 -->
 <Screen id="titlebar" name="Titlebar" background="$chrome.mat">
 
     <ScrollView width="fill" height="fill">
@@ -16,31 +16,36 @@
             id="titlebar-body"
             width="fill"
             padding="$chrome.space.screen"
-            spacing="$chrome.space.lg"
+            spacing="$chrome.space.screen"
             align="stretch">
 
-            <VStack id="titlebar-specimen" align="stretch">
-
+            <VStack id="titlebar-clean" spacing="$chrome.space.sm" align="stretch">
+                <Eyebrow label="安静" />
                 <HStack
-                    id="titlebar-bar"
+                    id="titlebar-clean-bar"
                     width="fill"
                     spacing="$chrome.space.lg"
-                    padding-horizontal="$chrome.space.md"
+                    padding-horizontal="$chrome.space.lg"
                     padding-vertical="$chrome.space.sm"
                     align="center">
 
                     <Text style="$chrome.type.mark" color="$chrome.chalk">UI DSL Studio</Text>
 
-                    <Text style="$chrome.type.mono" color="$chrome.chalk">
-                        screens/Titlebar.uix
-                    </Text>
+                    <ToggleGroup>
+                        <Toggle label="Design" />
+                        <Toggle label="Flow" />
+                    </ToggleGroup>
+
+                    <HStack spacing="$chrome.space.md" align="center">
+                        <Text style="$chrome.type.mono" color="$chrome.chalk">screens/Titlebar.uix</Text>
+                    </HStack>
+
+                    <Spacer />
 
                     <HStack spacing="$chrome.space.xs" align="center">
                         <Text style="$chrome.type.link" color="$chrome.chalkDim">uix dev</Text>
                         <Text style="$chrome.type.link" color="$chrome.chalk">push #3</Text>
                     </HStack>
-
-                    <Spacer />
 
                     <HStack spacing="$chrome.space.lg" align="center">
                         <HStack spacing="$chrome.space.xs" align="center">
@@ -56,7 +61,101 @@
                 </HStack>
 
                 <Rule color="$chrome.rule" />
+            </VStack>
 
+            <VStack id="titlebar-dirty" spacing="$chrome.space.sm" align="stretch">
+                <Eyebrow label="未保存 — amber と出口" />
+                <HStack
+                    id="titlebar-dirty-bar"
+                    width="fill"
+                    spacing="$chrome.space.lg"
+                    padding-horizontal="$chrome.space.lg"
+                    padding-vertical="$chrome.space.sm"
+                    align="center">
+
+                    <Text style="$chrome.type.mark" color="$chrome.chalk">UI DSL Studio</Text>
+
+                    <ToggleGroup>
+                        <Toggle label="Design" />
+                        <Toggle label="Flow" />
+                    </ToggleGroup>
+
+                    <HStack spacing="$chrome.space.md" align="center">
+                        <Text style="$chrome.type.mono" color="$chrome.chalk">screens/Titlebar.uix</Text>
+                        <Text style="$chrome.type.meta" color="$chrome.amber">未保存</Text>
+                        <Toggle label="保存 ⌘S" />
+                        <Toggle label="破棄" />
+                    </HStack>
+
+                    <Spacer />
+
+                    <HStack spacing="$chrome.space.xs" align="center">
+                        <Text style="$chrome.type.link" color="$chrome.chalkDim">uix dev</Text>
+                        <Text style="$chrome.type.link" color="$chrome.chalk">push #3</Text>
+                    </HStack>
+
+                    <HStack spacing="$chrome.space.lg" align="center">
+                        <HStack spacing="$chrome.space.xs" align="center">
+                            <Text style="$chrome.type.meta" color="$chrome.chalk">12</Text>
+                            <Text style="$chrome.type.meta" color="$chrome.chalkDim">IR nodes</Text>
+                        </HStack>
+                        <HStack spacing="$chrome.space.xs" align="center">
+                            <Text style="$chrome.type.meta" color="$chrome.chalk">48</Text>
+                            <Text style="$chrome.type.meta" color="$chrome.chalkDim">tokens</Text>
+                        </HStack>
+                    </HStack>
+
+                </HStack>
+
+                <Rule color="$chrome.rule" />
+            </VStack>
+
+            <VStack id="titlebar-error" spacing="$chrome.space.sm" align="stretch">
+                <Eyebrow label="保存の失敗 — alert" />
+                <HStack
+                    id="titlebar-error-bar"
+                    width="fill"
+                    spacing="$chrome.space.lg"
+                    padding-horizontal="$chrome.space.lg"
+                    padding-vertical="$chrome.space.sm"
+                    align="center">
+
+                    <Text style="$chrome.type.mark" color="$chrome.chalk">UI DSL Studio</Text>
+
+                    <ToggleGroup>
+                        <Toggle label="Design" />
+                        <Toggle label="Flow" />
+                    </ToggleGroup>
+
+                    <HStack spacing="$chrome.space.md" align="center">
+                        <Text style="$chrome.type.mono" color="$chrome.chalk">screens/Titlebar.uix</Text>
+                        <Text style="$chrome.type.meta" color="$chrome.amber">未保存</Text>
+                        <Toggle label="保存 ⌘S" />
+                        <Toggle label="破棄" />
+                        <Text style="$chrome.type.meta" color="$chrome.alert">保存できませんでした: EACCES</Text>
+                    </HStack>
+
+                    <Spacer />
+
+                    <HStack spacing="$chrome.space.xs" align="center">
+                        <Text style="$chrome.type.link" color="$chrome.chalkDim">uix dev</Text>
+                        <Text style="$chrome.type.link" color="$chrome.chalk">push #3</Text>
+                    </HStack>
+
+                    <HStack spacing="$chrome.space.lg" align="center">
+                        <HStack spacing="$chrome.space.xs" align="center">
+                            <Text style="$chrome.type.meta" color="$chrome.chalk">12</Text>
+                            <Text style="$chrome.type.meta" color="$chrome.chalkDim">IR nodes</Text>
+                        </HStack>
+                        <HStack spacing="$chrome.space.xs" align="center">
+                            <Text style="$chrome.type.meta" color="$chrome.chalk">48</Text>
+                            <Text style="$chrome.type.meta" color="$chrome.chalkDim">tokens</Text>
+                        </HStack>
+                    </HStack>
+
+                </HStack>
+
+                <Rule color="$chrome.rule" />
             </VStack>
 
         </VStack>
@@ -79,7 +178,7 @@
             タイトルバー
         </Text>
         <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
-            道具の名前・開いているファイル・uix dev の接続状態・件数を横に並べる 1 行。
+            道具の名前・Design / Flow の切り替え・開いているファイルと未保存の出口・uix dev の接続状態・件数を横に並べる 1 行。未保存は amber、保存の失敗は alert（自分の編集を失う手前なので重さを分ける）。
         </Text>
     </VStack>
 

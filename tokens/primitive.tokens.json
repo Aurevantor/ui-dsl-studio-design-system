@@ -78,7 +78,9 @@
     "black75": {
       "$value": "#000000BF",
       "$description": "studio.css .mount の rgb(0 0 0 / 75%)（遠い影）"
-    }
+    },
+    "vermilion14": { "$value": "#EE6A4D24", "$description": "studio.css .gauge__forbidden のグラデーションの濃い端 rgb(238 106 77 / 14%)。" },
+    "clear": { "$value": "#00000000", "$description": "完全な透明。安静時の輪のように「箱の厚みは保つが見せない」ために使う。" }
   },
   "shadow": {
     "$type": "shadow",
@@ -99,6 +101,7 @@
     "4": { "$value": { "value": 4, "unit": "px" } },
     "6": { "$value": { "value": 6, "unit": "px" } },
     "10": { "$value": { "value": 10, "unit": "px" } },
+    "12": { "$value": { "value": 12, "unit": "px" } },
     "14": { "$value": { "value": 14, "unit": "px" } },
     "20": { "$value": { "value": 20, "unit": "px" } },
     "64": {
@@ -118,6 +121,13 @@
     "$type": "dimension",
     "sm": { "$value": { "value": 2, "unit": "px" } },
     "md": { "$value": { "value": 12, "unit": "px" } },
+    "3": { "$value": { "value": 3, "unit": "px" } },
+    "4": { "$value": { "value": 4, "unit": "px" } },
+    "5": { "$value": { "value": 5, "unit": "px" } },
+    "6": { "$value": { "value": 6, "unit": "px" } },
+    "8": { "$value": { "value": 8, "unit": "px" } },
+    "16": { "$value": { "value": 16, "unit": "px" } },
+    "20": { "$value": { "value": 20, "unit": "px" } },
     "lg": {
       "$value": { "value": 32, "unit": "px" },
       "$description": "デバイスの縁。device-presets.ts の deviceFrameRadius('phone') と同じ数だが、あちらが正本（機種ごとに違う）—— ここに在るのは、カンプで iPhone の 1 例を描くための写し。"
@@ -136,6 +146,14 @@
     "gutter": {
       "$value": { "value": 28, "unit": "px" },
       "$description": "Editor の行番号の幅。studio.css には無い（.cm-gutters は中身の桁数で伸びる）ので、ここで決める数のひとつ。"
+    },
+    "gaugeLabel": {
+      "$value": { "value": 148, "unit": "px" },
+      "$description": "定規の左の列（見出しと値）の幅。studio.css .gauge の grid-template-columns: 148px 1fr。"
+    },
+    "inspectorLabel": {
+      "$value": { "value": 110, "unit": "px" },
+      "$description": "Inspector の見出しの列幅。studio.css は minmax(76px, auto)（中身で伸びる）で、いちばん長い RENDER ISSUES が収まる幅をここで決める。"
     },
     "indent": {
       "$value": { "value": 28, "unit": "px" },

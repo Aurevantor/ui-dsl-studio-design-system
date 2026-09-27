@@ -1,0 +1,25 @@
+<!-- Inspector の 1 行（`.inspector__list` の dt / dd）。見出しの列と値の列の 2 列で、
+     値の下に Token の解決の連鎖（`.inspector__chain`）を添えられる。連鎖が無い行は
+     空の文字を渡す。 -->
+<Component name="InspectorRow">
+
+    <Props>
+        <Prop name="label" type="string" />
+        <Prop name="value" type="string" />
+        <Prop name="chain" type="string" default="" />
+    </Props>
+
+    <HStack width="fill" spacing="$chrome.space.lg" align="baseline">
+
+        <VStack width="$chrome.size.inspectorLabel" shrink="0">
+            <Eyebrow label="{$props.label}" />
+        </VStack>
+
+        <VStack spacing="$chrome.space.tight" align="stretch">
+            <Text style="$chrome.type.mono" color="$chrome.chalk">{$props.value}</Text>
+            <Text style="$chrome.type.chain" color="$chrome.chalkDim">{$props.chain}</Text>
+        </VStack>
+
+    </HStack>
+
+</Component>

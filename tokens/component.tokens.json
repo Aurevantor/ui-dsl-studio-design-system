@@ -84,6 +84,11 @@
     "hoverBackground": { "$type": "color", "$value": "{chrome.ruleSoft}" },
     "selectedBackground": { "$type": "color", "$value": "{chrome.rule}" },
     "paddingHorizontal": { "$type": "dimension", "$value": "{chrome.space.md}" },
+    "radius": { "$type": "dimension", "$value": "{chrome.radius.item}" },
+    "inset": { "$type": "dimension", "$value": "{chrome.space.sm}", "$description": "行を木の左右から離す幅（.files__item の margin）。" },
+    "pathTypography": { "$type": "typography", "$value": "{chrome.type.filesRoot}" },
+    "pathColor": { "$type": "color", "$value": "{chrome.chalkDim}" },
+    "heldColor": { "$type": "color", "$value": "{chrome.amber}", "$description": "Editor で触ったため外部保存を当てていないファイルの印（.files__held）。" },
     "paddingVertical": { "$type": "dimension", "$value": "{chrome.space.xs}" }
   },
   "gauge": {
@@ -106,6 +111,7 @@
   "toggle": {
     "$description": "押せる語（studio.css の .device-bar__button と .inspector__state。2 つは同じ規律で、宣言も 3 本ずつ同じ）。**State は normal / hover / focused / selected の 4 つ**で、これは studio.css を全件数えた実測に対応する（#156 のコメント）—— :active と :disabled は 1 本も無いので pressed / disabled は宣言しない（#153「実物に無い State を発明しない」）。",
     "typography": { "$type": "typography", "$value": "{chrome.type.toggle}" },
+    "radius": { "$type": "dimension", "$value": "{chrome.radius.control}" },
     "color": { "$type": "color", "$value": "{chrome.chalkDim}" },
     "hoverBackground": { "$type": "color", "$value": "{chrome.ruleSoft}" },
     "selectedBackground": {
@@ -116,8 +122,8 @@
     "selectedColor": { "$type": "color", "$value": "{chrome.chalk}" },
     "ring": {
       "$type": "color",
-      "$value": "{chrome.mat}",
-      "$description": "**安静時の輪の色 = 背後の作業面の色**（＝見えない）。UIX に outline が無いので焦点の輪を borderColor / borderWidth で代替するが、安静時に枠を持たせておかないと focused で箱が 4pt 太る（packages/renderer-web/src/styles.ts は box-sizing を出さない）—— 実物の outline は箱を動かさないので、動くほうが嘘になる。"
+      "$value": "{chrome.clear}",
+      "$description": "**安静時の輪は透明**（＝見えない）。以前は背後の作業面の色（mat）だったが、操作群（ToggleGroup）が一段上げた面に載るようになり、mat の輪が暗い縁として見えるので透明にした（#298）。UIX に outline が無いので焦点の輪を borderColor / borderWidth で代替するが、安静時に枠を持たせておかないと focused で箱が 4pt 太る（packages/renderer-web/src/styles.ts は box-sizing を出さない）—— 実物の outline は箱を動かさないので、動くほうが嘘になる。"
     },
     "ringFocus": { "$type": "color", "$value": "{chrome.chalk}" },
     "ringWidth": { "$type": "dimension", "$value": "{chrome.stroke.ring}" },
@@ -152,5 +158,23 @@
     "markLineWidth": { "$type": "dimension", "$value": "{chrome.stroke.hairline}" },
     "markHalo": { "$type": "color", "$value": "{chrome.wash}" },
     "markHaloWidth": { "$type": "dimension", "$value": "{chrome.stroke.ring}" }
+  },
+  "toggleGroup": {
+    "$description": "操作群（.device-bar__group / .studio-mode）。押せる語を一段上げた面に束ねる。",
+    "background": { "$type": "color", "$value": "{chrome.matRaise}" },
+    "border": { "$type": "color", "$value": "{chrome.ruleSoft}" },
+    "borderWidth": { "$type": "dimension", "$value": "{chrome.stroke.hairline}" },
+    "radius": { "$type": "dimension", "$value": "{chrome.radius.group}" },
+    "padding": { "$type": "dimension", "$value": "{chrome.space.tight}" },
+    "spacing": { "$type": "dimension", "$value": "{chrome.space.tight}" }
+  },
+  "statusBar": {
+    "$description": "Bottom View Off のときの 1 行（.status-bar）。",
+    "paddingHorizontal": { "$type": "dimension", "$value": "{chrome.space.pane}" },
+    "paddingVertical": { "$type": "dimension", "$value": "{chrome.space.xs}" },
+    "spacing": { "$type": "dimension", "$value": "{chrome.space.md}" },
+    "typography": { "$type": "typography", "$value": "{chrome.type.meta}" },
+    "color": { "$type": "color", "$value": "{chrome.chalkDim}" },
+    "valueColor": { "$type": "color", "$value": "{chrome.chalk}" }
   }
 }

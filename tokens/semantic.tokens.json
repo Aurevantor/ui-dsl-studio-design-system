@@ -79,6 +79,8 @@
       "$value": "{veil.bone90}",
       "$description": "選択枠の内側の線。外側は wash（studio.css .mark は 2 色の二重線 —— Preview の中身は light にも dark にもなるので、1 色だと片方の地に沈む）。"
     },
+    "forbidden": { "$type": "color", "$value": "{veil.vermilion14}", "$description": "定規の越えてはいけない範囲（100 ms より先）の面。" },
+    "clear": { "$type": "color", "$value": "{veil.clear}", "$description": "透明。箱の厚みは保つが見せない輪に使う（toggle.ring）。" },
     "guide": {
       "$type": "color",
       "$value": "{veil.bone30}",
@@ -100,6 +102,7 @@
       "xs": { "$value": "{spacing.4}" },
       "sm": { "$value": "{spacing.6}" },
       "md": { "$value": "{spacing.10}" },
+      "pane": { "$value": "{spacing.12}", "$description": "ペイン見出し・操作バーの左右の余白（studio.css .pane__head / .device-bar の 12px）。" },
       "lg": { "$value": "{spacing.14}" },
       "screen": { "$value": "{spacing.20}" },
       "grid": { "$value": "{spacing.64}" }
@@ -116,7 +119,14 @@
         "$value": "{radius.md}",
         "$description": "notch の角。studio.css は下 2 隅だけ（0 0 12px 12px）だが、UIX の radius は 4 隅に掛かる。"
       },
-      "device": { "$value": "{radius.lg}" }
+      "device": { "$value": "{radius.lg}" },
+      "control": { "$value": "{radius.3}", "$description": "押せる語（.device-bar__button）の角。" },
+      "button": { "$value": "{radius.5}", "$description": "Flow モードの枠付きボタン・入力（.flow-mode button / select / input）の角。" },
+      "item": { "$value": "{radius.4}", "$description": "Files / Projects の 1 行（.files__item）の角。" },
+      "group": { "$value": "{radius.6}", "$description": "操作群（.device-bar__group / .studio-mode）の角。" },
+      "window": { "$value": "{radius.8}", "$description": "Mac / Web の窓の縁（deviceFrameRadius の mac / web）。" },
+      "mount": { "$value": "{radius.16}", "$description": "Aside を描く面（.aside-mount）の角。" },
+      "tablet": { "$value": "{radius.20}", "$description": "iPad の縁（deviceFrameRadius の tablet）。" }
     },
     "stroke": {
       "$type": "dimension",
@@ -129,6 +139,8 @@
       "problemBar": { "$value": "{size.problemBar}" },
       "gutter": { "$value": "{size.gutter}" },
       "indent": { "$value": "{size.indent}" },
+      "inspectorLabel": { "$value": "{size.inspectorLabel}" },
+      "gaugeLabel": { "$value": "{size.gaugeLabel}" },
       "grid": { "$value": "{size.grid}" }
     },
     "shadow": {

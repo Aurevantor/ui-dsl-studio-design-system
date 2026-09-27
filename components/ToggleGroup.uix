@@ -1,0 +1,27 @@
+<!-- 操作群。studio.css の `.device-bar__group`（Device / Web 幅 / Theme / Zoom / Backdrop）と
+     `.studio-mode`（Design / Flow）が同じ形 —— 押せる語（Toggle）を**一段上げた面**に束ね、
+     弱い罫の枠と角丸で「ひとまとまりの操作」として見せる。
+
+     面を上げるのはここが外装で数少ない例外（浮くもの・操作群・Flow の notice）で、
+     作業面そのものは 1 枚のまま（Shell.uix の注釈）。 -->
+<Component name="ToggleGroup">
+
+    <Slots>
+        <Slot name="content" />
+    </Slots>
+
+    <HStack
+        spacing="$toggleGroup.spacing"
+        padding="$toggleGroup.padding"
+        background="$toggleGroup.background"
+        borderColor="$toggleGroup.border"
+        borderWidth="$toggleGroup.borderWidth"
+        radius="$toggleGroup.radius"
+        shrink="0"
+        align="center">
+
+        <SlotOutlet name="content" />
+
+    </HStack>
+
+</Component>
