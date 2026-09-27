@@ -126,7 +126,7 @@
       "button": { "$value": "{radius.5}", "$description": "Flow モードの枠付きボタン・入力（.flow-mode button / select / input）の角。", "$extensions": { "ui-dsl.studio-css": true } },
       "item": { "$value": "{radius.4}", "$description": "Files / Projects の 1 行（.files__item）の角。", "$extensions": { "ui-dsl.studio-css": true } },
       "group": { "$value": "{radius.6}", "$description": "操作群（.device-bar__group / .studio-mode）の角。", "$extensions": { "ui-dsl.studio-css": true } },
-      "window": { "$value": "{radius.8}", "$description": "Mac / Web の窓の縁（deviceFrameRadius の mac / web）。", "$extensions": { "ui-dsl.studio-css": true } },
+      "window": { "$value": "{radius.8}", "$description": "Mac / Web の窓（deviceFrameRadius の mac / web）と FlowMode の Screen card（.flow-preview）の角。", "$extensions": { "ui-dsl.studio-css": true } },
       "mount": { "$value": "{radius.16}", "$description": "Aside を描く面（.aside-mount）の角。", "$extensions": { "ui-dsl.studio-css": true } },
       "tablet": { "$value": "{radius.20}", "$description": "iPad の縁（deviceFrameRadius の tablet）。" }
     },
