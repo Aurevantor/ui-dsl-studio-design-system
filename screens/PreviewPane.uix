@@ -16,7 +16,7 @@
      縮めて重ねると壊れて見えるので、群には shrink="0" を置いて「狭ければ切れる」に
      倒してある（この画面は Mac の preset で見る）。
 
-     .preview の見本。配置は Studio の実物と一致させない（#152 の「守らないもの」）。
+     .preview の見本。部位を拡大して並べる見本帳で、窓の中の配置は Shell.uix が決める（#298）。
      **絶対配置の代替がここに集中する** —— UIX に position は無く、ZStack は 9 点の
      整列しか持たないので、オフセットは「高さ・幅だけを持つ空の VStack」と Spacer で作る。
      ZStack は子をラッパで包まない（renderer-web の renderers.tsx）ので、
@@ -44,33 +44,46 @@
 
                     <HStack
                         width="fill"
-                        spacing="$chrome.space.lg"
-                        padding-horizontal="$chrome.space.md"
-                        padding-vertical="$chrome.space.sm"
+                        spacing="$chrome.space.sm"
+                        padding-horizontal="$chrome.space.pane"
+                        padding-vertical="$chrome.space.xs"
                         align="center">
 
-                        <HStack spacing="$chrome.space.tight" shrink="0" align="center">
+                        <ToggleGroup>
                             <Toggle label="iPhone" />
                             <Toggle label="iPad" />
                             <Toggle label="Mac" />
-                        </HStack>
+                            <Toggle label="Web" />
+                        </ToggleGroup>
 
-                        <HStack spacing="$chrome.space.tight" shrink="0" align="center">
+                        <!-- Web を選んでいるあいだだけ出る幅の群（device-presets.ts の WEB_PRESETS）。 -->
+                        <ToggleGroup>
+                            <Toggle label="1440" />
+                            <Toggle label="1280" />
+                            <Toggle label="768" />
+                            <Toggle label="390" />
+                        </ToggleGroup>
+
+                        <ToggleGroup>
                             <Toggle label="Light" />
                             <Toggle label="Dark" />
-                        </HStack>
+                        </ToggleGroup>
 
-                        <HStack spacing="$chrome.space.tight" shrink="0" align="center">
+                        <ToggleGroup>
+                            <Toggle label="−" />
                             <Toggle label="50%" />
                             <Toggle label="100%" />
                             <Toggle label="200%" />
-                        </HStack>
+                            <Toggle label="+" />
+                            <Text style="$toggle.typography" color="$chrome.chalkDim">40.7%</Text>
+                            <Toggle label="Fit" />
+                        </ToggleGroup>
 
-                        <HStack spacing="$chrome.space.tight" shrink="0" align="center">
+                        <ToggleGroup>
                             <Toggle label="Mat" />
                             <Toggle label="Dim" />
                             <Toggle label="Chalk" />
-                        </HStack>
+                        </ToggleGroup>
 
                         <Spacer />
 
@@ -145,6 +158,91 @@
                     </VStack>
 
                 </HStack>
+
+            </VStack>
+
+            <!-- ================================================== 機種ごとの縁 -->
+
+            <VStack id="frame-specimen" spacing="$chrome.space.sm" align="stretch">
+
+                <Eyebrow label="FRAME — 機種ごとの縁" />
+
+                <!-- 縁の角丸は device-presets.ts の deviceFrameRadius が機種ごとに持つ
+                     （phone 32 / tablet 20 / mac・web 8）。大きさは縮めた代表で、実寸ではない。 -->
+                <HStack width="fill" spacing="$chrome.space.lg" align="start">
+                    <VStack spacing="$chrome.space.sm" align="stretch">
+                        <Eyebrow label="iPhone" />
+                        <VStack
+                            width="94"
+                            height="203"
+                            background="$chrome.specimenLight"
+                            radius="$chrome.radius.device"
+                            borderColor="$chrome.hairline"
+                            borderWidth="$chrome.stroke.hairline"
+                            shadow="$chrome.shadow.device" />
+                        <Text style="$chrome.type.dimension" color="$chrome.chalkDim">phone · 32</Text>
+                    </VStack>
+                    <VStack spacing="$chrome.space.sm" align="stretch">
+                        <Eyebrow label="iPad" />
+                        <VStack
+                            width="205"
+                            height="273"
+                            background="$chrome.specimenLight"
+                            radius="$chrome.radius.tablet"
+                            borderColor="$chrome.hairline"
+                            borderWidth="$chrome.stroke.hairline"
+                            shadow="$chrome.shadow.device" />
+                        <Text style="$chrome.type.dimension" color="$chrome.chalkDim">tablet · 20</Text>
+                    </VStack>
+                    <VStack spacing="$chrome.space.sm" align="stretch">
+                        <Eyebrow label="Mac" />
+                        <VStack
+                            width="320"
+                            height="203"
+                            background="$chrome.specimenLight"
+                            radius="$chrome.radius.window"
+                            borderColor="$chrome.hairline"
+                            borderWidth="$chrome.stroke.hairline"
+                            shadow="$chrome.shadow.device" />
+                        <Text style="$chrome.type.dimension" color="$chrome.chalkDim">mac · 8</Text>
+                    </VStack>
+                    <VStack spacing="$chrome.space.sm" align="stretch">
+                        <Eyebrow label="Web" />
+                        <VStack
+                            width="320"
+                            height="200"
+                            background="$chrome.specimenLight"
+                            radius="$chrome.radius.window"
+                            borderColor="$chrome.hairline"
+                            borderWidth="$chrome.stroke.hairline"
+                            shadow="$chrome.shadow.device" />
+                        <Text style="$chrome.type.dimension" color="$chrome.chalkDim">web · 8</Text>
+                    </VStack>
+
+                    <Spacer />
+                </HStack>
+
+            </VStack>
+
+            <!-- ================================================== Aside の面 -->
+
+            <VStack id="aside-mount-specimen" spacing="$chrome.space.sm" align="stretch">
+
+                <Eyebrow label="ASIDE — 画面の外の注釈を描く面" />
+
+                <!-- .aside-mount。寸法線の下 32pt に、Screen と同じ幅で置く。角は mount。 -->
+                <VStack
+                    width="320"
+                    padding="$chrome.space.md"
+                    spacing="$chrome.space.xs"
+                    background="$chrome.aside"
+                    radius="$chrome.radius.mount"
+                    align="stretch">
+                    <Text style="$aside.labelTypography" color="$aside.labelColor">UI DSL STUDIO — PREVIEW</Text>
+                    <Text style="$chrome.type.body" color="$chrome.chalkDim">
+                        カンプが自分に付けた注釈は、Screen の外のこの面に出る。
+                    </Text>
+                </VStack>
 
             </VStack>
 

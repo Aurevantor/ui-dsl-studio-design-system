@@ -10,11 +10,16 @@
      発明しない（.files__item に :focus-visible の規則は無い）。
 
      選択に新しい色を足さない —— studio.css の規律どおり、面を rule 色で塗るだけで
-     文字はもともと chalk のまま変わらない。 -->
+     文字はもともと chalk のまま変わらない。
+
+     行は basename と相対パスの 2 行（`.files__label` / `.files__path`）。`held` は Editor で
+     触ったため外部保存を当てていない印（`.files__held`）で、無いときは空の文字を渡す。 -->
 <Component name="FilesItem">
 
     <Props>
         <Prop name="label" type="string" />
+        <Prop name="path" type="string" />
+        <Prop name="held" type="string" default="" />
     </Props>
 
     <State name="normal" />
@@ -23,10 +28,17 @@
 
     <VStack
         width="fill"
+        spacing="$chrome.space.tight"
         padding-horizontal="$filesItem.paddingHorizontal"
-        padding-vertical="$filesItem.paddingVertical">
+        padding-vertical="$filesItem.paddingVertical"
+        radius="$filesItem.radius"
+        align="stretch">
 
         <Text style="$filesItem.typography" color="$filesItem.color">{$props.label}</Text>
+        <HStack spacing="$chrome.space.xs" align="baseline">
+            <Text style="$filesItem.pathTypography" color="$filesItem.pathColor">{$props.path}</Text>
+            <Text style="$filesItem.pathTypography" color="$filesItem.heldColor">{$props.held}</Text>
+        </HStack>
 
     </VStack>
 

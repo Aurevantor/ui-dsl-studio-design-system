@@ -1,0 +1,112 @@
+<!-- studio-design: DiagnosticsPane
+     omitted: 行の中身は代表の 3 件。件数は実行時の値。Bottom View のトグルの
+     「入り」は画面から固定できないので描かない。
+
+     窓の底の Drawer（Bottom View On のとき）。見出しの右に件数、右端に Bottom View を
+     畳むトグル。行は Problem（軸は色ではなく severity）で、空のときは「問題なし。」。 -->
+<Screen id="diagnostics-pane" name="DiagnosticsPane" background="$chrome.mat">
+
+    <ScrollView width="fill" height="fill">
+
+        <HStack
+            padding="$chrome.space.screen"
+            spacing="$chrome.space.screen"
+            align="start">
+
+            <VStack
+                id="diagnostics-list"
+                width="720"
+                borderColor="$chrome.rule"
+                borderWidth="$chrome.stroke.hairline"
+                align="stretch">
+                <HStack
+                    spacing="$chrome.space.sm"
+                    padding-horizontal="$chrome.space.pane"
+                    padding-vertical="$chrome.space.sm"
+                    align="center">
+                    <Eyebrow label="DIAGNOSTICS" />
+                    <Text style="$chrome.type.paneNote" color="$chrome.chalkDim">3</Text>
+                    <Spacer />
+                    <HStack shrink="0">
+                        <Toggle label="Bottom View On" />
+                    </HStack>
+                </HStack>
+                <Rule color="$chrome.ruleSoft" />
+                <VStack
+                    padding-horizontal="$chrome.space.pane"
+                    padding-vertical="$chrome.space.xs"
+                    spacing="$chrome.space.xs"
+                    align="stretch">
+                    <Problem
+                        severity="error"
+                        code="semantic.unknown-token"
+                        message="Token '$chrome.unknown' が見つかりません。"
+                        where="screens/Titlebar.uix:12:34" />
+                    <Rule color="$chrome.ruleSoft" />
+                    <Problem
+                        severity="warning"
+                        code="lint.unused-token"
+                        message="Token '$chrome.wash' はどこからも参照されていません。"
+                        where="tokens/semantic.tokens.json:19:5" />
+                    <Rule color="$chrome.ruleSoft" />
+                    <Problem
+                        severity="info"
+                        code="token.shadowed-path"
+                        message="'chrome.mat' は別のワークスペースの定義を上書きしています。"
+                        where="tokens/component.tokens.json:3:3" />
+                </VStack>
+            </VStack>
+
+            <VStack
+                id="diagnostics-clear"
+                width="360"
+                borderColor="$chrome.rule"
+                borderWidth="$chrome.stroke.hairline"
+                align="stretch">
+                <HStack
+                    spacing="$chrome.space.sm"
+                    padding-horizontal="$chrome.space.pane"
+                    padding-vertical="$chrome.space.sm"
+                    align="center">
+                    <Eyebrow label="DIAGNOSTICS" />
+                    <Text style="$chrome.type.paneNote" color="$chrome.chalkDim">0</Text>
+                    <Spacer />
+                    <HStack shrink="0">
+                        <Toggle label="Bottom View On" />
+                    </HStack>
+                </HStack>
+                <Rule color="$chrome.ruleSoft" />
+                <VStack
+                    padding-horizontal="$chrome.space.pane"
+                    padding-vertical="$chrome.space.sm"
+                    align="stretch">
+                    <!-- 空のとき（.problems__clear）。空も 1 件の知らせなので本文と同じ大きさ。 -->
+                    <Text style="$chrome.type.emptyNote" color="$chrome.chalkDim">問題なし。</Text>
+                </VStack>
+            </VStack>
+
+            <Spacer />
+
+        </HStack>
+
+    </ScrollView>
+
+</Screen>
+
+<Aside
+    id="diagnostics-pane-aside"
+    spacing="$chrome.space.md"
+    padding="$aside.padding"
+    background="$aside.background"
+    radius="$aside.radius"
+    align="stretch">
+
+    <VStack spacing="$aside.spacing" align="stretch">
+        <Text style="$aside.labelTypography" color="$aside.labelColor">UI DSL STUDIO — DIAGNOSTICS</Text>
+        <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">診断</Text>
+        <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
+            Bottom View On のときの窓の底。Off のときは StatusBar に件数だけが出る（Shell.uix）。
+        </Text>
+    </VStack>
+
+</Aside>

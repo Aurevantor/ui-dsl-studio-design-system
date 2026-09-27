@@ -1,0 +1,30 @@
+<!-- Flow モードの押せるもの（`.flow-mode button`）。Design モードの Toggle と違い、
+     **枠を持つ**（罫の色・角 5）。字は sans。入りは枠を chalk に上げ面を罫の色で塗る
+     （`[aria-pressed='true']`）ので、State 名は Toggle と同じ `selected`。
+     焦点の輪は外側 2pt に離れて描かれる（outline-offset: 2px）ので箱の外になり、
+     UIX の枠では代替できない —— focused は宣言しない。 -->
+<Component name="FlowButton">
+
+    <Props>
+        <Prop name="label" type="string" />
+    </Props>
+
+    <State name="normal" />
+    <State name="hover" background="$chrome.ruleSoft" />
+    <State name="selected" background="$chrome.rule" borderColor="$chrome.chalk" />
+
+    <HStack
+        padding-horizontal="$chrome.space.md"
+        padding-vertical="$chrome.space.sm"
+        color="$chrome.chalk"
+        borderColor="$chrome.rule"
+        borderWidth="$chrome.stroke.hairline"
+        radius="$chrome.radius.button"
+        shrink="0"
+        align="center">
+
+        <Text style="$chrome.type.paneBody">{$props.label}</Text>
+
+    </HStack>
+
+</Component>

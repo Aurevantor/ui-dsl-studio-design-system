@@ -8,8 +8,11 @@
      1 つの状態しか置けず、「濃度」という主張自体が動きの中にしかない（#115 と同じ
      「動きが署名」）。
 
-     .gauge（コンパイル定規）の見本。配置は Studio の実物と一致させない（#152 の
-     「守らないもの」）。State は無い —— .gauge に対話は無いので発明しない。 -->
+     越えてはいけない範囲（.gauge__forbidden）は実物では透明から 14% へのグラデーションと
+     45% の右端線だが、UIX にグラデーションが無いので 14% の平らな面で置く。
+
+     .gauge（コンパイル定規）の見本。左に見出しと値の列（148pt）、右に目盛の帯。
+     State は無い —— .gauge に対話は無いので発明しない。 -->
 <Screen id="gauge" name="Gauge" background="$chrome.mat">
 
     <ScrollView width="fill" height="fill">
@@ -27,7 +30,9 @@
                 padding-vertical="$chrome.space.sm"
                 align="stretch">
 
-                <HStack justify="spaceBetween" align="baseline">
+                <HStack spacing="$chrome.space.lg" align="start">
+
+                <HStack width="$chrome.size.gaugeLabel" shrink="0" spacing="$chrome.space.lg" align="baseline">
                     <Eyebrow label="COMPILE" />
                     <HStack spacing="$chrome.space.xs" align="baseline">
                         <Text style="$gauge.valueTypography" color="$gauge.value">0.42</Text>
@@ -35,7 +40,13 @@
                     </HStack>
                 </HStack>
 
-                <VStack spacing="$chrome.space.xs" align="stretch">
+                <VStack width="fill" spacing="$chrome.space.xs" align="stretch">
+
+                    <!-- 越えてはいけない範囲。100 ms の刻みから右端まで。 -->
+                    <HStack width="fill" height="13" align="stretch">
+                        <VStack grow="7" />
+                        <VStack grow="3" background="$chrome.forbidden" />
+                    </HStack>
 
                     <Rule color="$chrome.rule" />
 
@@ -84,6 +95,8 @@
                     </Grid>
 
                 </VStack>
+
+                </HStack>
 
                 <VStack align="trailing">
                     <Text style="$gauge.noteTypography" color="$gauge.noteColor">

@@ -10,7 +10,7 @@
      Token を var() で引くだけの層（editor/theme.ts）で、キャレットは点滅が署名なので
      静止画に写せない。折り返しと縦スクロールも省き、行は 9 行で切っている。
 
-     .editor の見本。配置は Studio の実物と一致させない（#152 の「守らないもの」）。
+     .editor の見本。部位を拡大して並べる見本帳で、窓の中の配置は Shell.uix が決める（#298）。
      行番号を右端で揃えるのに HStack + Spacer を使っているのは、UIX に text-align が
      無いため（Rule.uix が per-side border の代わりに 1 ノードを置いているのと同型の
      代替）。字下げも同じ理由で空の VStack ―― 先頭の空白は HTML で潰れるので、
@@ -25,6 +25,66 @@
             padding="$chrome.space.screen"
             spacing="$chrome.space.lg"
             align="stretch">
+
+            <!-- ================================================ 見出しと Text / Visual -->
+
+            <VStack id="editor-head-specimen" spacing="$chrome.space.sm" align="stretch">
+
+                <Eyebrow label="HEAD — Token ファイルのときだけ Text / Visual" />
+
+                <!-- 見出しの右の切り替え（.editor-mode）は Token ファイルを開いているときだけ出る。 -->
+                <HStack
+                    width="fill"
+                    spacing="$chrome.space.sm"
+                    padding-horizontal="$chrome.space.pane"
+                    padding-vertical="$chrome.space.xs"
+                    borderColor="$chrome.ruleSoft"
+                    borderWidth="$chrome.stroke.hairline"
+                    align="center">
+                    <Eyebrow label="UIX EDITOR" />
+                    <Spacer />
+                    <ToggleGroup>
+                        <Toggle label="Text" />
+                        <Toggle label="Visual" />
+                    </ToggleGroup>
+                </HStack>
+
+            </VStack>
+
+            <!-- ================================================ Token Visualizer -->
+
+            <VStack id="token-visual-specimen" spacing="$chrome.space.sm" align="stretch">
+
+                <Eyebrow label="VISUAL — Token をカードで並べる" />
+
+                <HStack spacing="$chrome.space.md" align="baseline">
+                    <Text style="$chrome.type.mono" color="$chrome.chalkDim">tokens/semantic.tokens.json</Text>
+                    <Text style="$chrome.type.mono" color="$chrome.chalk">82 tokens</Text>
+                </HStack>
+
+                <Eyebrow label="CHROME 3" />
+                <!-- .token-visual__grid は auto-fit の列で、幅に応じて列数が変わる。ここでは 3 列の 1 例。 -->
+                <HStack width="fill" spacing="$chrome.space.xs" align="stretch">
+                    <TokenCard
+                        path="chrome.mat"
+                        type="color"
+                        value="#14201E"
+                        chain="chrome.mat → teal.900"
+                        swatch="$chrome.mat" />
+                    <TokenCard
+                        path="chrome.ochre"
+                        type="color"
+                        value="#E3A33A"
+                        chain="chrome.ochre → signal.ochre"
+                        swatch="$chrome.ochre" />
+                    <TokenCard
+                        path="chrome.space.md"
+                        type="dimension"
+                        value="10"
+                        chain="chrome.space.md → spacing.10" />
+                </HStack>
+
+            </VStack>
 
             <VStack id="editor-specimen" spacing="$chrome.space.sm" align="stretch">
 

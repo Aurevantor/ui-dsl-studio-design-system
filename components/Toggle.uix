@@ -58,6 +58,7 @@
         color="$toggle.color"
         borderColor="$toggle.ring"
         borderWidth="$toggle.ringWidth"
+        radius="$toggle.radius"
         align="center">
 
         <Text style="$toggle.typography">{$props.label}</Text>

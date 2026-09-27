@@ -1,0 +1,297 @@
+<!-- studio-design: FlowMode
+     omitted: 遷移の線は曲線と矢印（.flow-line の SVG path）だが、UIX に曲線も絶対配置も
+     無いので、横並びの画面の間に水平の罫とラベルで置く（縦の分岐 = sheet / fullScreenCover
+     の下向きの線は描かない）。図の地の点の方眼（--flow-grid）も描かない。サムネイルは
+     実物では各 Screen を縮小して描くが、ここでは白い矩形。入力（select / input）は
+     地を一段上げた箱で代替する。再生（Walkthrough の電話枠・.flow-phone）は描かない。ボタンの「入り」と disabled
+     （Undo / Redo / 破棄の 45% の薄さ）は画面から固定できないので描かない。
+
+     Flow モード（.flow-mode）。Design / Flow の Flow を選ぶと、タイトルバーと定規を残して
+     下を覆う。上から toolbar → 3 列（Screens とフロー設定 290 │ 図 │ Inspector 360）。
+     **Design モードと声が違う** —— ボタンは枠を持ち（FlowButton）、字は sans。 -->
+<Screen id="flow-mode" name="FlowMode" background="$chrome.mat">
+
+    <VStack width="fill" height="fill" padding="$chrome.space.screen" align="stretch">
+
+        <VStack
+            id="flow-window"
+            width="fill"
+            height="fill"
+            borderColor="$chrome.rule"
+            borderWidth="$chrome.stroke.hairline"
+            radius="$chrome.radius.pane"
+            clip="true"
+            align="stretch">
+
+            <HStack
+                width="fill"
+                spacing="$chrome.space.lg"
+                padding-horizontal="$chrome.space.lg"
+                padding-vertical="$chrome.space.sm"
+                align="center">
+                <Text style="$chrome.type.mark" color="$chrome.chalk">UI DSL Studio</Text>
+                <ToggleGroup>
+                    <Toggle label="Design" />
+                    <Toggle label="Flow" />
+                </ToggleGroup>
+                <Text style="$chrome.type.mono" color="$chrome.chalk">screens/Inbox.uix</Text>
+                <Spacer />
+                <Text style="$chrome.type.meta" color="$chrome.chalkDim">7 IR nodes 96 tokens</Text>
+            </HStack>
+            <Rule color="$chrome.rule" />
+            <HStack
+                width="fill"
+                spacing="$chrome.space.lg"
+                padding-horizontal="$chrome.space.lg"
+                padding-vertical="$chrome.space.sm"
+                align="center">
+                <Eyebrow label="COMPILE" />
+                <Rule color="$chrome.rule" />
+            </HStack>
+            <Rule color="$chrome.rule" />
+
+            <!-- toolbar（.flow-toolbar）。 -->
+            <HStack
+                id="flow-toolbar"
+                width="fill"
+                spacing="$chrome.space.sm"
+                padding-horizontal="$chrome.space.pane"
+                padding-vertical="$chrome.space.sm"
+                align="center">
+                <Eyebrow label="FLOW" />
+                <HStack
+                    padding-horizontal="$chrome.space.md"
+                    padding-vertical="$chrome.space.sm"
+                    background="$chrome.matRaise"
+                    borderColor="$chrome.rule"
+                    borderWidth="$chrome.stroke.hairline"
+                    radius="$chrome.radius.button"
+                    align="center">
+                    <Text style="$chrome.type.paneBody" color="$chrome.chalk">flows/01-Welcome.flow.json</Text>
+                    <Spacer />
+                </HStack>
+                <FlowButton label="新規フロー" />
+                <FlowButton label="JSON" />
+                <FlowButton label="Undo" />
+                <FlowButton label="Redo" />
+                <FlowButton label="JSON ダウンロード" />
+                <FlowButton label="破棄" />
+                <Spacer />
+                <FlowButton label="再生" />
+            </HStack>
+            <Rule color="$chrome.rule" />
+
+            <HStack id="flow-body" width="fill" grow="1" align="stretch">
+                    <VStack
+                        id="flow-sidebar"
+                        width="290"
+                        padding-horizontal="$chrome.space.lg"
+                        padding-vertical="$chrome.space.lg"
+                        spacing="$chrome.space.sm"
+                        align="stretch">
+                        <Eyebrow label="SCREENS" />
+                        <Text style="$chrome.type.paneBody" color="$chrome.chalkDim">追加して、接続先を選びます。</Text>
+                        <FlowButton label="+ Inbox" />
+                        <FlowButton label="+ Login" />
+                        <FlowButton label="+ Home" />
+                        <FlowButton label="+ Profile" />
+                        <Eyebrow label="表示" />
+                        <FlowButton label="自動整列" />
+                        <Eyebrow label="フロー設定" />
+                        <Text style="$chrome.type.paneBody" color="$chrome.chalk">名前</Text>
+                        <HStack
+                            padding-horizontal="$chrome.space.md"
+                            padding-vertical="$chrome.space.sm"
+                            background="$chrome.matRaise"
+                            borderColor="$chrome.rule"
+                            borderWidth="$chrome.stroke.hairline"
+                            radius="$chrome.radius.button"
+                            align="center">
+                            <Text style="$chrome.type.paneBody" color="$chrome.chalk">はじめての Flow</Text>
+                            <Spacer />
+                        </HStack>
+                        <Text style="$chrome.type.paneBody" color="$chrome.chalk">開始画面</Text>
+                        <HStack
+                            padding-horizontal="$chrome.space.md"
+                            padding-vertical="$chrome.space.sm"
+                            background="$chrome.matRaise"
+                            borderColor="$chrome.rule"
+                            borderWidth="$chrome.stroke.hairline"
+                            radius="$chrome.radius.button"
+                            align="center">
+                            <Text style="$chrome.type.paneBody" color="$chrome.chalk">login · Welcome</Text>
+                            <Spacer />
+                        </HStack>
+                        <Eyebrow label="TABS" />
+                        <FlowButton label="+ タブ" />
+                    </VStack>
+                    <Rule axis="vertical" color="$chrome.rule" />
+                    <VStack id="flow-center" width="fill" align="stretch">
+                        <!-- 図のズーム（.flow-zoom-bar）。Preview と同じ並び。 -->
+                        <HStack
+                            spacing="$chrome.space.sm"
+                            padding-horizontal="$chrome.space.pane"
+                            padding-vertical="$chrome.space.sm"
+                            align="center">
+                            <FlowButton label="−" />
+                            <FlowButton label="50%" />
+                            <FlowButton label="100%" />
+                            <FlowButton label="200%" />
+                            <FlowButton label="+" />
+                            <Text style="$chrome.type.meta" color="$chrome.chalkDim">100%</Text>
+                            <FlowButton label="Fit" />
+                            <FlowButton label="Mat" />
+                            <FlowButton label="Dim" />
+                            <FlowButton label="Chalk" />
+                            <Spacer />
+                        </HStack>
+                        <Rule color="$chrome.ruleSoft" />
+                        <!-- 図（.flow-canvas）。画面を横に並べ、遷移を線とラベルで結ぶ。 -->
+                        <HStack
+                            id="flow-canvas"
+                            width="fill"
+                            grow="1"
+                            padding="$chrome.space.grid"
+                            align="start">
+                            <VStack spacing="$chrome.space.xs" shrink="0" align="stretch">
+                                <Text style="$chrome.type.mono" color="$chrome.chalk">START · Welcome</Text>
+                                <Text style="$chrome.type.filesRoot" color="$chrome.chalkDim">login</Text>
+                                <VStack
+                                    width="172"
+                                    height="372"
+                                    background="$chrome.specimenLight"
+                                    radius="$chrome.radius.window"
+                                    borderColor="$chrome.hairline"
+                                    borderWidth="$chrome.stroke.hairline"
+                                    shadow="$chrome.shadow.device" />
+                                <HStack>
+                                    <FlowButton label="接続 +" />
+                                    <Spacer />
+                                </HStack>
+                            </VStack>
+                            <VStack width="200" height="372" justify="center" align="stretch">
+                                <HStack spacing="$chrome.space.sm" align="center">
+                                    <Rule color="$chrome.guide" />
+                                    <Text style="$chrome.type.paneBody" color="$chrome.chalkDim">Continue → ホーム · push</Text>
+                                    <Rule color="$chrome.guide" />
+                                </HStack>
+                            </VStack>
+                            <VStack spacing="$chrome.space.xs" shrink="0" align="stretch">
+                                <Text style="$chrome.type.mono" color="$chrome.chalk">Home</Text>
+                                <Text style="$chrome.type.filesRoot" color="$chrome.chalkDim">home</Text>
+                                <Text style="$chrome.type.filesRoot" color="$chrome.chalkDim">Tab · ホーム</Text>
+                                <VStack
+                                    width="172"
+                                    height="372"
+                                    background="$chrome.specimenLight"
+                                    radius="$chrome.radius.window"
+                                    borderColor="$chrome.hairline"
+                                    borderWidth="$chrome.stroke.hairline"
+                                    shadow="$chrome.shadow.device" />
+                                <HStack>
+                                    <FlowButton label="接続 +" />
+                                    <Spacer />
+                                </HStack>
+                            </VStack>
+                            <VStack width="200" height="372" justify="center" align="stretch">
+                                <HStack spacing="$chrome.space.sm" align="center">
+                                    <Rule color="$chrome.guide" />
+                                    <Text style="$chrome.type.paneBody" color="$chrome.chalkDim">プロフィールを見る · push</Text>
+                                    <Rule color="$chrome.guide" />
+                                </HStack>
+                            </VStack>
+                            <VStack spacing="$chrome.space.xs" shrink="0" align="stretch">
+                                <Text style="$chrome.type.mono" color="$chrome.chalk">Profile</Text>
+                                <Text style="$chrome.type.filesRoot" color="$chrome.chalkDim">profile</Text>
+                                <VStack
+                                    width="172"
+                                    height="372"
+                                    background="$chrome.specimenLight"
+                                    radius="$chrome.radius.window"
+                                    borderColor="$chrome.hairline"
+                                    borderWidth="$chrome.stroke.hairline"
+                                    shadow="$chrome.shadow.device" />
+                                <HStack>
+                                    <FlowButton label="接続 +" />
+                                    <Spacer />
+                                </HStack>
+                            </VStack>
+                            <Spacer />
+                        </HStack>
+                        <Rule color="$chrome.ruleSoft" />
+                        <!-- Flow の診断（.flow-diagnostics）。 -->
+                        <HStack padding="$chrome.space.md" justify="center">
+                            <Text style="$chrome.type.paneBody" color="$chrome.chalkDim">Flow の問題はありません</Text>
+                        </HStack>
+                    </VStack>
+                    <Rule axis="vertical" color="$chrome.rule" />
+                    <VStack
+                        id="flow-inspector"
+                        width="360"
+                        padding-horizontal="$chrome.space.lg"
+                        padding-vertical="$chrome.space.lg"
+                        spacing="$chrome.space.sm"
+                        align="stretch">
+                        <Eyebrow label="INSPECTOR" />
+                        <Text style="$chrome.type.paneBody" color="$chrome.chalkDim">画面または遷移を選択してください。</Text>
+                        <Eyebrow label="TRANSITIONS" />
+                        <VStack
+                            spacing="$chrome.space.tight"
+                            padding-horizontal="$chrome.space.md"
+                            padding-vertical="$chrome.space.sm"
+                            borderColor="$chrome.rule"
+                            borderWidth="$chrome.stroke.hairline"
+                            radius="$chrome.radius.button"
+                            align="stretch">
+                            <Text style="$chrome.type.paneBody" color="$chrome.chalk">Continue → ホーム</Text>
+                            <Text style="$chrome.type.filesRoot" color="$chrome.chalkDim">login → home · push</Text>
+                        </VStack>
+                        <VStack
+                            spacing="$chrome.space.tight"
+                            padding-horizontal="$chrome.space.md"
+                            padding-vertical="$chrome.space.sm"
+                            borderColor="$chrome.rule"
+                            borderWidth="$chrome.stroke.hairline"
+                            radius="$chrome.radius.button"
+                            align="stretch">
+                            <Text style="$chrome.type.paneBody" color="$chrome.chalk">プロフィールを見る</Text>
+                            <Text style="$chrome.type.filesRoot" color="$chrome.chalkDim">home → profile · push</Text>
+                        </VStack>
+                        <VStack
+                            spacing="$chrome.space.tight"
+                            padding-horizontal="$chrome.space.md"
+                            padding-vertical="$chrome.space.sm"
+                            borderColor="$chrome.rule"
+                            borderWidth="$chrome.stroke.hairline"
+                            radius="$chrome.radius.button"
+                            align="stretch">
+                            <Text style="$chrome.type.paneBody" color="$chrome.chalk">ホームに戻る</Text>
+                            <Text style="$chrome.type.filesRoot" color="$chrome.chalkDim">profile → 履歴 · back</Text>
+                        </VStack>
+                    </VStack>
+            </HStack>
+
+        </VStack>
+
+    </VStack>
+
+</Screen>
+
+<Aside
+    id="flow-mode-aside"
+    spacing="$chrome.space.md"
+    padding="$aside.padding"
+    background="$aside.background"
+    radius="$aside.radius"
+    align="stretch">
+
+    <VStack spacing="$aside.spacing" align="stretch">
+        <Text style="$aside.labelTypography" color="$aside.labelColor">UI DSL STUDIO — FLOW</Text>
+        <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">フロー</Text>
+        <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
+            画面のつながりを設計する面。左で Screen を足して接続し、中央の図で遷移を見て、
+            右で画面と遷移を選んで直す。Design モードより操作が多いので、押せるものは枠を持つ。
+        </Text>
+    </VStack>
+
+</Aside>

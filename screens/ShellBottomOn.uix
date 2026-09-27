@@ -1,32 +1,11 @@
-<!-- studio-design: Shell
-     omitted: 各ペインの中身は代表の数行だけで、実寸の判断は部位図（Titlebar / Gauge /
-     FilesPane / EditorPane / PreviewPane / InspectorPane / DiagnosticsPane）が持つ。
-     この画面が決めるのは構図と階調 ―― どこに罫が入り、どの面が一段上がり、ペインが
-     どの比で並ぶか。定規の帯は高さと軸線だけ（Gauge.uix の担当）。Preview の中身は
-     白い矩形 1 つで、方眼・デバイスの飾り・選択枠は描かない（PreviewPane.uix の担当）。
-     仕切りは掴めない（v0.1 は表示専用）ので、比は panes.ts の DEFAULT_LAYOUT の写しを
-     1 例だけ置く。Toggle の「入り」（Design / Mac / Fit など）は画面から固定できない
-     ので描かず、Inspector の強制表示で見る。タイトルバーと操作バーの折り返しは省く。
-     Bottom View On の構図は ShellBottomOn.uix、Flow モードは FlowMode.uix が持つ。
+<!-- studio-design: ShellBottomOn
+     omitted: 上段・帯・Aside の判断は Shell.uix と同じ（ここでは下段だけが違う）。
+     Diagnostics の中身は 2 行だけで、実寸は DiagnosticsPane.uix が持つ。高さ 96 は
+     panes.ts の DEFAULT_LAYOUT.drawerHeight の写し。
 
-     ## この画面は既定の状態 ―― Bottom View Off
-
-     新しいワークスペースは Bottom View Off で開く（view-store.ts の bottomViewEnabled:
-     false）。下段の Diagnostics は畳まれ、窓の底に StatusBar が 1 行だけ出る。
-
-     ## 構図は Canvas First
-
-     上段は `Files 220 │ Preview（残り）│ Workbench 500`。Preview が残りを取り、
-     右の Workbench は Editor と Inspector を 3:2 で縦に積む（studio.css の .stage）。
-     列を分けるのは仕切り、Editor と Inspector の間は強い罫（.stage__inspector の
-     border-top）。
-
-     ## 階調 ―― 作業面は 1 枚、上がるのは操作群だけ
-
-     ペインはどれも同じ作業面に載り、分けるのは罫と仕切り。一段上がる（matRaise）のは
-     浮くもの（補完・吹き出し）と操作群（ToggleGroup：Design / Flow、Device など）と
-     Flow の notice だけ。 -->
-<Screen id="shell" name="Shell" background="$chrome.mat">
+     Bottom View On の構図。StatusBar の代わりに横の仕切りと Diagnostics の Drawer が
+     窓の底に入り、見出しの右に Bottom View を畳むトグルが立つ。 -->
+<Screen id="shell-bottom-on" name="ShellBottomOn" background="$chrome.mat">
 
     <VStack
         id="shell-body"
@@ -254,12 +233,32 @@
 
             </HStack>
 
-            <!-- Bottom View Off: Diagnostics の代わりに StatusBar 1 行。上は強い罫。 -->
-            <Rule color="$chrome.rule" />
-            <StatusBar
-                diagnostics="2"
-                project="ui-dsl-studio-design-system"
-                file="screens/Shell.uix" />
+            <!-- Bottom View On: 横の仕切りと Diagnostics の Drawer。 -->
+            <Splitter axis="horizontal" />
+            <VStack id="shell-drawer" width="fill" height="96" shrink="0" align="stretch">
+                <HStack
+                    spacing="$chrome.space.md"
+                    padding-horizontal="$chrome.space.pane"
+                    padding-vertical="$chrome.space.xs"
+                    align="center">
+                    <Eyebrow label="DIAGNOSTICS" />
+                    <Text style="$chrome.type.paneNote" color="$chrome.chalk">2</Text>
+                    <Spacer />
+                    <Toggle label="Bottom View On" />
+                </HStack>
+                <Rule color="$chrome.ruleSoft" />
+                <VStack
+                    padding-horizontal="$chrome.space.pane"
+                    padding-vertical="$chrome.space.xs"
+                    spacing="$chrome.space.xs"
+                    align="stretch">
+                    <Problem
+                        severity="warning"
+                        code="lint.unused-token"
+                        message="Token '$chrome.gridFine' はどこからも参照されていません。"
+                        where="tokens/semantic.tokens.json:74:5" />
+                </VStack>
+            </VStack>
 
         </VStack>
 
@@ -268,7 +267,7 @@
 </Screen>
 
 <Aside
-    id="shell-aside"
+    id="shell-bottom-on-aside"
     spacing="$chrome.space.md"
     padding="$aside.padding"
     background="$aside.background"
@@ -277,44 +276,10 @@
 
     <VStack spacing="$aside.spacing" align="stretch">
         <Text style="$aside.labelTypography" color="$aside.labelColor">UI DSL STUDIO — SHELL</Text>
-        <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">
-            ぜんたい（既定・Bottom View Off）
-        </Text>
-        <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
-            Canvas First の 1 枚。Preview が中央で残りを取り、右の Workbench に
-            Editor と Inspector を積む。Diagnostics は既定で畳まれ、底の StatusBar に件数だけが出る。
-        </Text>
-    </VStack>
-
-    <VStack spacing="$aside.spacing" align="stretch">
-        <Text style="$aside.labelTypography" color="$aside.labelColor">RULES — 2 段</Text>
+        <Text style="$chrome.type.title" color="$chrome.chalk">Bottom View On</Text>
         <Text style="$chrome.type.body" color="$chrome.chalkDim">
-            強いほうは窓を横断する帯の境目と、Workbench の Editor / Inspector の境目に入る。
-            弱いほうはペインの中（見出しの下・操作バーの下）を分ける。
-        </Text>
-        <VStack spacing="$chrome.space.xs" align="stretch">
-            <Rule color="$chrome.rule" />
-            <Text style="$chrome.type.mono" color="$chrome.chalkDim">
-                rule — タイトルバーの下・定規の下・Inspector の上・StatusBar の上
-            </Text>
-        </VStack>
-        <VStack spacing="$chrome.space.xs" align="stretch">
-            <Rule color="$chrome.ruleSoft" />
-            <Text style="$chrome.type.mono" color="$chrome.chalkDim">
-                ruleSoft — ペインの見出しの下・操作バーの下
-            </Text>
-        </VStack>
-    </VStack>
-
-    <VStack spacing="$aside.spacing" align="stretch">
-        <Text style="$aside.labelTypography" color="$aside.labelColor">SPLITTER — 6PT</Text>
-        <Text style="$chrome.type.body" color="$chrome.chalkDim">
-            列を分けるのは仕切り（Files | Preview | Workbench の 2 本）。State は
-            normal / hover / focused の 3 つで、Inspector から強制表示できる。
-        </Text>
-        <Splitter axis="horizontal" />
-        <Text style="$chrome.type.mono" color="$chrome.chalkDim">
-            芯 2pt + 輪 2pt × 2 = 6pt。安静時の輪は地と同色で、焦点で chalk に変わる
+            Diagnostics を開いた状態。上段は Shell と同じで、底の StatusBar が
+            横の仕切りと Drawer に替わる。Drawer の高さは仕切りで変えられ、既定は 96。
         </Text>
     </VStack>
 

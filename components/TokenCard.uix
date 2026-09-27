@@ -1,0 +1,40 @@
+<!-- Token Visualizer のカード 1 枚（`.token-visual__card`）。Editor で Token ファイルを
+     Visual 表示にしたときに並ぶ。一段上げた面に、色見本・パス・型・値・解決の連鎖を載せる。
+     色でない Token は見本を透明（$chrome.clear）にする。 -->
+<Component name="TokenCard">
+
+    <Props>
+        <Prop name="path" type="string" />
+        <Prop name="type" type="string" />
+        <Prop name="value" type="string" />
+        <Prop name="chain" type="string" default="" />
+        <Prop name="swatch" type="color" default="$chrome.clear" />
+    </Props>
+
+    <VStack
+        width="fill"
+        spacing="$chrome.space.xs"
+        padding="$chrome.space.md"
+        background="$chrome.matRaise"
+        borderColor="$chrome.ruleSoft"
+        borderWidth="$chrome.stroke.hairline"
+        align="stretch">
+
+        <HStack spacing="$chrome.space.sm" align="center">
+            <VStack
+                width="16"
+                height="16"
+                background="{$props.swatch}"
+                borderColor="$chrome.rule"
+                borderWidth="$chrome.stroke.hairline"
+                radius="$chrome.radius.control" />
+            <Text style="$chrome.type.mono" color="$chrome.chalk">{$props.path}</Text>
+            <Spacer />
+            <Text style="$chrome.type.meta" color="$chrome.chalkDim">{$props.type}</Text>
+        </HStack>
+        <Text style="$chrome.type.mono" color="$chrome.chalk">{$props.value}</Text>
+        <Text style="$chrome.type.chain" color="$chrome.chalkDim">{$props.chain}</Text>
+
+    </VStack>
+
+</Component>

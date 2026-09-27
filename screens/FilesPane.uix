@@ -1,60 +1,115 @@
 <!-- studio-design: FilesPane
-     omitted: 開いているワークスペースは design 1 つだけなので、ワークスペース間の
-     区切り罫（.files__workspace-block + .files__workspace-block）と .files__empty
-     （0 件のグループ）は描く対象が無い。グループの中身は Prop に配列型が無く
-     Studio の Preview は RenderOptions.data を渡していないため ForEach が使えず
-     （docs/02:474-476）、カンプに要るのは「3 件並んだときの縦の律動」だけなので、
-     実在するファイル名を手で 3+2+1 件並べた（#155）。
+     omitted: グループの中身は Prop に配列型が無く ForEach が使えないので、実在する
+     ファイル名を手で並べた（要るのは縦の律動だけ）。「Project を追加」「削除」は
+     App の殻で開いたときだけ出る（ブラウザでは出ない）が、ここでは出ている側を描く。
+     Toggle の「入り」（選んだ Project / 開いているファイル）は画面から固定できないので
+     描かず、Inspector の強制表示で見る。
 
-     .files（Files ペインの木）の見本。State を持つのは .files__item だけ（#153 の実測）
-     —— hover / selected（aria-current 相当）は FilesItem.uix の <State> として宣言して
-     ある。selected を pressed と名付けない理由は FilesItem.uix のコメントと #156 の実測を
-     参照（:active は実物に 0 本）。配置は Studio の実物と一致させない（#152 の「守らないもの」）。 -->
+     Files ペイン（.files）の 2 段。左が Projects の一覧（.files__project）、右が
+     Project を選んだあとの木（.files__back → .files__workspace → .files__group）。
+     行は FilesItem / ProjectItem で、どちらも名前とパスの 2 行。 -->
 <Screen id="files-pane" name="FilesPane" background="$chrome.mat">
 
     <ScrollView width="fill" height="fill">
 
-        <VStack
+        <HStack
             id="files-body"
-            width="fill"
             padding="$chrome.space.screen"
-            spacing="$chrome.space.lg"
-            align="stretch">
+            spacing="$chrome.space.screen"
+            align="start">
 
-            <VStack id="files-specimen" align="stretch">
-
-                <Pane width="fill" title="FILES">
-
-                    <VStack spacing="$chrome.space.xs" align="stretch">
-                        <Text style="$chrome.type.mono" color="$chrome.chalk">design</Text>
-                        <Text style="$chrome.type.filesRoot" color="$chrome.chalkDim">
-                            tests/fixtures/ui-dsl-studio-design-system
-                        </Text>
+            <VStack
+                id="files-projects"
+                width="240"
+                borderColor="$chrome.rule"
+                borderWidth="$chrome.stroke.hairline"
+                align="stretch">
+                <HStack
+                    spacing="$chrome.space.sm"
+                    padding-horizontal="$chrome.space.pane"
+                    padding-vertical="$chrome.space.sm"
+                    align="baseline">
+                    <Eyebrow label="FILES" />
+                    <Text style="$chrome.type.paneNote" color="$chrome.chalkDim">ui-dsl-studio-design-system</Text>
+                </HStack>
+                <Rule color="$chrome.ruleSoft" />
+                <VStack
+                    padding-horizontal="$filesItem.inset"
+                    padding-vertical="$chrome.space.sm"
+                    spacing="$chrome.space.xs"
+                    align="stretch">
+                    <HStack align="center">
+                        <Eyebrow label="PROJECTS" />
+                        <Spacer />
+                        <Toggle label="Project を追加" />
+                    </HStack>
+                    <VStack spacing="$chrome.space.tight" align="stretch">
+                        <ProjectItem name="ui-dsl-studio-design-system" root="~/src/ui-dsl-studio-design-system" />
+                        <ProjectItem name="hello-world" root="../../examples/hello-world" />
+                        <ProjectItem name="apple-design-system" root="~/src/apple-design-system" />
                     </VStack>
-
-                    <Eyebrow label="SCREENS" />
-                    <VStack align="stretch">
-                        <FilesItem label="Gauge.uix" />
-                        <FilesItem label="FilesPane.uix" />
-                        <FilesItem label="Titlebar.uix" />
-                    </VStack>
-
-                    <Eyebrow label="COMPONENTS" />
-                    <VStack align="stretch">
-                        <FilesItem label="Eyebrow.uix" />
-                        <FilesItem label="Pane.uix" />
-                    </VStack>
-
-                    <Eyebrow label="TOKENS" />
-                    <VStack align="stretch">
-                        <FilesItem label="component.tokens.json" />
-                    </VStack>
-
-                </Pane>
-
+                    <Eyebrow label="登録したフォルダ" />
+                    <HStack spacing="$chrome.space.xs" padding-horizontal="$filesItem.paddingHorizontal" align="center">
+                        <Text style="$filesItem.pathTypography" color="$filesItem.pathColor">~/src/ui-dsl-studio-design-system</Text>
+                        <Spacer />
+                        <HStack shrink="0">
+                            <Toggle label="削除" />
+                        </HStack>
+                    </HStack>
+                </VStack>
             </VStack>
 
-        </VStack>
+            <VStack
+                id="files-tree"
+                width="240"
+                borderColor="$chrome.rule"
+                borderWidth="$chrome.stroke.hairline"
+                align="stretch">
+                <HStack
+                    spacing="$chrome.space.sm"
+                    padding-horizontal="$chrome.space.pane"
+                    padding-vertical="$chrome.space.sm"
+                    align="baseline">
+                    <Eyebrow label="FILES" />
+                    <Text style="$chrome.type.paneNote" color="$chrome.chalkDim">ui-dsl-studio-design-system</Text>
+                </HStack>
+                <Rule color="$chrome.ruleSoft" />
+                <VStack
+                    padding-horizontal="$filesItem.inset"
+                    padding-vertical="$chrome.space.sm"
+                    spacing="$chrome.space.xs"
+                    align="stretch">
+                    <HStack align="center">
+                        <Toggle label="← Projects" />
+                        <Spacer />
+                    </HStack>
+                    <VStack spacing="$chrome.space.tight" padding-horizontal="$filesItem.paddingHorizontal" align="stretch">
+                        <Text style="$chrome.type.mono" color="$chrome.chalk">ui-dsl-studio-design-system</Text>
+                        <Text style="$chrome.type.filesRoot" color="$chrome.chalkDim">~/src/ui-dsl-studio-design-system</Text>
+                    </VStack>
+                    <Eyebrow label="SCREENS" />
+                    <VStack spacing="$chrome.space.tight" align="stretch">
+                        <FilesItem label="Shell.uix" path="screens/Shell.uix" />
+                        <FilesItem label="FilesPane.uix" path="screens/FilesPane.uix" held="編集中（外部の保存を保留）" />
+                        <FilesItem label="Titlebar.uix" path="screens/Titlebar.uix" />
+                    </VStack>
+                    <Eyebrow label="COMPONENTS" />
+                    <VStack spacing="$chrome.space.tight" align="stretch">
+                        <FilesItem label="Eyebrow.uix" path="components/Eyebrow.uix" />
+                        <FilesItem label="Toggle.uix" path="components/Toggle.uix" />
+                    </VStack>
+                    <Eyebrow label="TOKENS" />
+                    <VStack spacing="$chrome.space.tight" align="stretch">
+                        <FilesItem label="component.tokens.json" path="tokens/component.tokens.json" />
+                    </VStack>
+                    <Eyebrow label="FIXTURES" />
+                    <Text style="$chrome.type.emptyNote" color="$chrome.chalkDim">（0 件）</Text>
+                </VStack>
+            </VStack>
+
+            <Spacer />
+
+        </HStack>
 
     </ScrollView>
 
@@ -74,8 +129,9 @@
             ファイル
         </Text>
         <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
-            左ペインの木。ワークスペースの下に Screens / Components / Tokens の
-            3 グループが並ぶ（空でも消さない規約・tree.ts）。
+            左ペインは 2 段。最初は Projects の一覧で、1 つ選ぶと木に替わる。
+            木は Project の下に Screens / Components / Tokens / Fixtures が並び、
+            空のグループも消さずに（0 件）と出す（tree.ts）。
         </Text>
     </VStack>
 

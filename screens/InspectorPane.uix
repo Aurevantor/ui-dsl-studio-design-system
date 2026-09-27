@@ -1,0 +1,149 @@
+<!-- studio-design: InspectorPane
+     omitted: Props / Layout / Style の区画は選択中ノードで変わるので、Toggle を選んだ
+     1 例だけを置く。State の「入り」（強制中の State）は画面から固定できないので描かず、
+     このペインの Toggle を Inspector で強制表示して見る。
+
+     右の Workbench の下段（.stage__inspector）。上から 選択の要約 → Workspace の一覧 →
+     State → Props / Layout / Style。左が選んでいるとき、右が何も選んでいないとき。 -->
+<Screen id="inspector-pane" name="InspectorPane" background="$chrome.mat">
+
+    <ScrollView width="fill" height="fill">
+
+        <HStack
+            padding="$chrome.space.screen"
+            spacing="$chrome.space.screen"
+            align="start">
+
+            <VStack
+                id="inspector-selected"
+                width="480"
+                borderColor="$chrome.rule"
+                borderWidth="$chrome.stroke.hairline"
+                align="stretch">
+                <HStack
+                    spacing="$chrome.space.sm"
+                    padding-horizontal="$chrome.space.pane"
+                    padding-vertical="$chrome.space.sm"
+                    align="center">
+                    <Eyebrow label="INSPECTOR" />
+                    <Text style="$chrome.type.paneNote" color="$chrome.chalkDim">(read-only)</Text>
+                    <Spacer />
+                </HStack>
+                <Rule color="$chrome.ruleSoft" />
+                <!-- 選択の要約（.inspector__selection）。何を選んでいるかと、定義へ跳ぶ口。 -->
+                <HStack
+                    spacing="$chrome.space.md"
+                    padding-horizontal="$chrome.space.pane"
+                    padding-vertical="$chrome.space.sm"
+                    align="center">
+                    <Eyebrow label="SELECTED" />
+                    <Text style="$chrome.type.mono" color="$chrome.chalk">Toggle (0.3.1)</Text>
+                    <Spacer />
+                    <HStack shrink="0">
+                        <Toggle label="定義へ · components/Toggle.uix" />
+                    </HStack>
+                </HStack>
+                <Rule color="$chrome.ruleSoft" />
+                <VStack
+                    padding-horizontal="$chrome.space.pane"
+                    padding-vertical="$chrome.space.sm"
+                    spacing="$chrome.space.xs"
+                    align="stretch">
+                    <Eyebrow label="WORKSPACE" />
+                    <InspectorRow label="PROJECT" value="ui-dsl-studio-design-system" />
+                    <InspectorRow label="FILE" value="screens/Shell.uix" />
+                    <InspectorRow label="KIND" value="screen" />
+                    <InspectorRow label="SCREENS" value="10" />
+                    <InspectorRow label="COMPONENTS" value="13" />
+                    <InspectorRow label="ERRORS" value="0" />
+                    <InspectorRow label="RENDER ISSUES" value="0" />
+                    <Eyebrow label="STATE" />
+                    <HStack spacing="$chrome.space.tight" align="center">
+                        <Toggle label="none" />
+                        <Toggle label="normal" />
+                        <Toggle label="hover" />
+                        <Toggle label="focused" />
+                        <Toggle label="selected" />
+                        <Spacer />
+                    </HStack>
+                    <Eyebrow label="PROPS" />
+                    <InspectorRow label="label" value="Mac" />
+                    <Eyebrow label="LAYOUT" />
+                    <InspectorRow label="padding-h" value="6" chain="toggle.paddingHorizontal → chrome.space.sm → spacing.6" />
+                    <Eyebrow label="STYLE" />
+                    <InspectorRow label="radius" value="3" chain="toggle.radius → chrome.radius.control → radius.3" />
+                </VStack>
+            </VStack>
+
+            <VStack
+                id="inspector-empty"
+                width="480"
+                borderColor="$chrome.rule"
+                borderWidth="$chrome.stroke.hairline"
+                align="stretch">
+                <HStack
+                    spacing="$chrome.space.sm"
+                    padding-horizontal="$chrome.space.pane"
+                    padding-vertical="$chrome.space.sm"
+                    align="center">
+                    <Eyebrow label="INSPECTOR" />
+                    <Text style="$chrome.type.paneNote" color="$chrome.chalkDim">(read-only)</Text>
+                    <Spacer />
+                </HStack>
+                <Rule color="$chrome.ruleSoft" />
+                <!-- 選択の要約（.inspector__selection）。何を選んでいるかと、定義へ跳ぶ口。 -->
+                <HStack
+                    spacing="$chrome.space.md"
+                    padding-horizontal="$chrome.space.pane"
+                    padding-vertical="$chrome.space.sm"
+                    align="center">
+                    <Eyebrow label="SELECTED" />
+                    <Text style="$chrome.type.mono" color="$chrome.chalk">—</Text>
+                    <Spacer />
+                </HStack>
+                <Rule color="$chrome.ruleSoft" />
+                <VStack
+                    padding-horizontal="$chrome.space.pane"
+                    padding-vertical="$chrome.space.sm"
+                    spacing="$chrome.space.xs"
+                    align="stretch">
+                    <Eyebrow label="WORKSPACE" />
+                    <InspectorRow label="PROJECT" value="ui-dsl-studio-design-system" />
+                    <InspectorRow label="FILE" value="screens/Shell.uix" />
+                    <InspectorRow label="KIND" value="screen" />
+                    <InspectorRow label="SCREENS" value="10" />
+                    <InspectorRow label="COMPONENTS" value="13" />
+                    <InspectorRow label="ERRORS" value="0" />
+                    <InspectorRow label="RENDER ISSUES" value="0" />
+                    <!-- 何も選んでいないとき（.inspector__note）。この台で唯一の「読ませる散文」。 -->
+                    <Text style="$chrome.type.note" color="$chrome.chalkDim">
+                        ノードを選択すると props / layout / style が表示されます。
+                    </Text>
+                </VStack>
+            </VStack>
+
+            <Spacer />
+
+        </HStack>
+
+    </ScrollView>
+
+</Screen>
+
+<Aside
+    id="inspector-pane-aside"
+    spacing="$chrome.space.md"
+    padding="$aside.padding"
+    background="$aside.background"
+    radius="$aside.radius"
+    align="stretch">
+
+    <VStack spacing="$aside.spacing" align="stretch">
+        <Text style="$aside.labelTypography" color="$aside.labelColor">UI DSL STUDIO — INSPECTOR</Text>
+        <Text id="cover-title" style="$chrome.type.title" color="$chrome.chalk">インスペクタ</Text>
+        <Text id="cover-note" style="$chrome.type.body" color="$chrome.chalkDim">
+            右の Workbench の下段。見出しの列と値の列の 2 列で、Token の値には解決の連鎖を添える。読むだけで、ここから値は書き換えない（read-only）。
+        </Text>
+    </VStack>
+
+</Aside>
